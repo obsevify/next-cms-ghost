@@ -146,5 +146,14 @@ export async function getPostsByTag(slug: string) {
   })
 }
 
+export async function getPosts({ limit }: { limit: number }) {
+  const options = {
+    ...postAndPageFetchOptions,
+    limit
+  }
+  return await api.posts.browse(options)
+}
+
+
 // Collections
 export const collections = new Collections<PostOrPage>(config)

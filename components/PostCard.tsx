@@ -28,20 +28,22 @@ const PostCard = ({ post, num, isHome }: PostCardProps) => {
   const postClass = PostClass({ tags: post.tags, isFeatured: post.featured, isImage: !!featImg })
   const large = (featImg && isHome && num !== undefined && 0 === num % 6 && `post-card-large`) || ``
   const authors = post?.authors?.filter((_, i) => (i < 2 ? true : false))
-  const dimensions = post.featureImageMeta
+  //const dimensions = post.featureImageMeta
 
   return (
     <article className={`post-card ${postClass} ${large}`}>
       <Link href={url}>
         <a className="post-card-image-link">
-          {nextImages && dimensions ? (
-            <Image
-              src={featImg}
-              alt={post.title}
-              sizes="(max-width: 640px) 320px, (max-width: 1000px) 500px, 680px"
-              layout="responsive"
-              {...dimensions}
-            />
+          {nextImages ? (
+            <div className="post-card-image">
+              <Image
+                src={featImg}
+                alt={post.title}
+                sizes="(max-width: 640px) 320px, (max-width: 1000px) 500px, 680px"
+                layout="fill"
+                objectFit="cover"
+              />
+            </div>
           ) : (
               <ImgSharp srcClass="post-card-image" srcImg={featImg} title={post.title} />
             )}

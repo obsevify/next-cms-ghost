@@ -8,7 +8,8 @@
     "start": "next start",
     "clean": "next clean",
     "format": "prettier --write **/*.{js,ts,tsx}",
-    "lint": "eslint . --ext ts --ext tsx --ext js"
+    "lint": "eslint . --ext ts --ext tsx --ext js",
+    "postbuild": "next-sitemap"
   },
   "dependencies": {
     "@tryghost/content-api": "^1.4.10",
@@ -41,6 +42,7 @@
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "next-sitemap": "^1.2.26",
     "postcss": "^8.1.7",
     "postcss-color-mod-function": "^3.0.3",
     "postcss-easy-import": "^3.0.0",

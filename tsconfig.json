@@ -39,6 +39,7 @@
     "paths": {
       "@siteOptions": ["siteOptions"],
       "@siteConfig": ["siteConfig"],
+      "@mediaConfig": ["mediaConfig"],
       "@routesConfig": ["routesConfig"],
       "@lib/*": ["lib/*"],
       "@pages/*": ["pages/*"],

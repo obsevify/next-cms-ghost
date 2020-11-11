@@ -21,9 +21,9 @@ A Next.js app for creating blogs from headless content managment systems (CMS).
 
 ## ToDo
 
+- [ ] Dark Mode
 - [ ] Next.js inline images
 - [ ] Pagination
-- [ ] Dark Mode
 - [ ] Infinite Scroll
 - [ ] RSS feed
 - [ ] Member Subscriptions
@@ -56,7 +56,7 @@ yarn build
 
 ## Configuration
 
-Please change the `siteUrl` to your build system in `siteConfig.js`:
+Please change the `siteUrl` to your build system in `siteConfig.ts`:
 
 ```javascript
 export const siteUrl = `http://localhost:3000`
@@ -100,6 +100,10 @@ If you build your project with a cloud provider, the best option is to provide t
 ## Ensure headless mode of Ghost CMS
 
 For best SEO results it is strongly recommended to disable the default Ghost Handlebars theme front-end by selecting the _Make this site private_ flag within your Ghost admin settings.
+
+## Deploy
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/styxlab/next-cms-ghost)
 
 ## Contributions
 

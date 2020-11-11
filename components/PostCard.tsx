@@ -10,6 +10,7 @@ import { AuthorList } from '@components'
 import { PostClass } from '@helpers'
 import { collections } from '@lib/collections'
 import { nextImages } from '@siteOptions'
+import { imageQuality } from '@mediaConfig'
 import ImgSharp from '@components/ImgSharp'
 import { GhostPostOrPage } from '@lib/ghost'
 
@@ -42,6 +43,7 @@ const PostCard = ({ post, num, isHome }: PostCardProps) => {
                 sizes="(max-width: 640px) 320px, (max-width: 1000px) 500px, 680px"
                 layout="fill"
                 objectFit="cover"
+                quality={imageQuality}
               />
             </div>
           ) : (

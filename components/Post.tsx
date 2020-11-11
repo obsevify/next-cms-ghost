@@ -17,6 +17,7 @@ import { PostClass } from '@helpers'
 import { PostOrPage } from '@tryghost/content-api'
 import { GhostPostOrPage, GhostSettings } from '@lib/ghost'
 import { collections } from '@lib/collections'
+import { imageQuality } from '@mediaConfig'
 
 import { nextImages } from '@siteOptions'
 
@@ -117,6 +118,7 @@ const Post = ({ cmsData }: PostProps) => {
                           <Image
                             src={featImg}
                             alt={post.title}
+                            quality={imageQuality}
                             layout="responsive"
                             sizes={`
                               (max-width: 350px) 350px,
@@ -157,5 +159,3 @@ const Post = ({ cmsData }: PostProps) => {
 }
 
 export default Post
-
-//<!-- fluidClass="kg-card kg-code-card" -->

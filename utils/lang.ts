@@ -29,6 +29,7 @@ export const lang: KeyObjectMap = {
     SUBSCRIBED_TO: `You've successfully subscribed to`,
     WEBSITE: `Website`,
     MULTIPLE_AUTHORS: `Multiple authors`,
+    DARK_MODE: `DarkMode`,
   },
   de: {
     A_COLLECTION_OF: `Zu diesem Thema gibt es`,
@@ -52,5 +53,6 @@ export const lang: KeyObjectMap = {
     SUBSCRIBED_TO: `Du hast dich erfolgreich angemeldet bei`,
     WEBSITE: `Webseite`,
     MULTIPLE_AUTHORS: `Mehrere Autoren`,
+    DARK_MODE: `NachtModus`,
   },
 }

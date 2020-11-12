@@ -18,10 +18,10 @@ A Next.js app for creating blogs from headless content managment systems (CMS).
 - [x] Next.js feature images
 - [x] Sitemap
 - [x] Styled 404 page
+- [x] Dark Mode
 
 ## ToDo
 
-- [ ] Dark Mode
 - [ ] Next.js inline images
 - [ ] Pagination
 - [ ] Infinite Scroll

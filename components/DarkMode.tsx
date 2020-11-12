@@ -1,10 +1,9 @@
-/**
- *
- * Placeholder for DarkMode
- *
- */
+import { DarkModeToggle } from '@components'
+import { defaultMode } from '@appConfig'
 
-// The actual component
-const DarkMode = () => null
+const DarkMode = () => {
+  if (defaultMode === null) return null
+  return <DarkModeToggle />
+}
 
 export default DarkMode

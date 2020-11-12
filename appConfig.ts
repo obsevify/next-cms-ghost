@@ -1,2 +1,2 @@
-export const defaultMode = null
+export const defaultMode = 'light'
 export const overrideOS = false

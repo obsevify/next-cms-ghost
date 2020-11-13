@@ -8,14 +8,15 @@ const DarkModeToggle = () => {
   const text = get(useLang())
 
   return (
-    <button className="social-link social-link-tw" onClick={toggleDark} title={text(`DARK_MODE`)} style={{ backgroundColor: '#000' }}>
+    <button
+      className="social-link social-link-tw"
+      onClick={toggleDark}
+      title={text(`DARK_MODE`)}
+      style={{ backgroundColor: '#000' }}
+    >
       { dark === null ? (
         <svg viewBox="0 0 512 512"></svg>
-      ) : dark === 'dark' ? (
-        <SunIcon />
-      ) : (
-            <MoonIcon />
-          )}
+      ) : dark === 'dark' ? <SunIcon /> : <MoonIcon />}
     </button>
   )
 }

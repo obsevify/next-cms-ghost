@@ -1,12 +1,15 @@
 import { createContext, useContext, ReactElement, useState, useEffect } from 'react'
+import { DarkMode } from '@appConfig'
 
 export interface ThemeProviderValues {
-  dark: 'dark' | 'light' | null
+  dark: DarkMode
+  getDark: () => DarkMode
   toggleDark: () => void
 }
 
 const defaultValues = {
   dark: null,
+  getDark: () => null,
   toggleDark: () => null
 }
 
@@ -20,14 +23,13 @@ const supportsDarkMode = () => window.matchMedia(`(prefers-color-scheme: dark)`)
 const supportsLightMode = () => window.matchMedia(`(prefers-color-scheme: light)`).matches === true
 
 const getLocalStoragelsDark = () => {
-  const mode = localStorage.getItem(`dark`)
-  if (!mode) return null
-  return mode === 'dark' ? 'dark' : 'light'
+  if (typeof localStorage === 'undefined') return null
+  const dark = localStorage.getItem(`dark`)
+  if (!dark) return null
+  return dark === 'dark' ? 'dark' : 'light'
 }
 
-type DarkMode = 'dark' | 'light' | null
-
-interface DefaultModeProps {
+export interface DefaultModeProps {
   defaultMode: DarkMode
   overrideOS: boolean
 }
@@ -55,9 +57,10 @@ export const ThemeProvider = ({ defaultMode, overrideOS, children }: SitesProvid
   const [dark, setDark] = useState<DarkMode>(null)
 
   useEffect(() => {
-    const dark = getDefaultMode({ defaultMode, overrideOS })
-    setDark(dark)
-  }, [defaultMode, overrideOS])
+    setDark(getDark())
+  }, [])
+
+  const getDark = () => getDefaultMode({ defaultMode, overrideOS })
 
   const toggleDark = () => {
     if (dark === null) return
@@ -67,7 +70,7 @@ export const ThemeProvider = ({ defaultMode, overrideOS, children }: SitesProvid
   }
 
   return (
-    <ThemeContext.Provider value={{ dark, toggleDark }}>
+    <ThemeContext.Provider value={{ dark, getDark, toggleDark }}>
       {children}
     </ThemeContext.Provider>
   )

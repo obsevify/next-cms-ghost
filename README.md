@@ -22,17 +22,17 @@ A Next.js app for creating blogs from headless content managment systems (CMS).
 
 ## ToDo
 
+- [ ] RSS feed
+- [ ] PrismJS
+- [ ] Member Subscriptions
 - [ ] Next.js inline images
 - [ ] Pagination
-- [ ] Infinite Scroll
-- [ ] RSS feed
-- [ ] Member Subscriptions
-- [ ] PrismJS
 - [ ] Commento
 - [ ] Table Of Contents
 - [ ] Contact Page
 - [ ] Preview
 - [ ] Incremental Regeneration
+- [ ] Infinite Scroll
 
 ## Performance
 

@@ -48,6 +48,20 @@ export default class MyDocument extends Document<Props> {
       <Html {...this.helmetHtmlAttrComponents}>
         <Head>{this.helmetHeadComponents}</Head>
         <body {...this.helmetBodyAttrComponents}>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+            (function(){
+                window.isDark = localStorage.getItem('dark');
+                if ( window.isDark === 'dark' ) {
+                  document.body.classList.add('dark')
+                } else if( window.isDark === undefined && window.matchMedia('(prefers-color-scheme: dark)').matches === true ){
+                  document.body.classList.add('dark')
+                }
+            })()
+          `,
+            }}
+          />
           <Main />
           <NextScript />
         </body>

@@ -2,6 +2,7 @@ import { GhostSettings } from 'lib/ghost'
 import { Helmet } from 'react-helmet'
 import { useRouter } from 'next/router'
 import { useTheme } from '@components/contexts/themeProvider'
+import { DarkMode } from '@appConfig'
 
 interface DocumentHeadProps {
   site: GhostSettings
@@ -13,7 +14,7 @@ interface ClassProps {
 }
 
 interface AddDarkClassProps extends ClassProps {
-  dark: 'dark' | 'light' | null
+  dark: DarkMode
 }
 
 interface AddActionClassProps extends ClassProps {
@@ -35,15 +36,18 @@ const addActionClass = ({ className, action = `ssr`, success }: AddActionClassPr
 }
 
 const DocumentHead = ({ site, className }: DocumentHeadProps) => {
-  const { dark } = useTheme()
+  const { getDark } = useTheme()
   const router = useRouter()
   const { action, success } = router.query
   const cln = addActionClass({ className, action, success })
 
+  const dark = getDark()
+  const bodyClass = addDarkClass({ className: cln, dark })
+
   return (
     <Helmet>
       <html lang={site.lang} className="casper" />
-      <body className={addDarkClass({ className: cln, dark })} />
+      <body className={bodyClass} />
     </Helmet>
   )
 }

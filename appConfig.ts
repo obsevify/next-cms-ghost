@@ -1,2 +1,3 @@
-export const defaultMode = 'light'
-export const overrideOS = false
+export type DarkMode = 'dark' | 'light' | null
+export const defaultMode: DarkMode = 'light'
+export const overrideOS: boolean = true

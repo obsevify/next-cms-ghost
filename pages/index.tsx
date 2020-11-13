@@ -54,7 +54,7 @@ export default function Index({ cmsData }: IndexProps) {
         render={(sticky) => (
           <OverlayContainer
             render={(overlay) => (
-              <Layout sticky={sticky} overlay={overlay} settings={settings} isHome={true} header={<HeaderIndex overlay={overlay} settings={settings} />}>
+              <Layout {...{ sticky, overlay, settings }} isHome={true} header={<HeaderIndex {...{ overlay, settings }} />}>
                 <PostView posts={posts} isHome={true} />
               </Layout>
             )}

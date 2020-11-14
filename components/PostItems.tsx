@@ -1,8 +1,8 @@
-import { PostsOrPages } from '@tryghost/content-api'
 import { PostCard } from '@components'
+import { GhostPostsOrPages } from '@lib/ghost'
 
 interface PostItemsProps {
-  posts: PostsOrPages
+  posts: GhostPostsOrPages
   isHome?: boolean
 }
 

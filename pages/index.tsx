@@ -1,15 +1,23 @@
+import { GetStaticProps } from 'next'
+import fs from 'fs'
+
 import { Layout, PostView, HeaderIndex } from '@components'
 import { StickyNavContainer, OverlayContainer } from '@effects'
 import { SEO } from '@meta'
 
-import { getAllPosts, getAllSettings, GhostSettings } from '@lib/ghost'
-import { PostOrPage, PostsOrPages } from '@tryghost/content-api'
+import { getAllPosts, getAllSettings, GhostPostOrPage, GhostPostsOrPages, GhostSettings } from '@lib/ghost'
 
-import { GetStaticProps } from 'next'
+import { generateRSSFeed } from '@utils/rss'
+import { rssFeed } from '@appConfig'
 
 export const getStaticProps: GetStaticProps = async () => {
   const posts = await getAllPosts()
   const settings = await getAllSettings()
+
+  if (rssFeed) {
+    const rss = generateRSSFeed({ posts, settings })
+    fs.writeFileSync('./public/rss.xml', rss)
+  }
 
   const cmsData = {
     settings,
@@ -31,11 +39,11 @@ export const getStaticProps: GetStaticProps = async () => {
  */
 
 interface CmsData {
-  posts: PostsOrPages
+  posts: GhostPostsOrPages
   settings: GhostSettings
-  previewPosts?: PostsOrPages
-  prevPost?: PostOrPage
-  nextPost?: PostOrPage
+  previewPosts?: GhostPostsOrPages
+  prevPost?: GhostPostOrPage
+  nextPost?: GhostPostOrPage
 }
 
 interface IndexProps {

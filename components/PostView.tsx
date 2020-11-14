@@ -1,15 +1,15 @@
 import React from 'react'
 
 import { PostItems } from '@components'
-import { PostsOrPages } from '@tryghost/content-api'
+import { GhostPostsOrPages } from '@lib/ghost'
 
 interface PostViewProps {
-  posts: PostsOrPages
+  posts: GhostPostsOrPages
   isHome?: boolean
 }
 
 class PostView extends React.Component<PostViewProps> {
-  posts: PostsOrPages
+  posts: GhostPostsOrPages
   isHome?: boolean
 
   constructor(props: PostViewProps) {

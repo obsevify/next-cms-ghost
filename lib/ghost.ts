@@ -27,11 +27,6 @@ export interface GhostPostOrPage extends PostOrPage {
 }
 
 export interface GhostPostsOrPages extends BrowseResults<GhostPostOrPage> {
-  htmlAst?: Node | null
-  featureImageMeta?: {
-    width: number
-    height: number
-  }
 }
 
 const api = new GhostContentAPI({
@@ -68,13 +63,15 @@ export async function getAllAuthors() {
 
 export async function getAllPosts() {
   const posts = await api.posts.browse(postAndPageFetchOptions)
+  const { meta } = posts
   const imageMeta = await Promise.all(
     posts.map(post => imageDimensions(post.feature_image))
   )
-  return posts.map((post, i) => ({
+  const results = posts.map((post, i) => ({
     ...post,
     featureImageMeta: imageMeta[i]
   }))
+  return Object.assign(results, { meta })
 }
 
 export async function getAllPages() {

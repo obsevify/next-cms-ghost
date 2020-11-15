@@ -1,14 +1,13 @@
-/**
- *
- * Placeholder for Comments
- *
- */
+import { Commento } from '@components'
 
 interface CommentsProps {
   id: string
 }
 
-// The actual component
-const Comments = (_props: CommentsProps) => null
+const Comments = ({ id }: CommentsProps) => (
+  <section>
+    <Commento id={id} />
+  </section>
+)
 
 export default Comments

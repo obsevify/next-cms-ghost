@@ -20,7 +20,7 @@ import { collections } from '@lib/collections'
 import { imageQuality } from '@mediaConfig'
 
 import { nextImages } from '@siteOptions'
-import { memberSubscriptions } from '@appConfig'
+import { memberSubscriptions, commento } from '@appConfig'
 
 interface PostProps {
   cmsData: {
@@ -146,7 +146,9 @@ const Post = ({ cmsData }: PostProps) => {
                   <Subscribe {...{ settings }} />
                 )}
 
-                <Comments id={post.id} />
+                {commento && (
+                  <Comments id={post.id} />
+                )}
               </article>
             </div>
           </Layout>

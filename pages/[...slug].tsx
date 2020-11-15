@@ -1,4 +1,4 @@
-import { GetStaticProps, GetStaticPaths, GetStaticPathsContext } from 'next'
+import { GetStaticProps, GetStaticPaths } from 'next'
 import { Post, Page } from '@components'
 
 import { PostOrPage } from '@tryghost/content-api'

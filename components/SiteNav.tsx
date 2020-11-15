@@ -1,17 +1,16 @@
 import { Navigation, SocialLinks, DarkMode, SubscribeButton } from '@components'
 import { useLang, get } from '@utils/use-lang'
 import { GhostSettings, NavItem } from '@lib/ghost'
-import { OverlayContainer } from './effects'
 import { siteUrl } from '@siteConfig'
+import { memberSubscriptions } from '@appConfig'
 
 export interface SiteNavProps {
   settings: GhostSettings
   className: string
-  overlay: OverlayContainer
   postTitle?: string
 }
 
-const SiteNav = ({ settings, className, postTitle, overlay }: SiteNavProps) => {
+const SiteNav = ({ settings, className, postTitle }: SiteNavProps) => {
   const text = get(useLang())
   const config: {
     overwriteGhostNavigation: NavItem[]
@@ -72,7 +71,9 @@ const SiteNav = ({ settings, className, postTitle, overlay }: SiteNavProps) => {
             </div>
           )}
         <DarkMode />
-        <SubscribeButton overlay={overlay} />
+        {memberSubscriptions && (
+          <SubscribeButton />
+        )}
       </div>
     </nav>
   )

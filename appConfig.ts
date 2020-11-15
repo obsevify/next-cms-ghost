@@ -3,3 +3,5 @@ export const defaultMode: DarkMode = 'light'
 export const overrideOS: boolean = true
 
 export const rssFeed: boolean = true
+
+export const memberSubscriptions: boolean = true

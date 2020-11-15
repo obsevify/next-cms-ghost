@@ -1,16 +1,24 @@
-/**
- *
- * Placeholder for SubscribeButton
- *
- */
+import { useLang, get } from '@utils/use-lang'
+import { useOverlay } from '@components/contexts/overlayProvider'
 
-import { OverlayContainer } from "@effects"
-
-interface SubscribeButtonProps {
-  overlay?: OverlayContainer
-}
 
 // The actual component
-const SubscribeButton = (_props: SubscribeButtonProps) => null
+const SubscribeButton = () => {
+  const text = get(useLang())
+  const { handleOpen } = useOverlay()
+
+  return (
+    <a className="subscribe-button" onClick={handleOpen}>
+      {text(`SUBSCRIBE`)}
+      <style jsx>{`
+        a:hover {
+          text-decoration: none;
+          opacity: 1;
+          cursor: pointer
+        }
+      `}</style>
+    </a>
+  )
+}
 
 export default SubscribeButton

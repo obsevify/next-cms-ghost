@@ -7,10 +7,11 @@ import { BodyClass } from '@helpers'
 import { useLang, get } from '@utils/use-lang'
 import { GhostSettings } from '@lib/ghost'
 
-import { OverlayContainer, StickyNavContainer } from '@effects'
+import { StickyNavContainer } from '@effects'
 import { Author, PostOrPage, Tag } from '@tryghost/content-api'
 
 import { siteUrl } from '@siteConfig'
+import { memberSubscriptions } from '@appConfig'
 
 /**
  * Main layout component
@@ -33,11 +34,10 @@ interface LayoutProps {
   tags?: Tag[]
   page?: PostOrPage
   errorClass?: string
-  overlay: OverlayContainer
 }
 
 
-const Layout = ({ settings, header, children, isHome, isPost, sticky, previewPosts, author, tags, page, errorClass, overlay }: LayoutProps) => {
+const Layout = ({ settings, header, children, isHome, isPost, sticky, previewPosts, author, tags, page, errorClass }: LayoutProps) => {
   const text = get(useLang())
   const site = settings
   const title = text(`SITE_TITLE`, site.title)
@@ -62,7 +62,7 @@ const Layout = ({ settings, header, children, isHome, isPost, sticky, previewPos
           {children}
         </main>
         {/* For sticky nav bar */}
-        {isHome && <StickyNav className={`site-nav ${sticky && sticky.state.currentClass}`} overlay={overlay} settings={settings} />}
+        {isHome && <StickyNav className={`site-nav ${sticky && sticky.state.currentClass}`}  {...{ settings }} />}
         {/* Links to Previous/Next posts */}
         {previewPosts}
 
@@ -95,10 +95,14 @@ const Layout = ({ settings, header, children, isHome, isPost, sticky, previewPos
         </footer>
       </div>
 
-      <SubscribeSuccess />
+      {memberSubscriptions && (
+        <SubscribeSuccess {...{ title }} />
+      )}
 
       {/* The big email subscribe modal content */}
-      <SubscribeOverlay overlay={overlay} />
+      {memberSubscriptions && (
+        <SubscribeOverlay {...{ settings }} />
+      )}
     </>
   )
 }

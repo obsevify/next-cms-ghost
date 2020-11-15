@@ -1,4 +1,5 @@
 import { AppProps } from 'next/app'
+import { OverlayProvider } from '@components/contexts/overlayProvider'
 import { ThemeProvider } from '@components/contexts/themeProvider'
 import { defaultMode, overrideOS } from '@appConfig'
 
@@ -11,7 +12,9 @@ import '@styles/toc.css'
 function App({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider {...{ defaultMode, overrideOS }} >
-      <Component {...pageProps} />
+      <OverlayProvider >
+        <Component {...pageProps} />
+      </OverlayProvider>
     </ThemeProvider>
   )
 }

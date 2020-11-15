@@ -1,7 +1,6 @@
 import { Author, PostOrPage, PostsOrPages } from '@tryghost/content-api'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import { Layout, PostView, HeaderAuthor } from '@components'
-import { OverlayContainer } from '@effects'
 
 import { resolveUrl } from '@utils/routing'
 import { SEO, authorSameAs } from '@meta/seo'
@@ -71,15 +70,11 @@ const AuthorIndex = ({ cmsData }: AuthorIndexProps) => {
   return (
     <>
       <SEO {...{ settings, description, imageUrl, sameAs, title: name }} />
-      <OverlayContainer
-        render={(overlay) => (
-          <Layout header={<HeaderAuthor {...{ settings, overlay, author }} />}
-            {...{ settings, overlay, author }}
-          >
-            <PostView posts={posts} />
-          </Layout>
-        )}
-      />
+      <Layout header={<HeaderAuthor {...{ settings, author }} />}
+        {...{ settings, author }}
+      >
+        <PostView posts={posts} />
+      </Layout>
     </>
   )
 }

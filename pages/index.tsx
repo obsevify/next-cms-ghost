@@ -2,7 +2,7 @@ import { GetStaticProps } from 'next'
 import fs from 'fs'
 
 import { Layout, PostView, HeaderIndex } from '@components'
-import { StickyNavContainer, OverlayContainer } from '@effects'
+import { StickyNavContainer } from '@effects'
 import { SEO } from '@meta'
 
 import { getAllPosts, getAllSettings, GhostPostOrPage, GhostPostsOrPages, GhostSettings } from '@lib/ghost'
@@ -60,13 +60,9 @@ export default function Index({ cmsData }: IndexProps) {
         throttle={300}
         activeClass="fixed-nav-active"
         render={(sticky) => (
-          <OverlayContainer
-            render={(overlay) => (
-              <Layout {...{ sticky, overlay, settings }} isHome={true} header={<HeaderIndex {...{ overlay, settings }} />}>
-                <PostView posts={posts} isHome={true} />
-              </Layout>
-            )}
-          />
+          <Layout {...{ sticky, settings }} isHome={true} header={<HeaderIndex {...{ settings }} />}>
+            <PostView posts={posts} isHome={true} />
+          </Layout>
         )}
       />
     </>

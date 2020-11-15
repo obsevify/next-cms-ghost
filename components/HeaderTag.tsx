@@ -2,15 +2,13 @@ import { Tag } from '@tryghost/content-api'
 import { GhostSettings } from '@lib/ghost'
 import { SiteNav, HeaderBackground } from '.'
 import { useLang, get } from '@utils/use-lang'
-import { OverlayContainer } from '@effects'
 
 interface HeaderTagProps {
   settings: GhostSettings
   tag: Tag
-  overlay: OverlayContainer
 }
 
-const HeaderTag = ({ settings, tag, overlay }: HeaderTagProps) => {
+const HeaderTag = ({ settings, tag }: HeaderTagProps) => {
   const text = get(useLang())
   const featureImg = tag.feature_image || ''
   const numberOfPosts = tag.count?.posts
@@ -19,7 +17,7 @@ const HeaderTag = ({ settings, tag, overlay }: HeaderTagProps) => {
     <header className="site-archive-header">
       <div className="outer site-nav-main">
         <div className="inner">
-          <SiteNav settings={settings} className="site-nav" overlay={overlay} />
+          <SiteNav settings={settings} className="site-nav" />
         </div>
       </div>
       <HeaderBackground srcImg={featureImg}>

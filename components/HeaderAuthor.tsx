@@ -6,15 +6,13 @@ import { ImgSharp } from '@components'
 import AvatarIcon from '@icons/avatar-icon'
 import { GhostSettings } from '@lib/ghost'
 import { Author } from '@tryghost/content-api'
-import { OverlayContainer } from '@effects'
 
 interface HeaderAuthorProps {
   settings: GhostSettings
   author: Author
-  overlay: OverlayContainer
 }
 
-const HeaderAuthor = ({ settings, author, overlay }: HeaderAuthorProps) => {
+const HeaderAuthor = ({ settings, author }: HeaderAuthorProps) => {
   const text = get(useLang())
   const twitterUrl = author.twitter ? `https://twitter.com/${author.twitter.replace(/^@/, ``)}` : null
   const facebookUrl = author.facebook ? `https://www.facebook.com/${author.facebook.replace(/^\//, ``)}` : null
@@ -28,7 +26,7 @@ const HeaderAuthor = ({ settings, author, overlay }: HeaderAuthorProps) => {
     <header className="site-archive-header">
       <div className="outer site-nav-main">
         <div className="inner">
-          <SiteNav settings={settings} className="site-nav" overlay={overlay} />
+          <SiteNav settings={settings} className="site-nav" />
         </div>
       </div>
       <HeaderBackground srcImg={coverImg}>

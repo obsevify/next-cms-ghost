@@ -1,5 +1,4 @@
 import { HeaderPage, Layout, ImgSharp, RenderContent } from '.'
-import { OverlayContainer } from '@effects'
 
 import { PostClass } from '@helpers'
 import { SEO } from '@meta'
@@ -37,32 +36,28 @@ const Page = ({ cmsData }: PageProps) => {
   return (
     <>
       <SEO settings={settings} {...{ meta_title, meta_description }} />
-      <OverlayContainer
-        render={(overlay) => (
-          <Layout settings={settings} page={page} tags={page.tags} header={<HeaderPage settings={settings} overlay={overlay} />} overlay={overlay}>
-            <div className="inner">
-              <article className={`post-full ${postClass}`}>
-                <header className="post-full-header">
-                  <h1 className="post-full-title">{page.title}</h1>
-                </header>
+      <Layout settings={settings} page={page} tags={page.tags} header={<HeaderPage settings={settings} />}>
+        <div className="inner">
+          <article className={`post-full ${postClass}`}>
+            <header className="post-full-header">
+              <h1 className="post-full-title">{page.title}</h1>
+            </header>
 
-                {featImg && (
-                  <figure className="post-full-image">
-                    <ImgSharp srcImg={featImg} title={page.title} />
-                  </figure>
-                )}
+            {featImg && (
+              <figure className="post-full-image">
+                <ImgSharp srcImg={featImg} title={page.title} />
+              </figure>
+            )}
 
-                {/* The main page content */}
-                <section className="post-full-content">
-                  <div className="post-content load-external-scripts">
-                    <RenderContent htmlAst={htmlAst} />
-                  </div>
-                </section>
-              </article>
-            </div>
-          </Layout>
-        )}
-      />
+            {/* The main page content */}
+            <section className="post-full-content">
+              <div className="post-content load-external-scripts">
+                <RenderContent htmlAst={htmlAst} />
+              </div>
+            </section>
+          </article>
+        </div>
+      </Layout>
     </>
   )
 }

@@ -1,7 +1,6 @@
 import { PostOrPage, PostsOrPages, Tag } from '@tryghost/content-api'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import { HeaderTag, Layout, PostView } from '@components'
-import { OverlayContainer } from '@effects'
 import { SEO } from '@meta'
 
 import { getTagBySlug, getAllTags, getAllSettings, getPostsByTag, GhostSettings } from '@lib/ghost'
@@ -66,18 +65,13 @@ const TagIndex = ({ cmsData }: TagIndexProps) => {
   return (
     <>
       <SEO settings={settings} {...{ meta_title, meta_description }} />
-      <OverlayContainer
-        render={(overlay) => (
-          <Layout
-            settings={settings}
-            tags={[tag]}
-            overlay={overlay}
-            header={<HeaderTag settings={settings} overlay={overlay} tag={tag} />}
-          >
-            <PostView posts={posts} />
-          </Layout>
-        )}
-      />
+      <Layout
+        settings={settings}
+        tags={[tag]}
+        header={<HeaderTag {...{ settings, tag }} />}
+      >
+        <PostView posts={posts} />
+      </Layout>
     </>
   )
 }

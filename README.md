@@ -20,19 +20,20 @@ A Next.js app for creating blogs from headless content managment systems (CMS).
 - [x] Styled 404 page
 - [x] Dark Mode
 - [x] RSS feed
+- [x] Member Subscriptions
 
 ## ToDo
 
-- [ ] PrismJS
-- [ ] Member Subscriptions
-- [ ] Next.js inline images
-- [ ] Pagination
 - [ ] Commento
+- [ ] PrismJS
+- [ ] Next.js inline images
 - [ ] Table Of Contents
 - [ ] Contact Page
+- [ ] Pagination
+- [ ] Preview Section in Posts
+- [ ] Infinite Scroll
 - [ ] Preview
 - [ ] Incremental Regeneration
-- [ ] Infinite Scroll
 
 ## Performance
 

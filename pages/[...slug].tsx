@@ -1,10 +1,10 @@
 import { GetStaticProps, GetStaticPaths } from 'next'
 import { Post, Page } from '@components'
 
-import { PostOrPage } from '@tryghost/content-api'
-import { GhostPostOrPage, GhostSettings } from '@lib/ghost'
+import { PostOrPage, PostsOrPages } from '@tryghost/content-api'
+import { getPostsByTag, getTagBySlug, GhostPostOrPage, GhostPostsOrPages, GhostSettings } from '@lib/ghost'
 
-import { getPostBySlug, getPageBySlug, getAllPosts, getAllPages, getAllSettings } from '@lib/ghost'
+import { getPostBySlug, getPageBySlug, getAllPosts, getAllPages, getAllSettings, getAllPostSlugs } from '@lib/ghost'
 import { resolveUrl } from '@utils/routing'
 import { collections } from '@lib/collections'
 
@@ -15,12 +15,37 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const settings = await getAllSettings()
 
   // ? Can we get detect page or post from params instead?
-  let post = null
-  let page = null
+  let post: GhostPostOrPage | null = null
+  let page: GhostPostOrPage | null = null
+
   try {
     post = await getPostBySlug(slug)
   } catch {
     page = await getPageBySlug(slug)
+  }
+
+  // getTagBySlug contains count info
+  if (post?.primary_tag) {
+    const primaryTag = await getTagBySlug(post?.primary_tag.slug)
+    post.primary_tag = primaryTag
+  }
+
+  const isPost = !!post
+  let previewPosts: PostsOrPages | never[] = []
+  let prevPost: GhostPostOrPage | null = null
+  let nextPost: GhostPostOrPage | null = null
+
+  if (isPost && post?.id && post?.slug) {
+    const tagSlug = post?.primary_tag?.slug
+    previewPosts = tagSlug && await getPostsByTag(tagSlug, 3, post?.id) || []
+
+    const postSlugs = await getAllPostSlugs()
+    const index = postSlugs.indexOf(post?.slug)
+    const prevSlug = index > 0 ? postSlugs[index - 1] : null
+    const nextSlug = index < postSlugs.length - 1 ? postSlugs[index + 1] : null
+
+    prevPost = prevSlug && await getPostBySlug(prevSlug) || null
+    nextPost = nextSlug && await getPostBySlug(nextSlug) || null
   }
 
   return {
@@ -29,10 +54,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         settings,
         post,
         page,
-        isPost: !!post,
-        previewPosts: [],
-        prevPost: null,
-        nextPost: null,
+        isPost,
+        previewPosts,
+        prevPost,
+        nextPost,
       },
     },
   }
@@ -65,7 +90,7 @@ interface CmsDataCore {
   post: GhostPostOrPage
   page: GhostPostOrPage
   settings: GhostSettings
-  previewPosts?: PostOrPage[]
+  previewPosts?: PostsOrPages
   prevPost?: PostOrPage
   nextPost?: PostOrPage
 }

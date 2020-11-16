@@ -1,4 +1,4 @@
-import GhostContentAPI, { Params, PostOrPage, SettingsResponse, Pagination } from '@tryghost/content-api'
+import GhostContentAPI, { Params, PostOrPage, SettingsResponse, Pagination, PostsOrPages } from '@tryghost/content-api'
 import { normalizePost } from '@lib/ghost-normalize'
 import { Node } from 'unist'
 import { collections as config } from '@routesConfig'
@@ -46,6 +46,11 @@ const tagAndAuthorFetchOptions: Params = {
   include: 'count.posts',
 }
 
+const postAndPageSlugOptions: Params = {
+  limit: 'all',
+  fields: 'slug'
+}
+
 // all data
 export async function getAllSettings() {
   const settings = await api.settings.browse()
@@ -72,6 +77,11 @@ export async function getAllPosts() {
     featureImageMeta: imageMeta[i]
   }))
   return Object.assign(results, { meta })
+}
+
+export async function getAllPostSlugs() {
+  const posts = await api.posts.browse(postAndPageSlugOptions)
+  return posts.map(p => p.slug)
 }
 
 export async function getAllPages() {
@@ -136,17 +146,19 @@ export async function getPostsByAuthor(slug: string) {
   })
 }
 
-export async function getPostsByTag(slug: string) {
+export async function getPostsByTag(slug: string, limit?: number, excludeId?: string) {
+  const exclude = excludeId && `+id:-${excludeId}` || ``
   return await api.posts.browse({
     ...postAndPageFetchOptions,
-    filter: `tags.slug:${slug}`,
+    ...limit && { limit: `${limit}` },
+    filter: `tags.slug:${slug}${exclude}`,
   })
 }
 
 export async function getPosts({ limit }: { limit: number }) {
   const options = {
     ...postAndPageFetchOptions,
-    limit
+    limit: `${limit}`
   }
   return await api.posts.browse(options)
 }

@@ -40,7 +40,7 @@ const PreviewPosts = ({ primaryTag, posts, prev, next }: PreviewPostsProps) => {
                         <Link href={resolveUrl({ collectionPath: collections.getCollectionByNode(post), slug: post.slug, url: post.url })}><a>{post.title}</a></Link>
                       </h4>
                       <div className="read-next-card-meta">
-                        <p>p
+                        <p>
                           <time dateTime={post.published_at || ''}>{dayjs(post.published_at || '').format('D MMMM, YYYY')}</time> – {readingTimeHelper(post).replace(`min read`, text(`MIN_READ`))}
                         </p>
                       </div>

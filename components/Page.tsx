@@ -4,7 +4,6 @@ import { PostClass } from '@helpers'
 import { SEO } from '@meta'
 
 import { GhostPostOrPage, GhostSettings } from '@lib/ghost'
-import { PostOrPage } from '@tryghost/content-api'
 
 /**
  * Single page (/:slug)
@@ -17,9 +16,6 @@ interface PageProps {
   cmsData: {
     page: GhostPostOrPage
     settings: GhostSettings
-    previewPosts?: PostOrPage[]
-    prevPost?: PostOrPage
-    nextPost?: PostOrPage
   }
 }
 

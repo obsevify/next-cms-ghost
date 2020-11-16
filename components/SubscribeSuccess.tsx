@@ -10,8 +10,7 @@ const SubscribeSuccess = ({ title }: { title: string }) => {
   const [type, setType] = useState('')
   const [closeState, setCloseState] = useState('')
   const [closeButtonOpacity, setCloseButtonOpacity] = useState(0)
-  const ssr = typeof window === `undefined`
-  const showBanner = ssr || (action && action === `subscribe` && success !== undefined)
+  const showBanner = action && action === `subscribe` && success !== undefined
   const message = success === `true` ? `${text(`SUBSCRIBED_TO`)} ${title}!` : `${text(`SUBSCRIBED_FAILED`)}`
 
   useEffect(() => {

@@ -26,11 +26,11 @@ A Next.js app for creating blogs from headless content managment systems (CMS).
 
 ## ToDo
 
+- [ ] Preview Section in Posts
 - [ ] Contact Page
 - [ ] Table Of Contents
 - [ ] Next.js inline images
 - [ ] Pagination
-- [ ] Preview Section in Posts
 - [ ] Infinite Scroll
 - [ ] Preview
 - [ ] Incremental Regeneration

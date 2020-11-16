@@ -1,5 +1,3 @@
-import { isNullOrUndefined } from "util"
-
 // Dark mode
 export type DarkMode = 'dark' | 'light' | null
 export const defaultMode: DarkMode = 'light'
@@ -14,3 +12,7 @@ export const memberSubscriptions: boolean = true
 // Commento commenting system
 export const commento: boolean = false
 export const commentoUrl: string | undefined = undefined //https://commento.your-blog.com
+
+// PrismJS
+export const prism: boolean = true
+export const prismIgnoreMissing: boolean = true

@@ -83,6 +83,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js", ".next/common/icons/avatar-icon.tsx#"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"],
   "exclude": ["node_modules", "types", ".next", "out"]
 }
+
+//include[".next/common/icons/avatar-icon.tsx"]

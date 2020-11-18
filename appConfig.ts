@@ -16,3 +16,6 @@ export const commentoUrl: string | undefined = undefined //https://commento.your
 // PrismJS
 export const prism: boolean = true
 export const prismIgnoreMissing: boolean = true
+
+// Contact Page
+export const contactPage: boolean = true

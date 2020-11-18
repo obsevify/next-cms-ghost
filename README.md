@@ -9,6 +9,7 @@ A Next.js app for creating blogs from headless content managment systems (CMS).
 - [x] Ghost CMS integration
 - [x] Ghost Casper look & feel
 - [x] Dark Mode
+- [x] Optimized feature images with next/image
 - [x] Andvanced Routing
 - [x] SEO optimized
 - [x] Sticky navigation headers
@@ -16,7 +17,6 @@ A Next.js app for creating blogs from headless content managment systems (CMS).
 - [x] Styled 404 page
 - [x] Fully responsive
 - [x] Made type safe with TypeScript
-- [x] Optimized feature images with next/image
 - [x] Sitemap
 - [x] RSS feed
 - [x] Member Subscriptions

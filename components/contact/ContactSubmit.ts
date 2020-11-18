@@ -48,7 +48,6 @@ export const handleSubmit = async (
 
   fetch(postURL, {
     method: `POST`,
-    mode: 'cors',
     headers: { 'Content-Type': contentType },
     body: encodeFormData(values, contentType),
   }).then(() => {

@@ -31,7 +31,7 @@ export const getStaticProps: GetStaticProps = async () => {
     meta_description: 'A contact form page.',
     html: '',
     serviceConfig: {
-      url: 'https://api.gotsby.org/v1/contact',
+      url: '/api/v1/contact',
       contentType: 'application/json',
     }
   }

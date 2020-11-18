@@ -10,12 +10,11 @@ A Next.js app for creating blogs from headless content managment systems (CMS).
 - [x] Ghost Casper look & feel
 - [x] SEO optimized
 - [x] Andvanced Routing
-- [x] Featured posts pinned on top
 - [x] Sticky navigation headers
 - [x] Hover on author avatar
 - [x] Fully responsive
 - [x] Made type safe with TypeScript
-- [x] Next.js feature images
+- [x] Optimized feature images with next/image
 - [x] Sitemap
 - [x] Styled 404 page
 - [x] Dark Mode
@@ -24,16 +23,17 @@ A Next.js app for creating blogs from headless content managment systems (CMS).
 - [x] Commento
 - [x] PrismJS
 - [x] Preview Section in Posts
+- [x] Contact Page with built-in notification service
 
 ## ToDo
 
-- [ ] Contact Page
-- [ ] Table Of Contents
+- [ ] Featured posts pinned on top
 - [ ] Pagination
-- [ ] Infinite Scroll
+- [ ] Table Of Contents
 - [ ] Next.js inline images
 - [ ] Preview
 - [ ] Incremental Regeneration
+- [ ] Infinite Scroll
 
 ## Performance
 

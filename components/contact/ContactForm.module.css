@@ -62,3 +62,13 @@
   font-style: oblique;
   height: 4rem;
 }
+
+.response {
+  composes: contact;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  color: silver;
+  font-size: smaller;
+  font-style: oblique;
+  height: 4rem;
+}

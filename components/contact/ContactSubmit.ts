@@ -42,23 +42,24 @@ export const handleSubmit = async (
   clearForm()
   setStatus(text(`ONE_SECOND`))
 
-  console.log(serviceConfig.url)
-  console.log({ 'Content-Type': contentType })
-  console.log(encodeFormData(values, contentType))
+  //console.log(serviceConfig.url)
+  //console.log({ 'Content-Type': contentType })
+  //console.log(encodeFormData(values, contentType))
 
   fetch(postURL, {
     method: `POST`,
     headers: { 'Content-Type': contentType },
     body: encodeFormData(values, contentType),
-  }).then(() => {
-    clearForm()
-    setStatus(text(`MESSAGE_SENT`))
-    //remove message after 10 seconds
-    window.setTimeout(() => setStatus(''), 30000)
-  }).catch((error) => {
-    clearForm()
-    setStatus(`${text(`SENDING_FAILED`)}: ${error.message}.`)
-    //remove message after 10 seconds
-    window.setTimeout(() => setStatus(''), 60000)
-  })
+  }).then(response => response.json())
+    .then(data => {
+      if (data.error) throw data
+      clearForm()
+      setStatus(text(`MESSAGE_SENT`))
+      window.setTimeout(() => setStatus(''), 30000)
+    })
+    .catch((error) => {
+      clearForm()
+      setStatus(`${text(`SENDING_FAILED`)}: ${error.message}`)
+      window.setTimeout(() => setStatus(''), 60000)
+    })
 }

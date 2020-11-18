@@ -54,7 +54,7 @@ const ContactForm = ({ topics, serviceConfig }: ContactFormProps) => {
 
   return (
     <>
-      <span id="response" className={styles.validate}>
+      <span className={styles.validate}>
         <div>{message}</div>
       </span>
       <form
@@ -120,7 +120,7 @@ const ContactForm = ({ topics, serviceConfig }: ContactFormProps) => {
           className={styles.robot}
         />
         <button className={styles.button} id="submit" type="submit" value="Submit">{text(`SUBMIT`)}</button>
-        <span id="responsemsg" className={styles.validate}>{success}</span>
+        <span className={styles.response}>{success}</span>
       </form>
     </>
   )

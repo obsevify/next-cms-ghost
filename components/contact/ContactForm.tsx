@@ -3,7 +3,7 @@ import { useInput, useSelect } from '@components/common/elements'
 import { useLang, get } from '@utils/use-lang'
 
 import { Validate } from './ContactValidation'
-import { handleSubmit, FormValues } from './ContactSubmit'
+import { handleSubmit } from './ContactSubmit'
 import styles from './ContactForm.module.css'
 
 export interface ServiceConfig {
@@ -26,13 +26,8 @@ const ContactForm = ({ topics, serviceConfig }: ContactFormProps) => {
   const [message, setMessage] = useState('')
   const [success, setSuccess] = useState('')
 
-  const fields = { name, email, subject: subjects, message: textArea, 'form-name': robot }
+  const fields = { name, email, subject: subjects, message: textArea, formname: robot }
   const errors = Object.entries(fields).map(([_, value]) => value.error)
-
-  const win = typeof window !== 'undefined' && window.location.href || ''
-  const entries = Object.entries({ ...fields, 'source_url': { value: win } })
-    .map(([key, v]) => 'value' in v ? [key, v.value] : [key, topics[v.index]])
-  const values = Object.fromEntries(entries) as unknown as FormValues
 
   const clear = [clearName, clearEmail, clearTextArea, clearSubject]
   const clearForm = () => clear.forEach(c => c())
@@ -64,7 +59,7 @@ const ContactForm = ({ topics, serviceConfig }: ContactFormProps) => {
         onSubmit={(ev) => {
           ev.preventDefault()
           if (!validateAll(fields)) return
-          handleSubmit(serviceConfig, values, clearForm, (msg: string) => setSuccess(msg))
+          handleSubmit(serviceConfig, fields, clearForm, (msg: string) => setSuccess(msg))
         }}
         data-netlify="true"
         data-netlify-honeypot="bot-field"
@@ -116,7 +111,7 @@ const ContactForm = ({ topics, serviceConfig }: ContactFormProps) => {
         />
         <input
           {...robot}
-          name="form-name"
+          name="formname"
           className={styles.robot}
         />
         <button className={styles.button} id="submit" type="submit" value="Submit">{text(`SUBMIT`)}</button>

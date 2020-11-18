@@ -38,9 +38,9 @@ const sendEmail = async ({ name, email, subject, message }: SendEmailProps) => {
       <p>${message}</p>
   `
   const sendData = {
-    from: process.env.EMAIL_FROM || '',
+    from: email,
     to: process.env.EMAIL_TO || '',
-    subject: 'MY BLOG - ' + (subject && subject.toUpperCase()),
+    subject: 'Jamify Contact Request - ' + (subject && subject.toUpperCase() || ''),
     html: sanitize(output, {
       allowedTags: sanitize.defaults.allowedTags.concat(['img'])
     })

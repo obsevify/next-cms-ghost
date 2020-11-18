@@ -4,6 +4,8 @@ import nodemailer from 'nodemailer'
 import smtpTrans from 'nodemailer-smtp-transport'
 import validator from 'email-validator'
 import sanitize from 'sanitize-html'
+import { siteUrl } from '@siteConfig'
+import { contactPage } from '@appConfig'
 
 interface SendEmailProps {
   name: string,
@@ -47,6 +49,22 @@ const sendEmail = async ({ name, email, subject, message }: SendEmailProps) => {
 }
 
 export default async (req: NextApiRequest, res: NextApiResponse): Promise<NextApiResponse | void> => {
+
+  const { origin } = req.headers
+
+  if (!contactPage) {
+    return res.status(404).json({
+      error: 404,
+      message: 'Endpoint not found.'
+    })
+  }
+
+  if (origin !== siteUrl) {
+    return res.status(400).json({
+      error: 400,
+      message: 'Wrong origin. Check your siteUrl.'
+    })
+  }
 
   if (req.method !== 'POST') {
     return res.status(400).json({

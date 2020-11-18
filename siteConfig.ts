@@ -16,7 +16,11 @@ export const siteImage = `site-meta.png`
 export const backgroundColor = `#e9e9e9`
 export const themeColor = `#15171A`
 
+// Customize navigation menu (default: []), label is case sensitive
+// Example override: [{ label: `Home`, url: `/` }]
+// Example add new: [{ label: `Contact`, url: `/contact` }]
+export const customNavigation = [{ label: `Contact`, url: `/contact` }]
+
 // Exclude post or pages (default: do not exclude)
 //export const constexcludePostsOrPages = (() => false)
-// Overwrite navigation menu (default: []), label is case sensitive
-// overwriteGhostNavigation: [{ label: `Home`, url: `/` }],
+

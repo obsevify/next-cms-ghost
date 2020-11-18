@@ -1,7 +1,7 @@
 import { Navigation, SocialLinks, DarkMode, SubscribeButton } from '@components'
 import { useLang, get } from '@utils/use-lang'
 import { GhostSettings, NavItem } from '@lib/ghost'
-import { siteUrl } from '@siteConfig'
+import { siteUrl, customNavigation } from '@siteConfig'
 import { memberSubscriptions } from '@appConfig'
 
 export interface SiteNavProps {
@@ -13,11 +13,11 @@ export interface SiteNavProps {
 const SiteNav = ({ settings, className, postTitle }: SiteNavProps) => {
   const text = get(useLang())
   const config: {
-    overwriteGhostNavigation: NavItem[]
-    navigation: NavItem[]
+    overwriteNavigation: NavItem[]
+    addNavigation: NavItem[]
   } = {
-    overwriteGhostNavigation: [],
-    navigation: []
+    overwriteNavigation: customNavigation || [],
+    addNavigation: customNavigation || []
   }
   const site = settings
   const title = text(`SITE_TITLE`, site.title)
@@ -27,9 +27,9 @@ const SiteNav = ({ settings, className, postTitle }: SiteNavProps) => {
   const navigation = site.navigation
 
   // overwrite navigation if specified in options
-  const labels = navigation?.map((item) => item.label)
-  if (labels && labels.length > 0 && config.overwriteGhostNavigation && config.overwriteGhostNavigation.length > 0) {
-    config.overwriteGhostNavigation.map((item) => {
+  const labels = navigation?.map(item => item.label)
+  if (labels && labels.length > 0 && config.overwriteNavigation && config.overwriteNavigation.length > 0) {
+    config.overwriteNavigation.map(item => {
       const index = item.label && labels.indexOf(item.label) || -1
       if (index > -1 && navigation && navigation[index]) {
         navigation[index].url = item.url
@@ -37,10 +37,10 @@ const SiteNav = ({ settings, className, postTitle }: SiteNavProps) => {
     })
   }
 
-  // allow plugins to add menu items
-  const urls = navigation?.map((item) => item.url)
-  if (config.navigation && config.navigation.length > 0) {
-    config.navigation.map((item) => urls?.indexOf(item.url) === -1 && navigation?.push(item))
+  // add navigation if specified in options
+  const urls = navigation?.map(item => item.url)
+  if (config.addNavigation && config.addNavigation.length > 0) {
+    config.addNavigation.map(item => urls?.indexOf(item.url) === -1 && navigation?.push(item))
   }
 
   return (

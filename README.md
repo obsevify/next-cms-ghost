@@ -24,6 +24,7 @@ A Next.js app for creating blogs from headless content managment systems (CMS).
 - [x] PrismJS
 - [x] Preview Section in Posts
 - [x] Contact Page with built-in notification service
+- [x] Customized Navigation Header
 
 ## ToDo
 

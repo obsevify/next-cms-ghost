@@ -19,3 +19,4 @@ export const prismIgnoreMissing: boolean = true
 
 // Contact Page
 export const contactPage: boolean = true
+export const customPage = {}

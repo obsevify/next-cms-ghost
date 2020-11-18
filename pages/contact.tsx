@@ -1,7 +1,7 @@
 import { GetStaticProps } from 'next'
 import DefaultErrorPage from 'next/error'
 import Head from 'next/head'
-import { contactPage } from '@appConfig'
+import { contactPage, customPage } from '@appConfig'
 
 import { HeaderPage, Layout, ImgSharp, PostCard, ContactForm } from '@components'
 import { ServiceConfig } from '@components/contact/ContactForm'
@@ -37,7 +37,7 @@ export const getStaticProps: GetStaticProps = async () => {
   }
 
   const cmsData = {
-    page: defaultPage,
+    page: { ...defaultPage, ...customPage },
     settings,
     posts,
   }

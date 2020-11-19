@@ -37,8 +37,9 @@ const api = new GhostContentAPI({
 
 const postAndPageFetchOptions: Params = {
   limit: 'all',
-  include: ['tags', 'authors'],
+  include: ['tags', 'authors', 'count.posts'],
   formats: ['html', 'plaintext'],
+  order: ['featured DESC', 'published_at DESC'],
 }
 
 const tagAndAuthorFetchOptions: Params = {

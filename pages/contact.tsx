@@ -9,6 +9,7 @@ import { PostClass } from '@helpers'
 import { SEO } from '@meta'
 
 import { GhostPostOrPage, GhostPostsOrPages, GhostSettings, getPosts, getAllSettings } from '@lib/ghost'
+import { imageDimensions } from '@lib/images'
 
 interface ContactPage extends GhostPostOrPage {
   form_topics: string[]
@@ -33,11 +34,17 @@ export const getStaticProps: GetStaticProps = async () => {
     serviceConfig: {
       url: '/api/v1/contact',
       contentType: 'application/json',
-    }
+    },
+    featureImageMeta: null
+  }
+
+  const page = { ...defaultPage, ...customPage }
+  if (page.feature_image) {
+    page.featureImageMeta = await imageDimensions(page.feature_image)
   }
 
   const cmsData = {
-    page: { ...defaultPage, ...customPage },
+    page,
     settings,
     posts,
   }

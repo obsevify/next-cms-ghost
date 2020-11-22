@@ -24,7 +24,7 @@ const PostCard = ({ post, num, isHome }: PostCardProps) => {
   const text = get(useLang())
   const collectionPath = collections.getCollectionByNode(post)
   const url = resolveUrl({ collectionPath, slug: post.slug, url: post.url })
-  const featImg = post.feature_image || ''
+  const featImg = post.feature_image
   const readingTime = readingTimeHelper(post).replace(`min read`, text(`MIN_READ`))
   const postClass = PostClass({ tags: post.tags, isFeatured: post.featured, isImage: !!featImg })
   const large = (featImg && isHome && num !== undefined && 0 === num % 6 && `post-card-large`) || ``
@@ -33,24 +33,26 @@ const PostCard = ({ post, num, isHome }: PostCardProps) => {
 
   return (
     <article className={`post-card ${postClass} ${large}`}>
-      <Link href={url}>
-        <a className="post-card-image-link">
-          {nextImages ? (
-            <div className="post-card-image">
-              <Image
-                src={featImg}
-                alt={post.title}
-                sizes="(max-width: 640px) 320px, (max-width: 1000px) 500px, 680px"
-                layout="fill"
-                objectFit="cover"
-                quality={imageQuality}
-              />
-            </div>
-          ) : (
-              <ImgSharp srcClass="post-card-image" srcImg={featImg} title={post.title} />
-            )}
-        </a>
-      </Link>
+      { featImg && (
+        <Link href={url}>
+          <a className="post-card-image-link">
+            {nextImages ? (
+              <div className="post-card-image">
+                <Image
+                  src={featImg}
+                  alt={post.title}
+                  sizes="(max-width: 640px) 320px, (max-width: 1000px) 500px, 680px"
+                  layout="fill"
+                  objectFit="cover"
+                  quality={imageQuality}
+                />
+              </div>
+            ) : (
+                <ImgSharp srcClass="post-card-image" srcImg={featImg} title={post.title} />
+              )}
+          </a>
+        </Link>
+      )}
 
       <div className="post-card-content">
         <Link href={url}>

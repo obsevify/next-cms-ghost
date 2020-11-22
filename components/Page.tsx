@@ -19,7 +19,6 @@ interface PageProps {
   }
 }
 
-
 const Page = ({ cmsData }: PageProps) => {
   const { page, settings } = cmsData
   const { meta_title, meta_description } = page

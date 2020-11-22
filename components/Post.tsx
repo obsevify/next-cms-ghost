@@ -14,8 +14,7 @@ import { StickyNavContainer } from '@effects'
 import { SEO } from '@meta'
 
 import { PostClass } from '@helpers'
-import { PostOrPage } from '@tryghost/content-api'
-import { GhostPostOrPage, GhostSettings } from '@lib/ghost'
+import { GhostPostOrPage, GhostPostsOrPages, GhostSettings } from '@lib/ghost'
 import { collections } from '@lib/collections'
 import { imageQuality } from '@mediaConfig'
 
@@ -26,9 +25,9 @@ interface PostProps {
   cmsData: {
     post: GhostPostOrPage
     settings: GhostSettings
-    previewPosts?: PostOrPage[]
-    prevPost?: PostOrPage
-    nextPost?: PostOrPage
+    previewPosts?: GhostPostsOrPages
+    prevPost?: GhostPostOrPage
+    nextPost?: GhostPostOrPage
   }
 }
 

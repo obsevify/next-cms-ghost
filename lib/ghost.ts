@@ -3,7 +3,9 @@ import { normalizePost } from '@lib/ghost-normalize'
 import { Node } from 'unist'
 import { collections as config } from '@routesConfig'
 import { Collections } from '@lib/collections'
-import { imageDimensions } from '@lib/ghost-normalize'
+import { imageDimensions } from '@lib/images'
+
+import { contactPage } from '@appConfig'
 
 export interface NavItem {
   url: string
@@ -20,10 +22,10 @@ export interface GhostSettings extends SettingsResponse {
 
 export interface GhostPostOrPage extends PostOrPage {
   htmlAst?: Node | null
-  featureImageMeta?: {
+  featureImageMeta: {
     width: number
     height: number
-  }
+  } | null
 }
 
 export interface GhostPostsOrPages extends BrowseResults<GhostPostOrPage> {
@@ -52,6 +54,24 @@ const postAndPageSlugOptions: Params = {
   fields: 'slug'
 }
 
+const excludePostOrPageBySlug = () => {
+  if (!contactPage) return ''
+  return 'slug:-contact'
+}
+
+// helpers
+const attachImageDimensions = async (posts: PostsOrPages): Promise<GhostPostsOrPages> => {
+  const { meta } = posts
+  const imageMeta = await Promise.all(
+    posts.map(post => imageDimensions(post.feature_image))
+  )
+  const results = posts.map((post, i) => ({
+    ...post,
+    featureImageMeta: imageMeta[i]
+  }))
+  return Object.assign(results, { meta })
+}
+
 // all data
 export async function getAllSettings() {
   const settings = await api.settings.browse()
@@ -68,16 +88,11 @@ export async function getAllAuthors() {
 }
 
 export async function getAllPosts() {
-  const posts = await api.posts.browse(postAndPageFetchOptions)
-  const { meta } = posts
-  const imageMeta = await Promise.all(
-    posts.map(post => imageDimensions(post.feature_image))
-  )
-  const results = posts.map((post, i) => ({
-    ...post,
-    featureImageMeta: imageMeta[i]
-  }))
-  return Object.assign(results, { meta })
+  const posts = await api.posts.browse({
+    ...postAndPageFetchOptions,
+    filter: excludePostOrPageBySlug()
+  })
+  return await attachImageDimensions(posts)
 }
 
 export async function getAllPostSlugs() {
@@ -86,7 +101,11 @@ export async function getAllPostSlugs() {
 }
 
 export async function getAllPages() {
-  return await api.pages.browse(postAndPageFetchOptions)
+  const pages = await api.pages.browse({
+    ...postAndPageFetchOptions,
+    filter: excludePostOrPageBySlug()
+  })
+  return await attachImageDimensions(pages)
 }
 
 // specific data by slug
@@ -104,39 +123,35 @@ export async function getAuthorBySlug(slug: string) {
 }
 
 export async function getPostBySlug(slug: string) {
-
-  // ToDo: avoid duplicate callings
-  const { url } = await getAllSettings()
-
-  const post = await api.posts.read({
-    ...postAndPageFetchOptions,
-    slug,
-  })
-
-  const ghostPost: GhostPostOrPage = {
-    ...post,
-    htmlAst: null
+  let result
+  try {
+    const post = await api.posts.read({
+      ...postAndPageFetchOptions,
+      slug,
+    })
+    const { url } = await getAllSettings()
+    result = await normalizePost(post, url)
+  } catch (error) {
+    if (error.response?.status !== 404) throw new Error(error)
+    return null
   }
-
-  return await normalizePost(ghostPost, url)
+  return result
 }
 
 export async function getPageBySlug(slug: string) {
-
-  // ToDo: avoid duplicate callings
-  const { url } = await getAllSettings()
-
-  const page = await api.pages.read({
-    ...postAndPageFetchOptions,
-    slug,
-  })
-
-  const ghostPage: GhostPostOrPage = {
-    ...page,
-    htmlAst: null
+  let result
+  try {
+    const page = await api.pages.read({
+      ...postAndPageFetchOptions,
+      slug,
+    })
+    const { url } = await getAllSettings()
+    result = await normalizePost(page, url)
+  } catch (error) {
+    if (error.response?.status !== 404) throw new Error(error)
+    return null
   }
-
-  return await normalizePost(ghostPage, url)
+  return result
 }
 
 // specific data by author/tag slug
@@ -149,11 +164,12 @@ export async function getPostsByAuthor(slug: string) {
 
 export async function getPostsByTag(slug: string, limit?: number, excludeId?: string) {
   const exclude = excludeId && `+id:-${excludeId}` || ``
-  return await api.posts.browse({
+  const posts = await api.posts.browse({
     ...postAndPageFetchOptions,
     ...limit && { limit: `${limit}` },
     filter: `tags.slug:${slug}${exclude}`,
   })
+  return await attachImageDimensions(posts)
 }
 
 export async function getPosts({ limit }: { limit: number }) {
@@ -161,9 +177,9 @@ export async function getPosts({ limit }: { limit: number }) {
     ...postAndPageFetchOptions,
     limit: `${limit}`
   }
-  return await api.posts.browse(options)
+  const posts = await api.posts.browse(options)
+  return await attachImageDimensions(posts)
 }
-
 
 // Collections
 export const collections = new Collections<PostOrPage>(config)

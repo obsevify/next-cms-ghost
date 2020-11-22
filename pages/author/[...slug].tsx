@@ -1,4 +1,4 @@
-import { Author, PostOrPage, PostsOrPages } from '@tryghost/content-api'
+import { Author } from '@tryghost/content-api'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import { Layout, PostView, HeaderAuthor } from '@components'
 
@@ -7,7 +7,7 @@ import { SEO, authorSameAs } from '@meta/seo'
 
 
 // Import CMS data
-import { getAuthorBySlug, getAllAuthors, getAllSettings, getPostsByAuthor, GhostSettings } from '@lib/ghost'
+import { getAuthorBySlug, getAllAuthors, getAllSettings, getPostsByAuthor, GhostSettings, GhostPostOrPage, GhostPostsOrPages } from '@lib/ghost'
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   if (!(params && params.slug && Array.isArray(params.slug))) throw Error('getStaticProps: wrong parameters.')
@@ -49,10 +49,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
  */
 interface CmsData {
   author: Author
-  posts: PostsOrPages
-  previewPosts?: PostsOrPages
-  prevPost?: PostOrPage
-  nextPost?: PostOrPage
+  posts: GhostPostsOrPages
+  previewPosts?: GhostPostsOrPages
+  prevPost?: GhostPostOrPage
+  nextPost?: GhostPostOrPage
   settings: GhostSettings
 }
 

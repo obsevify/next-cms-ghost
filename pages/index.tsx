@@ -11,8 +11,17 @@ import { generateRSSFeed } from '@utils/rss'
 import { rssFeed } from '@appConfig'
 
 export const getStaticProps: GetStaticProps = async () => {
-  const posts = await getAllPosts()
-  const settings = await getAllSettings()
+
+  let settings
+  let posts: GhostPostsOrPages | []
+
+  try {
+    settings = await getAllSettings()
+    posts = await getAllPosts()
+  } catch (error) {
+    console.log(error)
+    throw new Error('Index creation failed.')
+  }
 
   if (rssFeed) {
     const rss = generateRSSFeed({ posts, settings })

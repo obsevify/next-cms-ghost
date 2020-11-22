@@ -1,7 +1,6 @@
 import { GetStaticProps, GetStaticPaths } from 'next'
 import { Post, Page } from '@components'
 
-import { PostOrPage, PostsOrPages } from '@tryghost/content-api'
 import { getPostsByTag, getTagBySlug, GhostPostOrPage, GhostPostsOrPages, GhostSettings } from '@lib/ghost'
 
 import { getPostBySlug, getPageBySlug, getAllPosts, getAllPages, getAllSettings, getAllPostSlugs } from '@lib/ghost'
@@ -14,24 +13,22 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const settings = await getAllSettings()
 
-  // ? Can we get detect page or post from params instead?
   let post: GhostPostOrPage | null = null
   let page: GhostPostOrPage | null = null
 
-  try {
-    post = await getPostBySlug(slug)
-  } catch {
+  post = await getPostBySlug(slug)
+  const isPost = !!post
+  if (!isPost) {
     page = await getPageBySlug(slug)
   }
+  if (!post && !page) throw new Error(`Expected post or page for slug: ${slug}`)
 
   // getTagBySlug contains count info
   if (post?.primary_tag) {
     const primaryTag = await getTagBySlug(post?.primary_tag.slug)
     post.primary_tag = primaryTag
   }
-
-  const isPost = !!post
-  let previewPosts: PostsOrPages | never[] = []
+  let previewPosts: GhostPostsOrPages | never[] = []
   let prevPost: GhostPostOrPage | null = null
   let nextPost: GhostPostOrPage | null = null
 
@@ -73,8 +70,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
     return resolveUrl({ collectionPath, slug, url })
   })
   const pageRoutes = pages.map(({ slug, url }) => resolveUrl({ slug, url }))
+  const paths = [...postRoutes, ...pageRoutes]
+
   return {
-    paths: [...postRoutes, ...pageRoutes],
+    paths,
     fallback: false,
   }
 }
@@ -90,9 +89,9 @@ interface CmsDataCore {
   post: GhostPostOrPage
   page: GhostPostOrPage
   settings: GhostSettings
-  previewPosts?: PostsOrPages
-  prevPost?: PostOrPage
-  nextPost?: PostOrPage
+  previewPosts?: GhostPostsOrPages
+  prevPost?: GhostPostOrPage
+  nextPost?: GhostPostOrPage
 }
 
 interface CmsData extends CmsDataCore {

@@ -4,9 +4,8 @@ import { GetStaticProps } from 'next'
 
 import { Layout, HeaderPage, PostCard } from '@components'
 
-import { getPosts, getAllSettings, GhostSettings } from '@lib/ghost'
+import { getPosts, getAllSettings, GhostSettings, GhostPostsOrPages } from '@lib/ghost'
 import { useLang, get } from '@utils/use-lang'
-import { PostsOrPages } from '@tryghost/content-api'
 
 export const getStaticProps: GetStaticProps = async () => {
   const posts = await getPosts({ limit: 3 })
@@ -21,7 +20,7 @@ export const getStaticProps: GetStaticProps = async () => {
 }
 
 interface Custom404Props {
-  posts: PostsOrPages
+  posts: GhostPostsOrPages
   settings: GhostSettings
 }
 

@@ -6,14 +6,15 @@ import { PostCard } from '@components'
 import { readingTime as readingTimeHelper } from '@lib/readingTime'
 import { resolveUrl } from '@utils/routing'
 import { useLang, get } from '@utils/use-lang'
-import { PostOrPage, Tag } from '@tryghost/content-api'
+import { Tag } from '@tryghost/content-api'
 import { collections } from '@lib/collections'
+import { GhostPostOrPage, GhostPostsOrPages } from '@lib/ghost'
 
 interface PreviewPostsProps {
   primaryTag?: Tag | null
-  posts?: PostOrPage[]
-  prev?: PostOrPage
-  next?: PostOrPage
+  posts?: GhostPostsOrPages
+  prev?: GhostPostOrPage
+  next?: GhostPostOrPage
 }
 
 const PreviewPosts = ({ primaryTag, posts, prev, next }: PreviewPostsProps) => {

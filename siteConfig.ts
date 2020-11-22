@@ -1,4 +1,4 @@
-// export const siteUrl = `http://localhost:3000`
+//export const siteUrl = `http://localhost:3000`
 export const siteUrl = `https://next.jamify.org`
 
 // This allows an alternative site title for meta data for pages.

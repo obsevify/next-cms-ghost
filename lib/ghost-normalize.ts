@@ -1,16 +1,16 @@
 import Rehype from 'rehype'
 import { Node, Parent } from 'unist'
 import visit from 'unist-util-visit'
-import { GhostPostOrPage } from '@lib/ghost'
 import { cloneDeep } from 'lodash'
-import probe from 'probe-image-size'
 import refractor from 'refractor'
 import nodeToString from 'hast-util-to-string'
 import { prism, prismIgnoreMissing } from '@appConfig'
+import { PostOrPage } from '@tryghost/content-api'
+import { imageDimensions } from '@lib/images'
 
 const rehype = Rehype().use({ settings: { fragment: true, space: `html`, emitParseErrors: false, verbose: false } })
 
-export const normalizePost = async (post: GhostPostOrPage, cmsUrl: string | undefined, basePath?: string) => {
+export const normalizePost = async (post: PostOrPage, cmsUrl: string | undefined, basePath?: string) => {
   if (!cmsUrl) throw Error('ghost-normalize.ts: cmsUrl expected.')
   const rewriteGhostLinks = withRewriteGhostLinks(cmsUrl, basePath)
 
@@ -20,26 +20,21 @@ export const normalizePost = async (post: GhostPostOrPage, cmsUrl: string | unde
     syntaxHighlightWithPrismJS
   ]
 
-  let hast = rehype.parse(post.html || '')
+  let htmlAst = rehype.parse(post.html || '')
   for (const process of processors) {
-    hast = process(hast)
+    htmlAst = process(htmlAst)
   }
-  post.htmlAst = hast
 
   // image meta
-  post.featureImageMeta = await imageDimensions(post.feature_image)
-  return post
+  const featureImageMeta = await imageDimensions(post.feature_image)
+
+  return {
+    ...post,
+    htmlAst,
+    featureImageMeta
+  }
 }
 
-/**
- * Determine image dimensions
- */
-
-export const imageDimensions = async (url: string | undefined | null) => {
-  if (!url) return undefined
-  const { width, height } = await probe(url)
-  return { width, height }
-}
 
 /**
  * Rewrite absolute Ghost CMS links to relative

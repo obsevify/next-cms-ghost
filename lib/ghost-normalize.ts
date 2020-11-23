@@ -43,8 +43,8 @@ export const normalizePost = async (post: PostOrPage, cmsUrl: string | undefined
 const withRewriteGhostLinks = (cmsUrl: string, basePath = '/') => (htmlAst: Node) => {
 
   visit(htmlAst, { tagName: `a` }, (node: Node) => {
-    const href = node.properties && (node.properties as HTMLAnchorElement).href
-    if (href && href.startsWith(cmsUrl)) {
+    const href = (node.properties as HTMLAnchorElement).href
+    if (href?.startsWith(cmsUrl)) {
       (node.properties as HTMLAnchorElement).href = href.replace(cmsUrl, basePath).replace('//', '/')
     }
   })
@@ -59,7 +59,7 @@ const withRewriteGhostLinks = (cmsUrl: string, basePath = '/') => (htmlAst: Node
 const rewriteRelativeLinks = (htmlAst: Node) => {
 
   visit(htmlAst, { tagName: `a` }, (node: Node) => {
-    const href = node.properties && (node.properties as HTMLAnchorElement).href
+    const href = (node.properties as HTMLAnchorElement).href
     if (href && !href.startsWith(`http`)) {
       const copyOfNode = cloneDeep(node)
       delete copyOfNode.properties

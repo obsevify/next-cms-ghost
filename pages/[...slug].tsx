@@ -42,8 +42,8 @@ const PostOrPageIndex = ({ cmsData }: PostOrPageProps) => {
 
   if (isPost) {
     return <Post cmsData={cmsData} />
-  } else if(!!contactPage) {
-    const { contactPage, previewPosts, settings} = cmsData
+  } else if (!!contactPage) {
+    const { contactPage, previewPosts, settings } = cmsData
     return <Contact cmsData={{ page: contactPage, previewPosts, settings }} />
   } else {
     return <Page cmsData={cmsData} />
@@ -62,23 +62,12 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   let page: GhostPostOrPage | null = null
   let contactPage: ContactPage | null = null
 
-  // Add custom contact page
-  if(createContactPage) {
-    contactPage = { ...defaultPage, ...customPage }
-    if (contactPage.feature_image) {
-      contactPage.featureImageMeta = await imageDimensions(contactPage.feature_image)
-    }
-  }
-  const isContactPage = contactPage?.slug === slug
-
-  if (!isContactPage) {
-    post = await getPostBySlug(slug)
-  }
+  post = await getPostBySlug(slug)
   const isPost = !!post
-  if (!isContactPage && !isPost) {
+  if (!isPost) {
     page = await getPageBySlug(slug)
   }
-  if (!isContactPage && !post && !page) throw new Error(`Expected post or page for slug: ${slug}`)
+  if (!post && !page) throw new Error(`Expected post or page for slug: ${slug}`)
 
   // getTagBySlug contains count info
   if (post?.primary_tag) {
@@ -86,11 +75,22 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     post.primary_tag = primaryTag
   }
 
+  // Add custom contact page
+  let isContactPage = false
+  if (createContactPage) {
+    contactPage = { ...defaultPage, ...customPage }
+    isContactPage = contactPage?.slug === slug
+    if (!isContactPage) contactPage = null
+    if (contactPage?.feature_image) {
+      contactPage.featureImageMeta = await imageDimensions(contactPage.feature_image)
+    }
+  }
+
   let previewPosts: GhostPostsOrPages | never[] = []
   let prevPost: GhostPostOrPage | null = null
   let nextPost: GhostPostOrPage | null = null
 
-  if(isContactPage) {
+  if (isContactPage) {
     previewPosts = await getPosts({ limit: 3 })
   } else if (isPost && post?.id && post?.slug) {
     const tagSlug = post?.primary_tag?.slug
@@ -132,7 +132,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   })
 
   let contactPageRoute: string | null = null
-  if(createContactPage) {
+  if (createContactPage) {
     const contactPage = { ...defaultPage, ...customPage }
     const { slug, url } = contactPage
     contactPageRoute = resolveUrl({ slug, url })

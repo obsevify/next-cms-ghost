@@ -4,20 +4,22 @@ import visit from 'unist-util-visit'
 import { cloneDeep } from 'lodash'
 import refractor from 'refractor'
 import nodeToString from 'hast-util-to-string'
-import { prism, prismIgnoreMissing } from '@appConfig'
+import { prism, prismIgnoreMissing, toc } from '@appConfig'
 import { PostOrPage } from '@tryghost/content-api'
 import { imageDimensions } from '@lib/images'
+import { generateTableOfContents } from '@lib/toc'
+import { GhostPostOrPage } from './ghost'
 
 const rehype = Rehype().use({ settings: { fragment: true, space: `html`, emitParseErrors: false, verbose: false } })
 
-export const normalizePost = async (post: PostOrPage, cmsUrl: string | undefined, basePath?: string) => {
+export const normalizePost = async (post: PostOrPage, cmsUrl: string | undefined, basePath?: string): Promise<GhostPostOrPage> => {
   if (!cmsUrl) throw Error('ghost-normalize.ts: cmsUrl expected.')
   const rewriteGhostLinks = withRewriteGhostLinks(cmsUrl, basePath)
 
   const processors = [
     rewriteGhostLinks,
     rewriteRelativeLinks,
-    syntaxHighlightWithPrismJS
+    syntaxHighlightWithPrismJS,
   ]
 
   let htmlAst = rehype.parse(post.html || '')
@@ -25,13 +27,16 @@ export const normalizePost = async (post: PostOrPage, cmsUrl: string | undefined
     htmlAst = process(htmlAst)
   }
 
+  const toc = tableOfContents(htmlAst)
+
   // image meta
   const featureImageMeta = await imageDimensions(post.feature_image)
 
   return {
     ...post,
     htmlAst,
-    featureImageMeta
+    featureImageMeta,
+    toc
   }
 }
 
@@ -119,4 +124,13 @@ const syntaxHighlightWithPrismJS = (htmlAst: Node) => {
   })
 
   return htmlAst
+}
+
+/**
+ * Table of Contents
+ */
+
+const tableOfContents = (htmlAst: Node) => {
+  if (!toc) return null
+  return generateTableOfContents(htmlAst)
 }

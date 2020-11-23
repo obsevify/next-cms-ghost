@@ -21,5 +21,6 @@ export const defaultPage: ContactPage = {
     url: '/api/v1/contact',
     contentType: 'application/json',
   },
-  featureImageMeta: null
+  featureImageMeta: null,
+  toc: null
 }

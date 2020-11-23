@@ -58,6 +58,7 @@ export const lang: KeyObjectMap = {
     PLEASE_SELECT_SUBJECT: `Please select one subject`,
     SUBMIT: `Submit`,
     YOUR_MESSAGE: `Your message`,
+    TABLE_OF_CONTENTS: `Table of Contents`,
   },
   de: {
     A_COLLECTION_OF: `Zu diesem Thema gibt es`,
@@ -110,5 +111,6 @@ export const lang: KeyObjectMap = {
     PLEASE_SELECT_SUBJECT: `Bitte ein Thema wählen`,
     SUBMIT: `Abschicken`,
     YOUR_MESSAGE: `Deine Nachricht`,
+    TABLE_OF_CONTENTS: `Inhaltsverzeichnis`,
   },
 }

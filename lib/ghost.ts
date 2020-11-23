@@ -4,6 +4,7 @@ import { Node } from 'unist'
 import { collections as config } from '@routesConfig'
 import { Collections } from '@lib/collections'
 import { imageDimensions } from '@lib/images'
+import { TOCCore } from '@lib/toc'
 
 import { contactPage } from '@appConfig'
 
@@ -26,6 +27,7 @@ export interface GhostPostOrPage extends PostOrPage {
     width: number
     height: number
   } | null
+  toc: TOCCore[] | null
 }
 
 export interface GhostPostsOrPages extends BrowseResults<GhostPostOrPage> {
@@ -67,7 +69,8 @@ const attachImageDimensions = async (posts: PostsOrPages): Promise<GhostPostsOrP
   )
   const results = posts.map((post, i) => ({
     ...post,
-    featureImageMeta: imageMeta[i]
+    featureImageMeta: imageMeta[i],
+    toc: null
   }))
   return Object.assign(results, { meta })
 }
@@ -76,7 +79,8 @@ const attachEmptyMeta = (posts: PostsOrPages): GhostPostsOrPages => {
   const { meta } = posts
   const results = posts.map((post, i) => ({
     ...post,
-    featureImageMeta: null
+    featureImageMeta: null,
+    toc: null
   }))
   return Object.assign(results, { meta })
 }
@@ -101,7 +105,7 @@ export async function getAllPosts(attachImageMeta = false) {
     ...postAndPageFetchOptions,
     filter: excludePostOrPageBySlug()
   })
-  if(attachImageMeta) return await attachImageDimensions(posts)
+  if (attachImageMeta) return await attachImageDimensions(posts)
   return attachEmptyMeta(posts)
 }
 
@@ -115,7 +119,7 @@ export async function getAllPages(attachImageMeta = false) {
     ...postAndPageFetchOptions,
     filter: excludePostOrPageBySlug()
   })
-  if(attachImageMeta) return await attachImageDimensions(pages)
+  if (attachImageMeta) return await attachImageDimensions(pages)
   return attachEmptyMeta(pages)
 }
 
@@ -134,7 +138,7 @@ export async function getAuthorBySlug(slug: string) {
 }
 
 export async function getPostBySlug(slug: string) {
-  let result
+  let result: GhostPostOrPage
   try {
     const post = await api.posts.read({
       ...postAndPageFetchOptions,
@@ -150,7 +154,7 @@ export async function getPostBySlug(slug: string) {
 }
 
 export async function getPageBySlug(slug: string) {
-  let result
+  let result: GhostPostOrPage
   try {
     const page = await api.pages.read({
       ...postAndPageFetchOptions,

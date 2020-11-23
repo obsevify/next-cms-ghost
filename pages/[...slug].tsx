@@ -66,11 +66,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const isPost = !!post
   if (!isPost) {
     page = await getPageBySlug(slug)
-  }
-  if (!post && !page) throw new Error(`Expected post or page for slug: ${slug}`)
-
-  // getTagBySlug contains count info
-  if (post?.primary_tag) {
+  } else if (post?.primary_tag) {
     const primaryTag = await getTagBySlug(post?.primary_tag.slug)
     post.primary_tag = primaryTag
   }
@@ -85,6 +81,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       contactPage.featureImageMeta = await imageDimensions(contactPage.feature_image)
     }
   }
+  if (!post && !page && !isContactPage) throw new Error(`Expected post or page for slug: ${slug}`)
 
   let previewPosts: GhostPostsOrPages | never[] = []
   let prevPost: GhostPostOrPage | null = null

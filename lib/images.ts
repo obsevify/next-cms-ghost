@@ -3,17 +3,17 @@ import probe from 'probe-image-size'
 /**
  * Determine image dimensions
  *
- * ! probe-image-size reacts sensitivily on bad network connections
- * ! See: https://github.com/nodeca/probe-image-size/issues/46
- * ! Frequent fails signify bad network connections
- * !
- * ! Current measures:
- * !
- * ! 1. Retries on fail
- * ! 2. Reduced network timeouts to speed up retries
- * !
- * ! Unfortunately, probing image sizes can notibly slow down the build time.
- * ! Is there a bette method to determine image sizes server side?
+ * probe-image-size reacts sensitivily on bad network connections
+ * See: https://github.com/nodeca/probe-image-size/issues/46
+ * Frequent fails signify bad network connections
+ *
+ * Current measures:
+ *
+ * 1. Retries on fail
+ * 2. Reduced network timeouts to speed up retries
+ *
+ *  Probing image sizes can slow down the build times.
+ *  Is there a better method to determine image sizes server side?
  *
  */
 

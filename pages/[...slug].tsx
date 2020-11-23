@@ -3,9 +3,54 @@ import { Post, Page } from '@components'
 
 import { getPostsByTag, getTagBySlug, GhostPostOrPage, GhostPostsOrPages, GhostSettings } from '@lib/ghost'
 
-import { getPostBySlug, getPageBySlug, getAllPosts, getAllPages, getAllSettings, getAllPostSlugs } from '@lib/ghost'
+import { getPosts, getPostBySlug, getPageBySlug, getAllPosts, getAllPages, getAllSettings, getAllPostSlugs } from '@lib/ghost'
 import { resolveUrl } from '@utils/routing'
 import { collections } from '@lib/collections'
+
+import { contactPage as createContactPage, customPage } from '@appConfig'
+import { ContactPage, defaultPage } from '@lib/contactPageDefaults'
+import { imageDimensions } from '@lib/images'
+
+import { Contact } from '@components/ContactPage'
+
+/**
+ *
+ * Renders a single post or page and loads all content.
+ *
+ */
+
+interface CmsDataCore {
+  post: GhostPostOrPage
+  page: GhostPostOrPage
+  contactPage: ContactPage
+  settings: GhostSettings
+  previewPosts?: GhostPostsOrPages
+  prevPost?: GhostPostOrPage
+  nextPost?: GhostPostOrPage
+}
+
+interface CmsData extends CmsDataCore {
+  isPost: boolean,
+}
+
+interface PostOrPageProps {
+  cmsData: CmsData
+}
+
+const PostOrPageIndex = ({ cmsData }: PostOrPageProps) => {
+  const { isPost, contactPage } = cmsData
+
+  if (isPost) {
+    return <Post cmsData={cmsData} />
+  } else if(!!contactPage) {
+    const { contactPage, previewPosts, settings} = cmsData
+    return <Contact cmsData={{ page: contactPage, previewPosts, settings }} />
+  } else {
+    return <Page cmsData={cmsData} />
+  }
+}
+
+export default PostOrPageIndex
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   if (!(params && params.slug && Array.isArray(params.slug))) throw Error('getStaticProps: wrong parameters.')
@@ -15,24 +60,39 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   let post: GhostPostOrPage | null = null
   let page: GhostPostOrPage | null = null
+  let contactPage: ContactPage | null = null
 
-  post = await getPostBySlug(slug)
+  // Add custom contact page
+  if(createContactPage) {
+    contactPage = { ...defaultPage, ...customPage }
+    if (contactPage.feature_image) {
+      contactPage.featureImageMeta = await imageDimensions(contactPage.feature_image)
+    }
+  }
+  const isContactPage = contactPage?.slug === slug
+
+  if (!isContactPage) {
+    post = await getPostBySlug(slug)
+  }
   const isPost = !!post
-  if (!isPost) {
+  if (!isContactPage && !isPost) {
     page = await getPageBySlug(slug)
   }
-  if (!post && !page) throw new Error(`Expected post or page for slug: ${slug}`)
+  if (!isContactPage && !post && !page) throw new Error(`Expected post or page for slug: ${slug}`)
 
   // getTagBySlug contains count info
   if (post?.primary_tag) {
     const primaryTag = await getTagBySlug(post?.primary_tag.slug)
     post.primary_tag = primaryTag
   }
+
   let previewPosts: GhostPostsOrPages | never[] = []
   let prevPost: GhostPostOrPage | null = null
   let nextPost: GhostPostOrPage | null = null
 
-  if (isPost && post?.id && post?.slug) {
+  if(isContactPage) {
+    previewPosts = await getPosts({ limit: 3 })
+  } else if (isPost && post?.id && post?.slug) {
     const tagSlug = post?.primary_tag?.slug
     previewPosts = tagSlug && await getPostsByTag(tagSlug, 3, post?.id) || []
 
@@ -51,6 +111,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         settings,
         post,
         page,
+        contactPage,
         isPost,
         previewPosts,
         prevPost,
@@ -69,47 +130,20 @@ export const getStaticPaths: GetStaticPaths = async () => {
     const { slug, url } = post
     return resolveUrl({ collectionPath, slug, url })
   })
+
+  let contactPageRoute: string | null = null
+  if(createContactPage) {
+    const contactPage = { ...defaultPage, ...customPage }
+    const { slug, url } = contactPage
+    contactPageRoute = resolveUrl({ slug, url })
+  }
+
+  const customPages = contactPageRoute && [contactPageRoute] || []
   const pageRoutes = pages.map(({ slug, url }) => resolveUrl({ slug, url }))
-  const paths = [...postRoutes, ...pageRoutes]
+  const paths = [...postRoutes, ...pageRoutes, ...customPages]
 
   return {
     paths,
     fallback: false,
   }
 }
-
-/**
- * Single post view (/:slug)
- *
- * This file renders a single post and loads all the content.
- *
- */
-
-interface CmsDataCore {
-  post: GhostPostOrPage
-  page: GhostPostOrPage
-  settings: GhostSettings
-  previewPosts?: GhostPostsOrPages
-  prevPost?: GhostPostOrPage
-  nextPost?: GhostPostOrPage
-}
-
-interface CmsData extends CmsDataCore {
-  isPost: boolean
-}
-
-interface PostOrPageProps {
-  cmsData: CmsData
-}
-
-const PostOrPageIndex = ({ cmsData }: PostOrPageProps) => {
-  const { isPost } = cmsData
-
-  if (isPost) {
-    return <Post cmsData={cmsData} />
-  } else {
-    return <Page cmsData={cmsData} />
-  }
-}
-
-export default PostOrPageIndex

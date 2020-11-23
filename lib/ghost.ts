@@ -72,6 +72,15 @@ const attachImageDimensions = async (posts: PostsOrPages): Promise<GhostPostsOrP
   return Object.assign(results, { meta })
 }
 
+const attachEmptyMeta = (posts: PostsOrPages): GhostPostsOrPages => {
+  const { meta } = posts
+  const results = posts.map((post, i) => ({
+    ...post,
+    featureImageMeta: null
+  }))
+  return Object.assign(results, { meta })
+}
+
 // all data
 export async function getAllSettings() {
   const settings = await api.settings.browse()
@@ -87,12 +96,13 @@ export async function getAllAuthors() {
   return await api.authors.browse(tagAndAuthorFetchOptions)
 }
 
-export async function getAllPosts() {
+export async function getAllPosts(attachImageMeta = false) {
   const posts = await api.posts.browse({
     ...postAndPageFetchOptions,
     filter: excludePostOrPageBySlug()
   })
-  return await attachImageDimensions(posts)
+  if(attachImageMeta) return await attachImageDimensions(posts)
+  return attachEmptyMeta(posts)
 }
 
 export async function getAllPostSlugs() {
@@ -100,12 +110,13 @@ export async function getAllPostSlugs() {
   return posts.map(p => p.slug)
 }
 
-export async function getAllPages() {
+export async function getAllPages(attachImageMeta = false) {
   const pages = await api.pages.browse({
     ...postAndPageFetchOptions,
     filter: excludePostOrPageBySlug()
   })
-  return await attachImageDimensions(pages)
+  if(attachImageMeta) return await attachImageDimensions(pages)
+  return attachEmptyMeta(pages)
 }
 
 // specific data by slug

@@ -5,41 +5,7 @@ import { Layout, PostView, HeaderAuthor } from '@components'
 import { resolveUrl } from '@utils/routing'
 import { SEO, authorSameAs } from '@meta/seo'
 
-
-// Import CMS data
 import { getAuthorBySlug, getAllAuthors, getAllSettings, getPostsByAuthor, GhostSettings, GhostPostOrPage, GhostPostsOrPages } from '@lib/ghost'
-
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  if (!(params && params.slug && Array.isArray(params.slug))) throw Error('getStaticProps: wrong parameters.')
-  const [slug] = params.slug.reverse()
-
-  const author = await getAuthorBySlug(slug)
-  const posts = await getPostsByAuthor(slug)
-  const settings = await getAllSettings()
-
-  return {
-    props: {
-      cmsData: {
-        author,
-        posts,
-        settings,
-      },
-    },
-  }
-}
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  const authors = await getAllAuthors()
-
-  const paths = authors
-    .map(({ slug, url }) => resolveUrl({ slug, url: url || undefined }))
-    .filter(path => path.startsWith(`/author/`))
-
-  return {
-    paths,
-    fallback: false,
-  }
-}
 
 /**
  * Author page (/author/:slug)
@@ -80,3 +46,35 @@ const AuthorIndex = ({ cmsData }: AuthorIndexProps) => {
 }
 
 export default AuthorIndex
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  if (!(params && params.slug && Array.isArray(params.slug))) throw Error('getStaticProps: wrong parameters.')
+  const [slug] = params.slug.reverse()
+
+  const author = await getAuthorBySlug(slug)
+  const posts = await getPostsByAuthor(slug)
+  const settings = await getAllSettings()
+
+  return {
+    props: {
+      cmsData: {
+        author,
+        posts,
+        settings,
+      },
+    },
+  }
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const authors = await getAllAuthors()
+
+  const paths = authors
+    .map(({ slug, url }) => resolveUrl({ slug, url: url || undefined }))
+    .filter(path => path.startsWith(`/author/`))
+
+  return {
+    paths,
+    fallback: false,
+  }
+}

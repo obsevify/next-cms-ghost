@@ -1,70 +1,29 @@
-import { GetStaticProps } from 'next'
 import DefaultErrorPage from 'next/error'
 import Head from 'next/head'
-import { contactPage, customPage } from '@appConfig'
+import { contactPage } from '@appConfig'
 
 import { HeaderPage, Layout, ImgSharp, PostCard, ContactForm } from '@components'
+
 import { ServiceConfig } from '@components/contact/ContactForm'
 import { PostClass } from '@helpers'
 import { SEO } from '@meta'
 
-import { GhostPostOrPage, GhostPostsOrPages, GhostSettings, getPosts, getAllSettings } from '@lib/ghost'
-import { imageDimensions } from '@lib/images'
+import { GhostPostOrPage, GhostPostsOrPages, GhostSettings } from '@lib/ghost'
 
 interface ContactPage extends GhostPostOrPage {
   form_topics: string[]
   serviceConfig: ServiceConfig
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-  const posts = await getPosts({ limit: 3 })
-  const settings = await getAllSettings()
-
-  const defaultPage: ContactPage = {
-    id: 'custom-page-contact',
-    slug: 'contact',
-    url: '/contact',
-    title: 'Contact Us',
-    feature_image: 'https://static.gotsby.org/v1/assets/images/gatsby-ghost-contact.png',
-    custom_excerpt: 'Want to get in touch with the team? Just drop us a line!',
-    form_topics: ['I want to give feedback', 'I want to ask a question'],
-    meta_title: 'Contact Us',
-    meta_description: 'A contact form page.',
-    html: '',
-    serviceConfig: {
-      url: '/api/v1/contact',
-      contentType: 'application/json',
-    },
-    featureImageMeta: null
-  }
-
-  const page = { ...defaultPage, ...customPage }
-  if (page.feature_image) {
-    page.featureImageMeta = await imageDimensions(page.feature_image)
-  }
-
-  const cmsData = {
-    page,
-    settings,
-    posts,
-  }
-
-  return {
-    props: {
-      cmsData,
-    },
-  }
-}
-
 interface PageProps {
   cmsData: {
     page: ContactPage
-    posts: GhostPostsOrPages
+    previewPosts?: GhostPostsOrPages
     settings: GhostSettings
   }
 }
 
-export default function Contact({ cmsData }: PageProps) {
+export function Contact({ cmsData }: PageProps) {
 
   if (!contactPage) {
     return (
@@ -77,7 +36,7 @@ export default function Contact({ cmsData }: PageProps) {
     )
   }
 
-  const { page, posts, settings } = cmsData
+  const { page, previewPosts, settings } = cmsData
   const { meta_title, meta_description } = page
 
   const featImg = page.feature_image
@@ -120,7 +79,7 @@ export default function Contact({ cmsData }: PageProps) {
           </article>
 
           <div className="post-feed">
-            {posts.map((post, i) => (
+            {previewPosts?.map((post, i) => (
               <PostCard key={post.id} post={post} num={i} />
             ))}
           </div>

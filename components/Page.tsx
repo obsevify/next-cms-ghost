@@ -58,5 +58,3 @@ const Page = ({ cmsData }: PageProps) => {
 }
 
 export default Page
-
-// fluidClass="kg-card kg-code-card"

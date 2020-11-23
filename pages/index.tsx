@@ -10,40 +10,10 @@ import { getAllPosts, getAllSettings, GhostPostOrPage, GhostPostsOrPages, GhostS
 import { generateRSSFeed } from '@utils/rss'
 import { rssFeed } from '@appConfig'
 
-export const getStaticProps: GetStaticProps = async () => {
-
-  let settings
-  let posts: GhostPostsOrPages | []
-
-  try {
-    settings = await getAllSettings()
-    posts = await getAllPosts()
-  } catch (error) {
-    console.log(error)
-    throw new Error('Index creation failed.')
-  }
-
-  if (rssFeed) {
-    const rss = generateRSSFeed({ posts, settings })
-    fs.writeFileSync('./public/rss.xml', rss)
-  }
-
-  const cmsData = {
-    settings,
-    posts,
-  }
-
-  return {
-    props: {
-      cmsData,
-    },
-  }
-}
-
 /**
  * Main index page (home page)
  *
- * Loads all posts from Ghost
+ * Loads all posts from CMS
  *
  */
 
@@ -76,4 +46,33 @@ export default function Index({ cmsData }: IndexProps) {
       />
     </>
   )
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+
+  let settings
+  let posts: GhostPostsOrPages | []
+
+  try {
+    settings = await getAllSettings()
+    posts = await getAllPosts(true)
+  } catch (error) {
+    throw new Error('Index creation failed.')
+  }
+
+  if (rssFeed) {
+    const rss = generateRSSFeed({ posts, settings })
+    fs.writeFileSync('./public/rss.xml', rss)
+  }
+
+  const cmsData = {
+    settings,
+    posts,
+  }
+
+  return {
+    props: {
+      cmsData,
+    },
+  }
 }

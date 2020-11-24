@@ -4,7 +4,7 @@ import { Node } from 'unist'
 import { collections as config } from '@routesConfig'
 import { Collections } from '@lib/collections'
 import { imageDimensions } from '@lib/images'
-import { TOCCore } from '@lib/toc'
+import { IToC } from '@lib/toc'
 
 import { contactPage } from '@appConfig'
 
@@ -27,7 +27,7 @@ export interface GhostPostOrPage extends PostOrPage {
     width: number
     height: number
   } | null
-  toc: TOCCore[] | null
+  toc: IToC[] | null
 }
 
 export interface GhostPostsOrPages extends BrowseResults<GhostPostOrPage> {

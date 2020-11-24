@@ -5,12 +5,15 @@ interface NodeProperties {
   id?: string
 }
 
-export interface TOCCore {
+export interface IToC {
   id: string
   heading: string
+  items?: IToC[]
 }
 
-interface TOC extends TOCCore {
+interface TOC {
+  id: string
+  heading: string
   level: string
   parentIndex: number
   items: TOC[] | []
@@ -67,10 +70,11 @@ export const generateTableOfContents = (htmlAst: Node) => {
   // make final tree
   let tocTree = toc.filter(({ parentIndex }) => parentIndex === -1)
 
-  const removeProps = ({ id, heading, items }: TOC): TOCCore => {
-    if (items.length > 0) (items as TOC[]).forEach(item => removeProps(item))
-    return { id, heading }
-  }
+  const removeProps = ({ id, heading, items }: TOC): IToC => (
+    (items.length > 0)
+      ? { id, heading, items: (items as TOC[]).map(item => removeProps(item)) }
+      : { id, heading }
+  )
 
   return tocTree.map(node => removeProps(node))
 }

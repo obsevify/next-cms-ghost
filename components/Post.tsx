@@ -8,7 +8,8 @@ import { resolveUrl } from '@utils/routing'
 import { useLang, get } from '@utils/use-lang'
 
 import { Layout, HeaderPost, AuthorList, PreviewPosts, ImgSharp, RenderContent } from '@components'
-import { Comments, TableOfContents, Subscribe } from '@components'
+import { Comments, Subscribe } from '@components'
+import { TableOfContents } from '@components/toc'
 
 import { StickyNavContainer } from '@effects'
 import { SEO } from '@meta'
@@ -19,7 +20,7 @@ import { collections } from '@lib/collections'
 import { imageQuality } from '@mediaConfig'
 
 import { nextImages } from '@siteOptions'
-import { memberSubscriptions, commento } from '@appConfig'
+import { memberSubscriptions, commento, toc as optionsTOC } from '@appConfig'
 
 interface PostProps {
   cmsData: {
@@ -42,8 +43,6 @@ const Post = ({ cmsData }: PostProps) => {
   const dimensions = post.featureImageMeta
   const postClass = PostClass({ tags: post.tags, isFeatured: !!featImg, isImage: !!featImg })
 
-  // TODO: attach toc to post
-  const toc: string[] = [] // post.tableOfContent
   const htmlAst = post.htmlAst
   if (htmlAst === undefined) throw Error('Post.tsx: htmlAst must be defined.')
 
@@ -135,7 +134,9 @@ const Post = ({ cmsData }: PostProps) => {
                 )}
 
                 <section className="post-full-content">
-                  <TableOfContents toc={toc} url={resolveUrl({ collectionPath, slug, url })} />
+                  {optionsTOC && !!post.toc && (
+                    <TableOfContents toc={post.toc} url={resolveUrl({ collectionPath, slug, url })} />
+                  )}
                   <div className="post-content load-external-scripts">
                     <RenderContent htmlAst={htmlAst} />
                   </div>

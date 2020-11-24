@@ -12,7 +12,6 @@ A Next.js app for creating blogs from headless content managment systems (CMS).
 - [x] Optimized feature images with next/image
 - [x] Andvanced Routing
 - [x] SEO optimized
-- [x] Infinite Scroll
 - [x] Sticky navigation headers
 - [x] Hover on author avatar
 - [x] Styled 404 page
@@ -27,13 +26,12 @@ A Next.js app for creating blogs from headless content managment systems (CMS).
 - [x] Contact Page with built-in notification service
 - [x] Customized Navigation Header
 - [x] Featured posts pinned on top
+- [x] Table Of Contents
 
 ## ToDo
 
-- [ ] Table Of Contents
-- [ ] Pagination
-- [ ] Incremental Regeneration
 - [ ] Next.js inline images
+- [ ] Incremental Regeneration
 - [ ] Preview
 
 ## Performance

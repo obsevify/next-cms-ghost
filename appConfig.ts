@@ -23,3 +23,4 @@ export const customPage = {}
 
 // Table of Contents
 export const toc: boolean = true
+export const maxDepth: number = 2

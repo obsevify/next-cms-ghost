@@ -1,0 +1,7 @@
+html.casper body {
+  transition: opacity 0.5s ease;
+}
+
+html.casper body.fade-in {
+  opacity: 0;
+}

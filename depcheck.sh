@@ -11,7 +11,29 @@ branch="master"
 wget -q -P compare -N ${github}/${repo}/${branch}/assets/css/global.css
 wget -q -P compare -N ${github}/${repo}/${branch}/assets/css/screen.css
 
-diff -q -s compare/global.css ./styles/global-original.css
-diff -q -s compare/screen.css ./styles/screen-original.css
+cat ./styles/global.css \
+  | sed 's/html\.casper {/html {/g' \
+  | sed 's/html\.casper //g' \
+  > compare/global-used.css
+
+cat ./styles/dark-mode.css \
+  | sed "s/@import 'global.css';//g" \
+  | sed 's/body.dark {/body {/g' \
+  | sed 's/body.dark //g' \
+  > compare/dark-mode.css
+
+cat ./styles/screen.css compare/dark-mode.css \
+  | sed 's/html\.casper {/html {/g' \
+  | sed 's/html\.casper //g' \
+  > compare/screen-used.css
+
+cat compare/screen.css \
+  | sed '/@media (prefers-color-scheme: dark) {/d' \
+  | head -n -1 > compare/screen-original.css
+mv compare/screen-original.css  compare/screen.css
+
+
+diff --ignore-all-space -B -q -s compare/global.css compare/global-used.css
+diff --ignore-all-space -B -q -s compare/screen.css compare/screen-used.css
 
 rm -rf compare out

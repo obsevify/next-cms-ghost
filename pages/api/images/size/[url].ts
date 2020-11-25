@@ -19,6 +19,6 @@ export default async (req: NextApiRequest, res: NextApiResponse): Promise<NextAp
   }
   const imageUrl = Array.isArray(url) ? url[0] : url
 
-  const dimensions = await imageDimensions(imageUrl, false)
+  const dimensions = await imageDimensions(imageUrl, true)
   res.json(dimensions)
 }

@@ -87,8 +87,11 @@ const attachEmptyMeta = (posts: PostsOrPages): GhostPostsOrPages => {
 
 // all data
 export async function getAllSettings() {
+  //const cached = getCache<SettingsResponse>('settings')
+  //if (cached) return cached
   const settings = await api.settings.browse()
   settings.url = settings?.url?.replace(/\/$/, ``)
+  //setCache('settings', settings)
   return settings
 }
 

@@ -1,4 +1,5 @@
 import probe from 'probe-image-size'
+import { getCache, setCache } from '@lib/cache'
 
 /**
  * Determine image dimensions
@@ -21,8 +22,17 @@ const maxRetries = 50
 const read_timeout = 3000 // ms
 const response_timeout = 3000 // ms
 
-export const imageDimensions = async (url: string | undefined | null) => {
+interface Dimensions {
+  width: number
+  height: number
+}
+
+export const imageDimensions = async (url: string | undefined | null): Promise<Dimensions | null> => {
   if (!url) return null
+
+  const cacheKey = encodeURIComponent(url)
+  const cached = getCache<Dimensions>(cacheKey)
+  if (cached) return cached
 
   let width = 0
   let height = 0
@@ -49,5 +59,6 @@ export const imageDimensions = async (url: string | undefined | null) => {
   } while (hasError && retry < maxRetries)
   if (hasError) throw new Error(`images.ts: Bad network connection. Failed image probe after ${maxRetries} retries.`)
 
+  setCache(cacheKey, { width, height })
   return { width, height }
 }

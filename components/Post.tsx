@@ -1,4 +1,5 @@
-import Image from 'next/image'
+//import Image from 'next/image'
+import Image from '@components/next-image/image'
 import Link from 'next/link'
 import dayjs from 'dayjs'
 

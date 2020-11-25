@@ -1,6 +1,5 @@
 // Cache control
-export const fileCache: boolean = false
-//export const cleanOnRestart: boolean = true
+export const fileCache: boolean = true
 
 // Dark mode
 export type DarkMode = 'dark' | 'light' | null

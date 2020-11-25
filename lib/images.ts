@@ -27,12 +27,15 @@ interface Dimensions {
   height: number
 }
 
-export const imageDimensions = async (url: string | undefined | null): Promise<Dimensions | null> => {
+export const imageDimensions = async (url: string | undefined | null, noCache?: boolean): Promise<Dimensions | null> => {
   if (!url) return null
 
-  const cacheKey = encodeURIComponent(url)
+  const cacheKey = !noCache && encodeURIComponent(url) || null
   const cached = getCache<Dimensions>(cacheKey)
-  if (cached) return cached
+  if (cached) {
+    console.log(cached)
+    return cached
+  }
 
   let width = 0
   let height = 0

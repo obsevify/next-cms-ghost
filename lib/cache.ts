@@ -7,8 +7,8 @@ if (!fs.existsSync(cacheRoot)) {
   fs.mkdirSync(cacheRoot)
 }
 
-export function getCache<T>(key: string): T | null {
-  if (!fileCache) return null
+export function getCache<T>(key: string | null): T | null {
+  if (!fileCache || !key) return null
 
   const filePath = path.join(cacheRoot, `${key}.txt`)
   if (fs.existsSync(filePath)) {
@@ -19,8 +19,8 @@ export function getCache<T>(key: string): T | null {
   return null
 }
 
-export function setCache(key: string, object: unknown): void {
-  if (!fileCache) return
+export function setCache(key: string | null, object: unknown): void {
+  if (!fileCache || !key) return
 
   const filePath = path.join(cacheRoot, `${key}.txt`)
   fs.writeFileSync(filePath, JSON.stringify(object as JSON))

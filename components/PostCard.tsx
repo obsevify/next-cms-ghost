@@ -11,7 +11,6 @@ import { PostClass } from '@helpers'
 import { collections } from '@lib/collections'
 import { nextImages } from '@siteOptions'
 import { imageQuality } from '@mediaConfig'
-import ImgSharp from '@components/ImgSharp'
 import { GhostPostOrPage } from '@lib/ghost'
 
 interface PostCardProps {
@@ -48,7 +47,7 @@ const PostCard = ({ post, num, isHome }: PostCardProps) => {
                 />
               </div>
             ) : (
-                <ImgSharp srcClass="post-card-image" srcImg={featImg} title={post.title} />
+                <img className="post-card-image" src={featImg} alt={post.title} />
               )}
           </a>
         </Link>

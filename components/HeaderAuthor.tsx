@@ -1,8 +1,6 @@
 import { SiteNav, HeaderBackground } from '.'
 import { useLang, get } from '@utils/use-lang'
 
-import { ImgSharp } from '@components'
-
 import AvatarIcon from '@icons/avatar-icon'
 import { GhostSettings } from '@lib/ghost'
 import { Author } from '@tryghost/content-api'
@@ -33,7 +31,7 @@ const HeaderAuthor = ({ settings, author }: HeaderAuthorProps) => {
         <div className="inner">
           <div className="site-header-content author-header">
             {profileImg ? (
-              <ImgSharp srcClass="author-profile-image" srcImg={profileImg} title={author.name} />
+              <img className="author-profile-image" src={profileImg} alt={author.name} />
             ) : (
                 <div className="author-profile-image">
                   <AvatarIcon />

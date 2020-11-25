@@ -1,4 +1,4 @@
-import { HeaderPage, Layout, ImgSharp, RenderContent } from '.'
+import { HeaderPage, Layout, RenderContent } from '.'
 
 import { PostClass } from '@helpers'
 import { SEO } from '@meta'
@@ -40,7 +40,7 @@ const Page = ({ cmsData }: PageProps) => {
 
             {featImg && (
               <figure className="post-full-image">
-                <ImgSharp srcImg={featImg} title={page.title} />
+                <img src={featImg} alt={page.title} />
               </figure>
             )}
 

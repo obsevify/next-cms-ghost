@@ -7,7 +7,7 @@ import { readingTime as readingTimeHelper } from '@lib/readingTime'
 import { resolveUrl } from '@utils/routing'
 import { useLang, get } from '@utils/use-lang'
 
-import { Layout, HeaderPost, AuthorList, PreviewPosts, ImgSharp, RenderContent } from '@components'
+import { Layout, HeaderPost, AuthorList, PreviewPosts, RenderContent } from '@components'
 import { Comments, Subscribe } from '@components'
 import { TableOfContents } from '@components/toc'
 
@@ -128,7 +128,7 @@ const Post = ({ cmsData }: PostProps) => {
                     </figure>
                   ) : (
                       <figure className="post-full-image">
-                        <ImgSharp srcImg={featImg} title={post.title} />
+                        <img src={featImg} alt={post.title} />
                       </figure>
                     )
                 )}

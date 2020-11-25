@@ -2,7 +2,7 @@ import DefaultErrorPage from 'next/error'
 import Head from 'next/head'
 import { contactPage } from '@appConfig'
 
-import { HeaderPage, Layout, ImgSharp, PostCard, ContactForm } from '@components'
+import { HeaderPage, Layout, PostCard, ContactForm } from '@components'
 
 import { ServiceConfig } from '@components/contact/ContactForm'
 import { PostClass } from '@helpers'
@@ -61,7 +61,7 @@ export function Contact({ cmsData }: PageProps) {
 
             {featImg &&
               <figure className="post-full-image">
-                <ImgSharp srcImg={featImg} title={page.title} />
+                <img src={featImg} alt={page.title} />
               </figure>
             }
 

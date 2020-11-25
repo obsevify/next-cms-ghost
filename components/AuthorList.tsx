@@ -4,7 +4,6 @@ import { resolveUrl } from '@utils/routing'
 import { useLang, get } from '@utils/use-lang'
 
 import { HoverOnAvatar } from '@effects'
-import { ImgSharp } from '@components'
 
 import AvatarIcon from '@icons/avatar-icon'
 import { Author } from '@tryghost/content-api'
@@ -65,7 +64,7 @@ const AuthorList = ({ authors, isPost }: AuthorListProps) => {
                 {profileImg ? (
                   <Link href={url}>
                     <a className={`${(isPost && `author`) || `static`}-avatar`}>
-                      <ImgSharp srcClass="" srcImg={profileImg} title={author.name} />
+                      <img src={profileImg} alt={author.name} />
                     </a>
                   </Link>
                 ) : (

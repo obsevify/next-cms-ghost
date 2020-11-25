@@ -10,11 +10,9 @@ import { getCache, setCache } from '@lib/cache'
  *
  * Current measures:
  *
- * 1. Retries on fail
- * 2. Reduced network timeouts to speed up retries
- *
- *  Probing image sizes can slow down the build times.
- *  Is there a better method to determine image sizes server side?
+ * 1. Caching results to fs
+ * 2. Retries on fail
+ * 3. Reduced network timeouts to speed up retries
  *
  */
 
@@ -32,10 +30,7 @@ export const imageDimensions = async (url: string | undefined | null, noCache?: 
 
   const cacheKey = !noCache && encodeURIComponent(url) || null
   const cached = getCache<Dimensions>(cacheKey)
-  if (cached) {
-    console.log(cached)
-    return cached
-  }
+  if (cached) return cached
 
   let width = 0
   let height = 0

@@ -1,4 +1,4 @@
-import React, { RefObject } from 'react'
+import { RefObject, Component, createRef } from 'react'
 const throttle = require(`lodash.throttle`)
 
 interface StickyNavContainerProps {
@@ -8,7 +8,7 @@ interface StickyNavContainerProps {
   render: (arg: StickyNavContainer) => JSX.Element
 }
 
-export class StickyNavContainer extends React.Component<StickyNavContainerProps> {
+export class StickyNavContainer extends Component<StickyNavContainerProps> {
   anchorRef: RefObject<HTMLDivElement>
   activeClass: string
   isPost: boolean
@@ -22,7 +22,7 @@ export class StickyNavContainer extends React.Component<StickyNavContainerProps>
     super(props)
     this.scrollHandler = this.scrollHandler.bind(this)
     this.resizeHandler = this.resizeHandler.bind(this)
-    this.anchorRef = React.createRef()
+    this.anchorRef = createRef()
     this.activeClass = this.props.activeClass
     this.isPost = this.props.isPost || false
     this.state = {

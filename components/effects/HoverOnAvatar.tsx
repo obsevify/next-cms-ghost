@@ -1,4 +1,4 @@
-import React, { Component, RefObject } from 'react'
+import { Component, RefObject, createRef } from 'react'
 
 interface HoverOnAvatarProps {
   activeClass: string
@@ -15,7 +15,7 @@ export class HoverOnAvatar extends Component<HoverOnAvatarProps> {
 
   constructor(props: HoverOnAvatarProps) {
     super(props)
-    this.anchorRef = React.createRef<HTMLLIElement>()
+    this.anchorRef = createRef<HTMLLIElement>()
     this.activeClass = this.props.activeClass
     this.hoverTimeout = 0
     this.state = {

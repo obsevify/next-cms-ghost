@@ -6,6 +6,7 @@ import { StickyNavContainer } from '@effects'
 import { SEO } from '@meta'
 
 import { getAllPosts, getAllSettings, GhostPostOrPage, GhostPostsOrPages, GhostSettings } from '@lib/ghost'
+import { seoImage, ISeoImage } from '@meta/seoImage'
 
 import { generateRSSFeed } from '@utils/rss'
 import { rssFeed } from '@appConfig'
@@ -20,6 +21,7 @@ import { rssFeed } from '@appConfig'
 interface CmsData {
   posts: GhostPostsOrPages
   settings: GhostSettings
+  seoImage: ISeoImage
   previewPosts?: GhostPostsOrPages
   prevPost?: GhostPostOrPage
   nextPost?: GhostPostOrPage
@@ -30,11 +32,11 @@ interface IndexProps {
 }
 
 export default function Index({ cmsData }: IndexProps) {
-  const { settings, posts } = cmsData
+  const { settings, posts, seoImage } = cmsData
 
   return (
     <>
-      <SEO settings={settings} />
+      <SEO {...{settings, seoImage }} />
       <StickyNavContainer
         throttle={300}
         activeClass="fixed-nav-active"
@@ -68,6 +70,7 @@ export const getStaticProps: GetStaticProps = async () => {
   const cmsData = {
     settings,
     posts,
+    seoImage: await seoImage()
   }
 
   return {

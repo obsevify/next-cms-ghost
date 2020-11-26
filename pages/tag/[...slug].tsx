@@ -5,6 +5,7 @@ import { SEO } from '@meta'
 
 import { getTagBySlug, getAllTags, getAllSettings, getPostsByTag, GhostSettings, GhostPostOrPage, GhostPostsOrPages } from '@lib/ghost'
 import { resolveUrl } from '@utils/routing'
+import { ISeoImage, seoImage } from '@meta/seoImage'
 
 /**
  * Tag page (/tag/:slug)
@@ -16,6 +17,7 @@ import { resolveUrl } from '@utils/routing'
 interface CmsData {
   tag: Tag
   posts: GhostPostsOrPages
+  seoImage: ISeoImage
   previewPosts?: GhostPostsOrPages
   prevPost?: GhostPostOrPage
   nextPost?: GhostPostOrPage
@@ -27,12 +29,12 @@ interface TagIndexProps {
 }
 
 const TagIndex = ({ cmsData }: TagIndexProps) => {
-  const { tag, posts, settings } = cmsData
+  const { tag, posts, settings, seoImage } = cmsData
   const { meta_title, meta_description } = tag
 
   return (
     <>
-      <SEO settings={settings} {...{ meta_title, meta_description }} />
+      <SEO settings={settings} {...{ meta_title, meta_description, seoImage }} />
       <Layout
         settings={settings}
         tags={[tag]}
@@ -60,6 +62,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         tag,
         posts,
         settings,
+        seoImage: await seoImage()
       },
     },
   }

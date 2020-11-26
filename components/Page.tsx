@@ -4,6 +4,7 @@ import { PostClass } from '@helpers'
 import { SEO } from '@meta'
 
 import { GhostPostOrPage, GhostSettings } from '@lib/ghost'
+import { ISeoImage } from '@meta/seoImage'
 
 /**
  * Single page (/:slug)
@@ -16,11 +17,12 @@ interface PageProps {
   cmsData: {
     page: GhostPostOrPage
     settings: GhostSettings
+    seoImage: ISeoImage
   }
 }
 
 const Page = ({ cmsData }: PageProps) => {
-  const { page, settings } = cmsData
+  const { page, settings, seoImage } = cmsData
   const { meta_title, meta_description } = page
 
   const featImg = page.feature_image
@@ -30,7 +32,7 @@ const Page = ({ cmsData }: PageProps) => {
 
   return (
     <>
-      <SEO settings={settings} {...{ meta_title, meta_description }} />
+      <SEO settings={settings} {...{ meta_title, meta_description, seoImage }} />
       <Layout settings={settings} page={page} tags={page.tags} header={<HeaderPage settings={settings} />}>
         <div className="inner">
           <article className={`post-full ${postClass}`}>

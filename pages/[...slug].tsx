@@ -12,6 +12,7 @@ import { ContactPage, defaultPage } from '@lib/contactPageDefaults'
 import { imageDimensions } from '@lib/images'
 
 import { Contact } from '@components/ContactPage'
+import { ISeoImage, seoImage } from '@meta/seoImage'
 
 /**
  *
@@ -24,6 +25,7 @@ interface CmsDataCore {
   page: GhostPostOrPage
   contactPage: ContactPage
   settings: GhostSettings
+  seoImage: ISeoImage
   previewPosts?: GhostPostsOrPages
   prevPost?: GhostPostOrPage
   nextPost?: GhostPostOrPage
@@ -43,8 +45,8 @@ const PostOrPageIndex = ({ cmsData }: PostOrPageProps) => {
   if (isPost) {
     return <Post cmsData={cmsData} />
   } else if (!!contactPage) {
-    const { contactPage, previewPosts, settings } = cmsData
-    return <Contact cmsData={{ page: contactPage, previewPosts, settings }} />
+    const { contactPage, previewPosts, settings, seoImage } = cmsData
+    return <Contact cmsData={{ page: contactPage, previewPosts, settings, seoImage }} />
   } else {
     return <Page cmsData={cmsData} />
   }
@@ -102,6 +104,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     nextPost = nextSlug && await getPostBySlug(nextSlug) || null
   }
 
+  const imageUrl =  (post || contactPage || page)?.feature_image || undefined
+  const image = await seoImage({ imageUrl })
+
   return {
     props: {
       cmsData: {
@@ -110,6 +115,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         page,
         contactPage,
         isPost,
+        seoImage: image,
         previewPosts,
         prevPost,
         nextPost,

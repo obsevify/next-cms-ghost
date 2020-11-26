@@ -1,27 +1,19 @@
-import { useState, useEffect } from 'react'
-
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import url from 'url'
-import { ProbeResult } from 'probe-image-size'
 
 import { GhostSettings } from '@lib/ghost'
-import { siteUrl, siteIcon, siteImage, siteTitleMeta, siteDescriptionMeta } from '@siteConfig'
+import { siteUrl, siteIcon, siteTitleMeta, siteDescriptionMeta } from '@siteConfig'
 import { Author, PostOrPage, Tag } from '@tryghost/content-api'
+import { ISeoImage } from '@meta/seoImage'
 
 interface SEOProps {
   title?: string
   description?: string
-  imageName?: string
-  imageUrl?: string | null
   sameAs?: string
   settings: GhostSettings
   canonical?: string
-  image?: {
-    url: string
-    width: number
-    height: number
-  },
+  seoImage?: ISeoImage
   article?: PostOrPage
 }
 
@@ -30,7 +22,7 @@ const getPublicTags = (tags: Tag[] | undefined) =>
 
 export const SEO = (props: SEOProps) => {
   const {
-    title: t, description: d, imageName, imageUrl, settings, article
+    title: t, description: d, seoImage, settings, article
   } = props
 
   const {
@@ -47,23 +39,7 @@ export const SEO = (props: SEOProps) => {
   const title = t || settingsTitle
   const description = d || settingsDescription || siteDescriptionMeta
 
-  // TODO: move to server side through staticProps
-  const [imageWidth, setImageWidth] = useState(0)
-  const [imageHeight, setImageHeight] = useState(0)
-  const imgUrl = imageUrl || url.resolve(siteUrl, imageName || siteImage)
-  const image = { url: imgUrl, width: imageWidth, height: imageHeight }
-
-  useEffect(() => {
-    async function getDimensions() {
-      const response = await fetch(`/api/images/size/${encodeURIComponent(imgUrl)}`)
-      const { width, height }: ProbeResult = await response.json()
-      setImageWidth(width)
-      setImageHeight(height)
-    }
-    getDimensions()
-  }, [])
-
-  const jsonLd = getJsonLd({ ...props, title, description, image })
+  const jsonLd = getJsonLd({ ...props, title, description, seoImage })
 
   return (
     <Head>
@@ -91,10 +67,10 @@ export const SEO = (props: SEOProps) => {
       <meta property="twitter:card" content="summary_large_image" />
       {twitter && <meta property="twitter:creator" content={twitter} />}
       {twitter && <meta property="twitter:site" content={`https://twitter.com/${twitter.replace(/^@/, ``)}/`} />}
-      {image && <meta name="twitter:image" content={image.url} />}
-      {image && <meta property="og:image" content={image.url} />}
-      {image && <meta property="og:image:width" content={`${image.width}`} />}
-      {image && <meta property="og:image:height" content={`${image.height}`} />}
+      {seoImage && <meta name="twitter:image" content={seoImage.url} />}
+      {seoImage && <meta property="og:image" content={seoImage.url} />}
+      {seoImage && <meta property="og:image:width" content={`${seoImage.width}`} />}
+      {seoImage && <meta property="og:image:height" content={`${seoImage.height}`} />}
       <script type="application/ld+json">{JSON.stringify(jsonLd, undefined, 4)}</script>
     </Head>
   )
@@ -112,7 +88,7 @@ export const authorSameAs = (author: Author) => {
   return authorProfiles.length > 0 && `["${authorProfiles.join(`", "`)}"]` || undefined
 }
 
-const getJsonLd = ({ title, description, canonical, image, settings, sameAs, article }: SEOProps) => {
+const getJsonLd = ({ title, description, canonical, seoImage, settings, sameAs, article }: SEOProps) => {
   const pubLogoUrl = settings.logo || url.resolve(siteUrl, siteIcon)
   const type = article ? 'Article' : 'WebSite'
 
@@ -123,11 +99,11 @@ const getJsonLd = ({ title, description, canonical, image, settings, sameAs, art
     url: canonical,
     ...article && { ...getArticleJsonLd(article) },
     image: {
-      ...image && {
+      ...seoImage && {
         '@type': `ImageObject`,
-        url: image.url,
-        width: image.width,
-        height: image.height,
+        url: seoImage.url,
+        width: seoImage.width,
+        height: seoImage.height,
       }
     },
     publisher: {

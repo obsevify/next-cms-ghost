@@ -21,11 +21,13 @@ import { imageQuality } from '@mediaConfig'
 
 import { nextImages } from '@siteOptions'
 import { memberSubscriptions, commento, toc as optionsTOC } from '@appConfig'
+import { ISeoImage } from '@meta/seoImage'
 
 interface PostProps {
   cmsData: {
     post: GhostPostOrPage
     settings: GhostSettings
+    seoImage: ISeoImage
     previewPosts?: GhostPostsOrPages
     prevPost?: GhostPostOrPage
     nextPost?: GhostPostOrPage
@@ -33,7 +35,7 @@ interface PostProps {
 }
 
 const Post = ({ cmsData }: PostProps) => {
-  const { post, settings, previewPosts, prevPost, nextPost } = cmsData
+  const { post, settings, seoImage, previewPosts, prevPost, nextPost } = cmsData
   const { slug, url, meta_description, excerpt } = post
   const description = meta_description || excerpt
 
@@ -50,7 +52,7 @@ const Post = ({ cmsData }: PostProps) => {
 
   return (
     <>
-      <SEO {...{ description, settings, imageUrl: featImg, article: post }} />
+      <SEO {...{ description, settings, seoImage, article: post }} />
       <StickyNavContainer
         throttle={300}
         isPost={true}

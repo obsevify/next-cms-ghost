@@ -9,6 +9,7 @@ import { PostClass } from '@helpers'
 import { SEO } from '@meta'
 
 import { GhostPostOrPage, GhostPostsOrPages, GhostSettings } from '@lib/ghost'
+import { ISeoImage } from '@meta/seoImage'
 
 interface ContactPage extends GhostPostOrPage {
   form_topics: string[]
@@ -20,6 +21,7 @@ interface PageProps {
     page: ContactPage
     previewPosts?: GhostPostsOrPages
     settings: GhostSettings
+    seoImage: ISeoImage
   }
 }
 
@@ -36,7 +38,7 @@ export function Contact({ cmsData }: PageProps) {
     )
   }
 
-  const { page, previewPosts, settings } = cmsData
+  const { page, previewPosts, settings, seoImage } = cmsData
   const { meta_title, meta_description } = page
 
   const featImg = page.feature_image
@@ -46,7 +48,7 @@ export function Contact({ cmsData }: PageProps) {
 
   return (
     <>
-      <SEO settings={settings} {...{ meta_title, meta_description }} />
+      <SEO settings={settings} {...{ meta_title, meta_description, seoImage }} />
       <Layout settings={settings} page={page} tags={page.tags} header={<HeaderPage settings={settings} />}>
         <div className="inner">
           <article className={`post-full ${postClass}`}>

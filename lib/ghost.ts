@@ -8,6 +8,12 @@ import { IToC } from '@lib/toc'
 
 import { contactPage } from '@appConfig'
 
+export interface NextImage {
+  url: string
+  width: number
+  height: number
+}
+
 export interface NavItem {
   url: string
   label: string
@@ -19,6 +25,8 @@ interface BrowseResults<T> extends Array<T> {
 
 export interface GhostSettings extends SettingsResponse {
   secondary_navigation?: NavItem[]
+  iconImage?: NextImage
+  coverImage?: NextImage
 }
 
 export interface GhostPostOrPage extends PostOrPage {
@@ -85,14 +93,29 @@ const attachEmptyMeta = (posts: PostsOrPages): GhostPostsOrPages => {
   return Object.assign(results, { meta })
 }
 
-// all data
-export async function getAllSettings() {
+const createNextImage = async (url?: string | null): Promise<NextImage | null> => {
+  if (!url) return null
+  const dimensions = await imageDimensions(url)
+  return dimensions && { url, ...dimensions } || null
+}
+
+// all data (images: icon (png), logo (svg), cover_image (null | png))
+export async function getAllSettings(): Promise<GhostSettings> {
   //const cached = getCache<SettingsResponse>('settings')
   //if (cached) return cached
   const settings = await api.settings.browse()
   settings.url = settings?.url?.replace(/\/$/, ``)
-  //setCache('settings', settings)
-  return settings
+
+  const iconImage = await createNextImage(settings.icon)
+  const coverImage = await createNextImage(settings.cover_image)
+
+  const result = {
+    ...settings,
+    ...iconImage && { iconImage },
+    ...coverImage && { coverImage }
+  }
+  //setCache('settings', result)
+  return result
 }
 
 export async function getAllTags() {

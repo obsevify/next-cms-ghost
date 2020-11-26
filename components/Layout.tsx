@@ -1,13 +1,16 @@
 import { ReactFragment } from 'react'
 import Link from 'next/link'
 
-import { DocumentHead, StickyNav, SubscribeOverlay, SubscribeSuccess } from '@components'
-import { BodyClass } from '@helpers'
+import { DocumentHead } from '@components/DocumentHead'
+import { StickyNav } from '@components/StickyNav'
+import { SubscribeOverlay } from '@components/SubscribeOverlay'
+import { SubscribeSuccess } from '@components/SubscribeSuccess'
+import { BodyClass } from '@helpers/BodyClass'
 
 import { useLang, get } from '@utils/use-lang'
 import { GhostSettings } from '@lib/ghost'
 
-import { StickyNavContainer } from '@effects'
+import { StickyNavContainer } from '@effects/StickyNavContainer'
 import { Author, PostOrPage, Tag } from '@tryghost/content-api'
 
 import { siteUrl } from '@siteConfig'
@@ -37,7 +40,7 @@ interface LayoutProps {
 }
 
 
-const Layout = ({ settings, header, children, isHome, isPost, sticky, previewPosts, author, tags, page, errorClass }: LayoutProps) => {
+export const Layout = ({ settings, header, children, isHome, isPost, sticky, previewPosts, author, tags, page, errorClass }: LayoutProps) => {
   const text = get(useLang())
   const site = settings
   const title = text(`SITE_TITLE`, site.title)
@@ -106,5 +109,3 @@ const Layout = ({ settings, header, children, isHome, isPost, sticky, previewPos
     </>
   )
 }
-
-export default Layout

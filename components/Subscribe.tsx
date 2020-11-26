@@ -1,8 +1,8 @@
 import { GhostSettings } from '@lib/ghost'
 import { useLang, get } from '@utils/use-lang'
-import { SubscribeForm } from '@components'
+import { SubscribeForm } from '@components/SubscribeForm'
 
-const Subscribe = ({ settings }: { settings: GhostSettings }) => {
+export const Subscribe = ({ settings }: { settings: GhostSettings }) => {
   const text = get(useLang())
   const title = text(`SITE_TITLE`, settings.title)
 
@@ -14,5 +14,3 @@ const Subscribe = ({ settings }: { settings: GhostSettings }) => {
     </section>
   )
 }
-
-export default Subscribe

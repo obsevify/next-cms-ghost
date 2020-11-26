@@ -1,7 +1,9 @@
 import { Tag } from '@tryghost/content-api'
 import { GetStaticProps, GetStaticPaths } from 'next'
-import { HeaderTag, Layout, PostView } from '@components'
-import { SEO } from '@meta'
+import { HeaderTag } from '@components/HeaderTag'
+import { Layout } from '@components/Layout'
+import { PostView } from '@components/PostView'
+import { SEO } from '@meta/seo'
 
 import { getTagBySlug, getAllTags, getAllSettings, getPostsByTag, GhostSettings, GhostPostOrPage, GhostPostsOrPages } from '@lib/ghost'
 import { resolveUrl } from '@utils/routing'

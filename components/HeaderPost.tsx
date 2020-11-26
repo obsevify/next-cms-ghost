@@ -1,6 +1,6 @@
 import { GhostSettings } from 'lib/ghost'
-import { SiteNav } from '@components'
-import { StickyNavContainer } from '@effects'
+import { SiteNav } from '@components/SiteNav'
+import { StickyNavContainer } from '@effects/StickyNavContainer'
 
 interface HeaderPostProps {
   settings: GhostSettings,
@@ -8,7 +8,7 @@ interface HeaderPostProps {
   sticky: StickyNavContainer
 }
 
-const HeaderPost = ({ settings, title, sticky }: HeaderPostProps) => (
+export const HeaderPost = ({ settings, title, sticky }: HeaderPostProps) => (
   <header className="site-header" >
     <div className={`outer site-nav-main ${sticky && sticky.state.currentClass}`}>
       <div className="inner">
@@ -17,5 +17,3 @@ const HeaderPost = ({ settings, title, sticky }: HeaderPostProps) => (
     </div>
   </header>
 )
-
-export default HeaderPost

@@ -7,14 +7,19 @@ import { readingTime as readingTimeHelper } from '@lib/readingTime'
 import { resolveUrl } from '@utils/routing'
 import { useLang, get } from '@utils/use-lang'
 
-import { Layout, HeaderPost, AuthorList, PreviewPosts, RenderContent } from '@components'
-import { Comments, Subscribe } from '@components'
-import { TableOfContents } from '@components/toc'
+import { Layout } from '@components/Layout'
+import { HeaderPost } from '@components/HeaderPost'
+import { AuthorList } from '@components/AuthorList'
+import { PreviewPosts } from '@components/PreviewPosts'
+import { RenderContent } from '@components/RenderContent'
+import { Comments } from '@components/Comments'
+import { Subscribe } from '@components/Subscribe'
+import { TableOfContents } from '@components/toc/TableOfContents'
 
-import { StickyNavContainer } from '@effects'
-import { SEO } from '@meta'
+import { StickyNavContainer } from '@effects/StickyNavContainer'
+import { SEO } from '@meta/seo'
 
-import { PostClass } from '@helpers'
+import { PostClass } from '@helpers/PostClass'
 import { GhostPostOrPage, GhostPostsOrPages, GhostSettings } from '@lib/ghost'
 import { collections } from '@lib/collections'
 import { imageQuality } from '@mediaConfig'
@@ -34,7 +39,7 @@ interface PostProps {
   }
 }
 
-const Post = ({ cmsData }: PostProps) => {
+export const Post = ({ cmsData }: PostProps) => {
   const { post, settings, seoImage, previewPosts, prevPost, nextPost } = cmsData
   const { slug, url, meta_description, excerpt } = post
   const description = meta_description || excerpt
@@ -159,5 +164,3 @@ const Post = ({ cmsData }: PostProps) => {
     </>
   )
 }
-
-export default Post

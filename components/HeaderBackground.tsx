@@ -5,7 +5,7 @@ interface HeaderBackgroundProps {
   children: ReactFragment
 }
 
-const HeaderBackground = ({ srcImg, children }: HeaderBackgroundProps) => {
+export const HeaderBackground = ({ srcImg, children }: HeaderBackgroundProps) => {
   return (
     <>
       {srcImg ? (
@@ -20,5 +20,3 @@ const HeaderBackground = ({ srcImg, children }: HeaderBackgroundProps) => {
     </>
   )
 }
-
-export default HeaderBackground

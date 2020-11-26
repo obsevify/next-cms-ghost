@@ -6,7 +6,7 @@
 
 import { useEffect, useState } from "react"
 
-const useActiveHash = (itemIds: string[], rootMargin: string | undefined = undefined) => {
+export const useActiveHash = (itemIds: string[], rootMargin: string | undefined = undefined) => {
     const [activeHash, setActiveHash] = useState(``)
 
     useEffect(() => {
@@ -30,5 +30,3 @@ const useActiveHash = (itemIds: string[], rootMargin: string | undefined = undef
 
     return activeHash
 }
-
-export default useActiveHash

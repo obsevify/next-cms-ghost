@@ -1,9 +1,7 @@
-import { DarkModeToggle } from '@components'
+import { DarkModeToggle } from '@components/DarkModeToggle'
 import { defaultMode } from '@appConfig'
 
-const DarkMode = () => {
+export const DarkMode = () => {
   if (defaultMode === null) return null
   return <DarkModeToggle />
 }
-
-export default DarkMode

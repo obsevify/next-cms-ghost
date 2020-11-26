@@ -1,12 +1,10 @@
-import { SiteNav } from '.'
-import { SiteNavProps } from './SiteNav'
+import { SiteNav } from '@components/SiteNav'
+import { SiteNavProps } from '@components/SiteNav'
 
-const StickyNav = (props: SiteNavProps) => (
+export const StickyNav = (props: SiteNavProps) => (
   <div className="outer site-nav-main">
     <div className="inner">
       <SiteNav {...props} />
     </div>
   </div>
 )
-
-export default StickyNav

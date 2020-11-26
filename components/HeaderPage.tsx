@@ -1,11 +1,11 @@
 import { GhostSettings } from '@lib/ghost'
-import { SiteNav } from '@components'
+import { SiteNav } from '@components/SiteNav'
 
 interface HeaderPageProps {
   settings: GhostSettings
 }
 
-const HeaderPage = ({ settings }: HeaderPageProps) => (
+export const HeaderPage = ({ settings }: HeaderPageProps) => (
   <header className="site-header">
     <div className="outer site-nav-main">
       <div className="inner">
@@ -14,5 +14,3 @@ const HeaderPage = ({ settings }: HeaderPageProps) => (
     </div>
   </header>
 )
-
-export default HeaderPage

@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { useActiveHash } from '@effects'
-
+import { useActiveHash } from '@components/effects/UseActiveHash'
 import { IToC } from '@lib/toc'
 import { useLang, get } from '@utils/use-lang'
 import { maxDepth as optionsMaxDepth } from '@appConfig'
@@ -53,7 +52,7 @@ interface TableOfContentsProps {
   maxDepth?: number
 }
 
-const TableOfContents = ({ toc, url, maxDepth = 2 }: TableOfContentsProps) => {
+export const TableOfContents = ({ toc, url, maxDepth = 2 }: TableOfContentsProps) => {
     const text = get(useLang())
 
     const [isDesktop, setIsDesktop] = useState(false)
@@ -87,5 +86,3 @@ const TableOfContents = ({ toc, url, maxDepth = 2 }: TableOfContentsProps) => {
         </>
     )
 }
-
-export default TableOfContents

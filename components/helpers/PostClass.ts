@@ -7,7 +7,7 @@ interface PostClassProps {
   isPage?: boolean
 }
 
-const PostClass = ({ tags, isFeatured, isImage, isPage }: PostClassProps) => {
+export const PostClass = ({ tags, isFeatured, isImage, isPage }: PostClassProps) => {
   let classes = [`post`]
 
   isFeatured = isFeatured || false
@@ -34,5 +34,3 @@ const PostClass = ({ tags, isFeatured, isImage, isPage }: PostClassProps) => {
 
   return result.trim()
 }
-
-export default PostClass

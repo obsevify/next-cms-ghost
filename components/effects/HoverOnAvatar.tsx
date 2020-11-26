@@ -5,7 +5,7 @@ interface HoverOnAvatarProps {
   render: (arg: HoverOnAvatar) => JSX.Element
 }
 
-export default class HoverOnAvatar extends Component<HoverOnAvatarProps> {
+export class HoverOnAvatar extends Component<HoverOnAvatarProps> {
   anchorRef: RefObject<HTMLLIElement>
   activeClass: string
   hoverTimeout: number

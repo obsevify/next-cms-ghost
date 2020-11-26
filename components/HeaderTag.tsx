@@ -1,6 +1,7 @@
 import { Tag } from '@tryghost/content-api'
 import { GhostSettings } from '@lib/ghost'
-import { SiteNav, HeaderBackground } from '.'
+import { SiteNav } from '@components/SiteNav'
+import { HeaderBackground } from '@components/HeaderBackground'
 import { useLang, get } from '@utils/use-lang'
 
 interface HeaderTagProps {
@@ -8,7 +9,7 @@ interface HeaderTagProps {
   tag: Tag
 }
 
-const HeaderTag = ({ settings, tag }: HeaderTagProps) => {
+export const HeaderTag = ({ settings, tag }: HeaderTagProps) => {
   const text = get(useLang())
   const featureImg = tag.feature_image || ''
   const numberOfPosts = tag.count?.posts
@@ -32,5 +33,3 @@ const HeaderTag = ({ settings, tag }: HeaderTagProps) => {
     </header>
   )
 }
-
-export default HeaderTag

@@ -1,6 +1,7 @@
 import Link from 'next/link'
 
-import { SiteNav, HeaderBackground } from '.'
+import { SiteNav } from '@components/SiteNav'
+import { HeaderBackground } from '@components/HeaderBackground'
 import { useLang, get } from '@utils/use-lang'
 import { GhostSettings } from '@lib/ghost'
 
@@ -8,7 +9,7 @@ interface HeaderIndexProps {
   settings: GhostSettings
 }
 
-const HeaderIndex = ({ settings }: HeaderIndexProps) => {
+export const HeaderIndex = ({ settings }: HeaderIndexProps) => {
   const text = get(useLang())
   const site = settings
   const siteLogo = site.logo
@@ -39,5 +40,3 @@ const HeaderIndex = ({ settings }: HeaderIndexProps) => {
     </header>
   )
 }
-
-export default HeaderIndex

@@ -1,5 +1,6 @@
 import { GetStaticProps, GetStaticPaths } from 'next'
-import { Post, Page } from '@components'
+import { Post } from '@components/Post'
+import { Page } from '@components/Page'
 
 import { getPostsByTag, getTagBySlug, GhostPostOrPage, GhostPostsOrPages, GhostSettings } from '@lib/ghost'
 

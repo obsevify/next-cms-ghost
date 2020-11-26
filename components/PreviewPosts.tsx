@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import dayjs from 'dayjs'
 
-import { PostCard } from '@components'
+import { PostCard } from '@components/PostCard'
 
 import { readingTime as readingTimeHelper } from '@lib/readingTime'
 import { resolveUrl } from '@utils/routing'
@@ -17,7 +17,7 @@ interface PreviewPostsProps {
   next?: GhostPostOrPage
 }
 
-const PreviewPosts = ({ primaryTag, posts, prev, next }: PreviewPostsProps) => {
+export const PreviewPosts = ({ primaryTag, posts, prev, next }: PreviewPostsProps) => {
   const text = get(useLang())
   const url = primaryTag && resolveUrl({ slug: primaryTag.slug, url: primaryTag.url }) || ''
   const primaryTagCount = primaryTag?.count?.posts
@@ -67,4 +67,3 @@ const PreviewPosts = ({ primaryTag, posts, prev, next }: PreviewPostsProps) => {
   )
 }
 
-export default PreviewPosts

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useLang, get } from '@utils/use-lang'
 import { useRouter } from 'next/router'
 
-const SubscribeSuccess = ({ title }: { title: string }) => {
+export const SubscribeSuccess = ({ title }: { title: string }) => {
   const text = get(useLang())
   const router = useRouter()
   const { action, success } = router.query
@@ -50,5 +50,3 @@ const SubscribeSuccess = ({ title }: { title: string }) => {
     </div>
   )
 }
-
-export default SubscribeSuccess

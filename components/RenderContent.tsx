@@ -3,7 +3,7 @@ import rehypeReact, { ComponentProps } from 'rehype-react'
 import unified from 'unified'
 import { Node } from 'unist'
 
-import { NextLink } from '.'
+import { NextLink } from '@components/NextLink'
 
 const options = {
   createElement: React.createElement,
@@ -20,7 +20,7 @@ interface RenderContentProps {
   htmlAst: Node | null
 }
 
-const RenderContent = ({ htmlAst }: RenderContentProps) => {
+export const RenderContent = ({ htmlAst }: RenderContentProps) => {
   if (!htmlAst) return null
   return (
     <>
@@ -28,8 +28,5 @@ const RenderContent = ({ htmlAst }: RenderContentProps) => {
     </>
   )
 }
-
-export default RenderContent
-
 
 //<div className="post-content load-external-scripts">{renderAst.stringify(htmlAst)}</div>

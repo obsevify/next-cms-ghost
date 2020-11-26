@@ -1,7 +1,9 @@
-import { HeaderPage, Layout, RenderContent } from '.'
+import { HeaderPage } from '@components/HeaderPage'
+import { Layout } from '@components/Layout'
+import { RenderContent } from '@components/RenderContent'
 
-import { PostClass } from '@helpers'
-import { SEO } from '@meta'
+import { PostClass } from '@helpers/PostClass'
+import { SEO } from '@meta/seo'
 
 import { GhostPostOrPage, GhostSettings } from '@lib/ghost'
 import { ISeoImage } from '@meta/seoImage'
@@ -21,7 +23,7 @@ interface PageProps {
   }
 }
 
-const Page = ({ cmsData }: PageProps) => {
+export const Page = ({ cmsData }: PageProps) => {
   const { page, settings, seoImage } = cmsData
   const { meta_title, meta_description } = page
 
@@ -58,5 +60,3 @@ const Page = ({ cmsData }: PageProps) => {
     </>
   )
 }
-
-export default Page

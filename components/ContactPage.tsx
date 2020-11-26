@@ -2,11 +2,13 @@ import DefaultErrorPage from 'next/error'
 import Head from 'next/head'
 import { contactPage } from '@appConfig'
 
-import { HeaderPage, Layout, PostCard, ContactForm } from '@components'
+import { HeaderPage } from '@components/HeaderPage'
+import { Layout } from '@components/Layout'
+import { PostCard } from '@components/PostCard'
 
-import { ServiceConfig } from '@components/contact/ContactForm'
-import { PostClass } from '@helpers'
-import { SEO } from '@meta'
+import { ServiceConfig, ContactForm } from '@components/contact/ContactForm'
+import { PostClass } from '@helpers/PostClass'
+import { SEO } from '@meta/seo'
 
 import { GhostPostOrPage, GhostPostsOrPages, GhostSettings } from '@lib/ghost'
 import { ISeoImage } from '@meta/seoImage'

@@ -1,9 +1,8 @@
 import { useLang, get } from '@utils/use-lang'
 import { useOverlay } from '@components/contexts/overlayProvider'
 
-
 // The actual component
-const SubscribeButton = () => {
+export const SubscribeButton = () => {
   const text = get(useLang())
   const { handleOpen } = useOverlay()
 
@@ -20,5 +19,3 @@ const SubscribeButton = () => {
     </a>
   )
 }
-
-export default SubscribeButton

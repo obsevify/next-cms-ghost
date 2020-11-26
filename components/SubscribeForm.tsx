@@ -2,9 +2,9 @@ import { GhostSettings } from "@lib/ghost"
 import { useLang, get } from '@utils/use-lang'
 import { useOverlay } from '@components/contexts/overlayProvider'
 
-import LoaderIcon from '@icons/loader-icon'
+import { LoaderIcon } from '@icons/LoaderIcon'
 
-const SubscribeForm = ({ settings }: { settings: GhostSettings }) => {
+export const SubscribeForm = ({ settings }: { settings: GhostSettings }) => {
   const text = get(useLang())
   const { message, handleSubmit, email, handleChange } = useOverlay()
 
@@ -39,5 +39,3 @@ const SubscribeForm = ({ settings }: { settings: GhostSettings }) => {
     </form>
   )
 }
-
-export default SubscribeForm

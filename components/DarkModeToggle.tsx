@@ -1,9 +1,9 @@
 import { useTheme } from '@components/contexts/themeProvider'
 import { useLang, get } from '@utils/use-lang'
-import MoonIcon from '@icons/moon-icon'
-import SunIcon from '@icons/sun-icon'
+import { MoonIcon } from '@icons/MoonIcon'
+import { SunIcon } from '@icons/SunIcon'
 
-const DarkModeToggle = () => {
+export const DarkModeToggle = () => {
   const { dark, toggleDark } = useTheme()
   const text = get(useLang())
 
@@ -20,5 +20,3 @@ const DarkModeToggle = () => {
     </button>
   )
 }
-
-export default DarkModeToggle

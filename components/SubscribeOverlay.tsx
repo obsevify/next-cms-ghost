@@ -6,9 +6,9 @@ import { GhostSettings } from '@lib/ghost'
 import { useLang, get } from '@utils/use-lang'
 import { siteIcon } from '@siteConfig'
 
-import SubscribeForm from '@components/SubscribeForm'
+import { SubscribeForm } from '@components/SubscribeForm'
 
-const SubscribeOverlay = ({ settings }: { settings: GhostSettings }) => {
+export const SubscribeOverlay = ({ settings }: { settings: GhostSettings }) => {
   const text = get(useLang())
   const { isOpen, handleClose } = useOverlay()
 
@@ -34,5 +34,3 @@ const SubscribeOverlay = ({ settings }: { settings: GhostSettings }) => {
     </div>
   )
 }
-
-export default SubscribeOverlay

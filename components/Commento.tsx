@@ -29,7 +29,7 @@ interface CommentoProps {
   id: string
 }
 
-const Commento = ({ id }: CommentoProps) => {
+export const Commento = ({ id }: CommentoProps) => {
   const url = commentoUrl || `https://cdn.commento.io`
 
   useEffect(() => {
@@ -44,5 +44,3 @@ const Commento = ({ id }: CommentoProps) => {
 
   return <div id={`commento`} />
 }
-
-export default Commento

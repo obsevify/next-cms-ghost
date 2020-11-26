@@ -1,6 +1,8 @@
 import { Author } from '@tryghost/content-api'
 import { GetStaticProps, GetStaticPaths } from 'next'
-import { Layout, PostView, HeaderAuthor } from '@components'
+import { Layout } from '@components/Layout'
+import { PostView } from '@components/PostView'
+import { HeaderAuthor } from '@components/HeaderAuthor'
 
 import { resolveUrl } from '@utils/routing'
 import { SEO, authorSameAs } from '@meta/seo'

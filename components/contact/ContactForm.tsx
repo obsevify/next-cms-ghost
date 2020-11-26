@@ -16,7 +16,7 @@ interface ContactFormProps {
   serviceConfig: ServiceConfig
 }
 
-const ContactForm = ({ topics, serviceConfig }: ContactFormProps) => {
+export const ContactForm = ({ topics, serviceConfig }: ContactFormProps) => {
   const text = get(useLang())
   const [name, setNameError, clearName] = useInput('')
   const [email, setEmailError, clearEmail] = useInput('')
@@ -120,5 +120,3 @@ const ContactForm = ({ topics, serviceConfig }: ContactFormProps) => {
     </>
   )
 }
-
-export default ContactForm

@@ -18,7 +18,7 @@ interface NavigationProps {
   navClass?: string
 }
 
-const Navigation = ({ data, navClass }: NavigationProps) => {
+export const Navigation = ({ data, navClass }: NavigationProps) => {
   const items: ReactFragment[] = []
 
   data?.map((navItem, i) => {
@@ -49,5 +49,3 @@ const Navigation = ({ data, navClass }: NavigationProps) => {
     </ul>
   )
 }
-
-export default Navigation

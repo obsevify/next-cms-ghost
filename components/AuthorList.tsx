@@ -3,9 +3,8 @@ import Link from 'next/link'
 import { resolveUrl } from '@utils/routing'
 import { useLang, get } from '@utils/use-lang'
 
-import { HoverOnAvatar } from '@effects'
-
-import AvatarIcon from '@icons/avatar-icon'
+import { HoverOnAvatar } from '@components/effects/HoverOnAvatar'
+import { AvatarIcon } from '@icons/AvatarIcon'
 import { Author } from '@tryghost/content-api'
 
 interface AuthorListProps {
@@ -13,7 +12,7 @@ interface AuthorListProps {
   isPost?: boolean
 }
 
-const AuthorList = ({ authors, isPost }: AuthorListProps) => {
+export const AuthorList = ({ authors, isPost }: AuthorListProps) => {
   const text = get(useLang())
 
   return (
@@ -82,5 +81,3 @@ const AuthorList = ({ authors, isPost }: AuthorListProps) => {
     </ul>
   )
 }
-
-export default AuthorList

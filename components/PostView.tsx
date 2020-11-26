@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { PostItems } from '@components'
+import { PostItems } from '@components/PostItems'
 import { GhostPostsOrPages } from '@lib/ghost'
 
 interface PostViewProps {
@@ -8,7 +8,7 @@ interface PostViewProps {
   isHome?: boolean
 }
 
-class PostView extends React.Component<PostViewProps> {
+export class PostView extends React.Component<PostViewProps> {
   posts: GhostPostsOrPages
   isHome?: boolean
 
@@ -30,5 +30,3 @@ class PostView extends React.Component<PostViewProps> {
     )
   }
 }
-
-export default PostView

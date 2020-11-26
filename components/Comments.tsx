@@ -1,13 +1,11 @@
-import { Commento } from '@components'
+import { Commento } from '@components/Commento'
 
 interface CommentsProps {
   id: string
 }
 
-const Comments = ({ id }: CommentsProps) => (
+export const Comments = ({ id }: CommentsProps) => (
   <section>
     <Commento id={id} />
   </section>
 )
-
-export default Comments

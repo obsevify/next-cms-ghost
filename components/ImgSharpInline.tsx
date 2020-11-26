@@ -5,7 +5,7 @@ import { ComponentProps } from 'rehype-react'
 //  alt: string
 //}
 
-const ImgSharpInline = (props: ComponentProps) => {
+export const ImgSharpInline = (props: ComponentProps) => {
   console.log(props.node)
 
   const className = props.node?.className as string
@@ -15,5 +15,3 @@ const ImgSharpInline = (props: ComponentProps) => {
     <img className={className} alt={alt} />
   )
 }
-
-export default ImgSharpInline

@@ -35,7 +35,7 @@ const addActionClass = ({ className, action = `ssr`, success }: AddActionClassPr
   )
 }
 
-const DocumentHead = ({ site, className }: DocumentHeadProps) => {
+export const DocumentHead = ({ site, className }: DocumentHeadProps) => {
   const { getDark } = useTheme()
   const router = useRouter()
   const { action, success } = router.query
@@ -51,5 +51,3 @@ const DocumentHead = ({ site, className }: DocumentHeadProps) => {
     </Helmet>
   )
 }
-
-export default DocumentHead

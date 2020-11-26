@@ -1,7 +1,7 @@
-import TwitterIcon from './icons/twitter-icon'
-import FacebookIcon from './icons/facebook-icon'
+import { TwitterIcon } from '@icons/TwitterIcon'
+import { FacebookIcon } from '@icons/FacebookIcon'
 
-import { SocialRss } from '@components'
+import { SocialRss } from '@components/SocialRss'
 import { GhostSettings } from '@lib/ghost'
 
 interface SocialLinkProps {
@@ -9,7 +9,7 @@ interface SocialLinkProps {
   siteUrl: string
 }
 
-const SocialLinks = ({ site, siteUrl }: SocialLinkProps) => {
+export const SocialLinks = ({ site, siteUrl }: SocialLinkProps) => {
   const twitterUrl = site.twitter && `https://twitter.com/${site.twitter.replace(/^@/, ``)}`
   const facebookUrl = site.facebook && `https://www.facebook.com/${site.facebook.replace(/^\//, ``)}`
 
@@ -29,5 +29,3 @@ const SocialLinks = ({ site, siteUrl }: SocialLinkProps) => {
     </>
   )
 }
-
-export default SocialLinks

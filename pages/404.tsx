@@ -2,7 +2,9 @@
 import Link from 'next/link'
 import { GetStaticProps } from 'next'
 
-import { Layout, HeaderPage, PostCard } from '@components'
+import { Layout } from '@components/Layout'
+import { HeaderPage } from '@components/HeaderPage'
+import { PostCard } from '@components/PostCard'
 
 import { getPosts, getAllSettings, GhostSettings, GhostPostsOrPages } from '@lib/ghost'
 import { useLang, get } from '@utils/use-lang'

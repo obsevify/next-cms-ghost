@@ -8,7 +8,7 @@ interface StickyNavContainerProps {
   render: (arg: StickyNavContainer) => JSX.Element
 }
 
-export default class StickyNavContainer extends React.Component<StickyNavContainerProps> {
+export class StickyNavContainer extends React.Component<StickyNavContainerProps> {
   anchorRef: RefObject<HTMLDivElement>
   activeClass: string
   isPost: boolean

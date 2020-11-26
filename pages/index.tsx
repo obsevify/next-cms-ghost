@@ -1,9 +1,11 @@
 import { GetStaticProps } from 'next'
 import fs from 'fs'
 
-import { Layout, PostView, HeaderIndex } from '@components'
-import { StickyNavContainer } from '@effects'
-import { SEO } from '@meta'
+import { Layout } from '@components/Layout'
+import { PostView } from '@components/PostView'
+import { HeaderIndex }  from '@components/HeaderIndex'
+import { StickyNavContainer } from '@effects/StickyNavContainer'
+import { SEO } from '@meta/seo'
 
 import { getAllPosts, getAllSettings, GhostPostOrPage, GhostPostsOrPages, GhostSettings } from '@lib/ghost'
 import { seoImage, ISeoImage } from '@meta/seoImage'

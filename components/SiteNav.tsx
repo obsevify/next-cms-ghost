@@ -1,4 +1,7 @@
-import { Navigation, SocialLinks, DarkMode, SubscribeButton } from '@components'
+import { Navigation } from '@components/Navigation'
+import { SocialLinks } from '@components/SocialLinks'
+import { DarkMode } from '@components/DarkMode'
+import { SubscribeButton } from '@components/SubscribeButton'
 import { useLang, get } from '@utils/use-lang'
 import { GhostSettings, NavItem } from '@lib/ghost'
 import { siteUrl, customNavigation } from '@siteConfig'
@@ -10,7 +13,7 @@ export interface SiteNavProps {
   postTitle?: string
 }
 
-const SiteNav = ({ settings, className, postTitle }: SiteNavProps) => {
+export const SiteNav = ({ settings, className, postTitle }: SiteNavProps) => {
   const text = get(useLang())
   const config: {
     overwriteNavigation: NavItem[]
@@ -78,5 +81,3 @@ const SiteNav = ({ settings, className, postTitle }: SiteNavProps) => {
     </nav>
   )
 }
-
-export default SiteNav

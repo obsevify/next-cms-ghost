@@ -6,8 +6,8 @@ import { readingTime as readingTimeHelper } from '@lib/readingTime'
 import { resolveUrl } from '@utils/routing'
 import { useLang, get } from '@utils/use-lang'
 
-import { AuthorList } from '@components'
-import { PostClass } from '@helpers'
+import { AuthorList } from '@components/AuthorList'
+import { PostClass } from '@helpers/PostClass'
 import { collections } from '@lib/collections'
 import { nextImages } from '@siteOptions'
 import { imageQuality } from '@mediaConfig'
@@ -19,7 +19,7 @@ interface PostCardProps {
   isHome?: boolean
 }
 
-const PostCard = ({ post, num, isHome }: PostCardProps) => {
+export const PostCard = ({ post, num, isHome }: PostCardProps) => {
   const text = get(useLang())
   const collectionPath = collections.getCollectionByNode(post)
   const url = resolveUrl({ collectionPath, slug: post.slug, url: post.url })
@@ -93,5 +93,3 @@ const PostCard = ({ post, num, isHome }: PostCardProps) => {
     </article >
   )
 }
-
-export default PostCard

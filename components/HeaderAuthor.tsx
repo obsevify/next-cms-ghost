@@ -1,7 +1,8 @@
-import { SiteNav, HeaderBackground } from '.'
+import { SiteNav } from '@components/SiteNav'
+import { HeaderBackground } from '@components/HeaderBackground'
 import { useLang, get } from '@utils/use-lang'
 
-import AvatarIcon from '@icons/avatar-icon'
+import { AvatarIcon } from '@icons/AvatarIcon'
 import { GhostSettings } from '@lib/ghost'
 import { Author } from '@tryghost/content-api'
 
@@ -10,7 +11,7 @@ interface HeaderAuthorProps {
   author: Author
 }
 
-const HeaderAuthor = ({ settings, author }: HeaderAuthorProps) => {
+export const HeaderAuthor = ({ settings, author }: HeaderAuthorProps) => {
   const text = get(useLang())
   const twitterUrl = author.twitter ? `https://twitter.com/${author.twitter.replace(/^@/, ``)}` : null
   const facebookUrl = author.facebook ? `https://www.facebook.com/${author.facebook.replace(/^\//, ``)}` : null
@@ -72,5 +73,3 @@ const HeaderAuthor = ({ settings, author }: HeaderAuthorProps) => {
     </header>
   )
 }
-
-export default HeaderAuthor

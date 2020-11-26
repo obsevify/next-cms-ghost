@@ -8,7 +8,7 @@ interface BodyClassProps {
   page?: PostOrPage
 }
 
-const BodyClass = ({ isHome, isPost, author, tags, page }: BodyClassProps) => {
+export const BodyClass = ({ isHome, isPost, author, tags, page }: BodyClassProps) => {
   let classes = []
 
   const isAuthor = author && author.slug || false
@@ -43,5 +43,3 @@ const BodyClass = ({ isHome, isPost, author, tags, page }: BodyClassProps) => {
 
   return classes.join(` `).trim()
 }
-
-export default BodyClass

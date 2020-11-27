@@ -34,7 +34,7 @@ export const PostCard = ({ post, num, isHome }: PostCardProps) => {
     <article className={`post-card ${postClass} ${large}`}>
       { featImg && (
         <Link href={url}>
-          <a className="post-card-image-link">
+          <a className="post-card-image-link" aria-label={post.title}>
             {nextImages ? (
               <div className="post-card-image">
                 <Image

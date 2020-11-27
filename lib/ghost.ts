@@ -197,10 +197,11 @@ export async function getPageBySlug(slug: string): Promise<GhostPostOrPage | nul
 
 // specific data by author/tag slug
 export async function getPostsByAuthor(slug: string): Promise<GhostPostsOrPages> {
-  return await api.posts.browse({
+  const posts = await api.posts.browse({
     ...postAndPageFetchOptions,
     filter: `authors.slug:${slug}`,
   })
+  return await createNextFeatureImages(posts)
 }
 
 export async function getPostsByTag(slug: string, limit?: number, excludeId?: string): Promise<GhostPostsOrPages> {

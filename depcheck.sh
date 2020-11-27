@@ -26,7 +26,11 @@ cat ./styles/dark-mode.css \
 cat ./styles/screen.css compare/dark-mode.css \
   | sed 's/html\.casper {/html {/g' \
   | sed 's/html\.casper //g' \
+  | sed 's/color-mod(var(--midgrey) l(-8%));/var(--midgrey);/g' \
+  | sed 's/color-mod(var(--midgrey) l(-7%));/color-mod(var(--midgrey) l(+10%));/g' \
   > compare/screen-used.css
+
+
 
 cat compare/screen.css \
   | sed '/@media (prefers-color-scheme: dark) {/d' \

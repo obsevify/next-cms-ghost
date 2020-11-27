@@ -692,7 +692,7 @@ html.casper .post-card-content {
 
 html.casper .post-card-excerpt {
     max-width: 56em;
-    color: var(--midgrey);
+    color: color-mod(var(--midgrey) l(-8%));
     font-family: Georgia, serif;
 }
 
@@ -782,7 +782,7 @@ html.casper .post-card-byline-content {
     display: flex;
     flex-direction: column;
     margin: 2px 0 0 6px;
-    color: color-mod(var(--midgrey) l(+10%));
+    color: color-mod(var(--midgrey) l(-7%));
     font-size: 1.2rem;
     line-height: 1.4em;
     font-weight: 400;

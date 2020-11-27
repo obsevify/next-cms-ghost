@@ -20,7 +20,7 @@ const maxRetries = 50
 const read_timeout = 3000 // ms
 const response_timeout = 3000 // ms
 
-interface Dimensions {
+export interface Dimensions {
   width: number
   height: number
 }

@@ -30,12 +30,13 @@ export const normalizePost = async (post: PostOrPage, cmsUrl: string | undefined
   const toc = tableOfContents(htmlAst)
 
   // image meta
-  const featureImageMeta = await imageDimensions(post.feature_image)
+  const url = post.feature_image
+  const dimensions = await imageDimensions(url)
 
   return {
     ...post,
     htmlAst,
-    featureImageMeta,
+    featureImage: url && dimensions && { url, dimensions } || undefined,
     toc
   }
 }

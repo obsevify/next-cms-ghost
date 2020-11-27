@@ -46,8 +46,7 @@ export const Post = ({ cmsData }: PostProps) => {
 
   const text = get(useLang())
   const readingTime = readingTimeHelper(post).replace(`min read`, text(`MIN_READ`))
-  const featImg = post.feature_image
-  const dimensions = post.featureImageMeta
+  const featImg = post.featureImage
   const postClass = PostClass({ tags: post.tags, isFeatured: !!featImg, isImage: !!featImg })
 
   const htmlAst = post.htmlAst
@@ -116,10 +115,10 @@ export const Post = ({ cmsData }: PostProps) => {
                 </header>
 
                 {featImg && (
-                  nextImages && dimensions ? (
+                  nextImages && featImg.dimensions ? (
                     <figure className="post-full-image" style={{ display: 'inherit' }}>
                       <Image
-                        src={featImg}
+                        src={featImg.url}
                         alt={post.title}
                         quality={imageQuality}
                         layout="responsive"
@@ -130,14 +129,14 @@ export const Post = ({ cmsData }: PostProps) => {
                               (max-width: 1170px) 1170px,
                               (max-width: 2110px) 2110px, 2000px
                             `}
-                        {...dimensions}
+                        {...featImg.dimensions}
                       />
                     </figure>
-                  ) : (
-                      <figure className="post-full-image">
-                        <img src={featImg} alt={post.title} />
-                      </figure>
-                    )
+                  ) : (post.feature_image && (
+                    <figure className="post-full-image">
+                      <img src={post.feature_image} alt={post.title} />
+                    </figure>
+                  ))
                 )}
 
                 <section className="post-full-content">

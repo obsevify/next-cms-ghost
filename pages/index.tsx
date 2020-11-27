@@ -3,7 +3,7 @@ import fs from 'fs'
 
 import { Layout } from '@components/Layout'
 import { PostView } from '@components/PostView'
-import { HeaderIndex }  from '@components/HeaderIndex'
+import { HeaderIndex } from '@components/HeaderIndex'
 import { StickyNavContainer } from '@effects/StickyNavContainer'
 import { SEO } from '@meta/seo'
 
@@ -38,7 +38,7 @@ export default function Index({ cmsData }: IndexProps) {
 
   return (
     <>
-      <SEO {...{settings, seoImage }} />
+      <SEO {...{ settings, seoImage }} />
       <StickyNavContainer
         throttle={300}
         activeClass="fixed-nav-active"
@@ -59,7 +59,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   try {
     settings = await getAllSettings()
-    posts = await getAllPosts(true)
+    posts = await getAllPosts()
   } catch (error) {
     throw new Error('Index creation failed.')
   }

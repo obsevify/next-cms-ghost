@@ -43,7 +43,7 @@ export function Contact({ cmsData }: PageProps) {
   const { page, previewPosts, settings, seoImage } = cmsData
   const { meta_title, meta_description } = page
 
-  const featImg = page.feature_image
+  const featImg = page.featureImage
   const postClass = PostClass({ tags: page.tags, isPage: page && true, isImage: !!featImg })
   //const htmlAst = page.htmlAst
   //if (htmlAst === undefined) throw Error('Page.tsx: htmlAst must be defined.')
@@ -65,7 +65,7 @@ export function Contact({ cmsData }: PageProps) {
 
             {featImg &&
               <figure className="post-full-image">
-                <img src={featImg} alt={page.title} />
+                <img src={featImg.url} alt={page.title} />
               </figure>
             }
 

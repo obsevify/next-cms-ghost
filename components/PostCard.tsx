@@ -23,12 +23,11 @@ export const PostCard = ({ post, num, isHome }: PostCardProps) => {
   const text = get(useLang())
   const collectionPath = collections.getCollectionByNode(post)
   const url = resolveUrl({ collectionPath, slug: post.slug, url: post.url })
-  const featImg = post.feature_image
+  const featImg = post.featureImage
   const readingTime = readingTimeHelper(post).replace(`min read`, text(`MIN_READ`))
   const postClass = PostClass({ tags: post.tags, isFeatured: post.featured, isImage: !!featImg })
   const large = (featImg && isHome && num !== undefined && 0 === num % 6 && `post-card-large`) || ``
   const authors = post?.authors?.filter((_, i) => (i < 2 ? true : false))
-  //const dimensions = post.featureImageMeta
 
   return (
     <article className={`post-card ${postClass} ${large}`}>
@@ -38,7 +37,7 @@ export const PostCard = ({ post, num, isHome }: PostCardProps) => {
             {nextImages ? (
               <div className="post-card-image">
                 <Image
-                  src={featImg}
+                  src={featImg.url}
                   alt={post.title}
                   sizes="(max-width: 640px) 320px, (max-width: 1000px) 500px, 680px"
                   layout="fill"
@@ -46,9 +45,9 @@ export const PostCard = ({ post, num, isHome }: PostCardProps) => {
                   quality={imageQuality}
                 />
               </div>
-            ) : (
-                <img className="post-card-image" src={featImg} alt={post.title} />
-              )}
+            ) : (post.feature_image && (
+              <img className="post-card-image" src={post.feature_image} alt={post.title} />
+            ))}
           </a>
         </Link>
       )}

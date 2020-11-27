@@ -69,8 +69,8 @@ export const SEO = (props: SEOProps) => {
       {twitter && <meta property="twitter:site" content={`https://twitter.com/${twitter.replace(/^@/, ``)}/`} />}
       {seoImage && <meta name="twitter:image" content={seoImage.url} />}
       {seoImage && <meta property="og:image" content={seoImage.url} />}
-      {seoImage && <meta property="og:image:width" content={`${seoImage.width}`} />}
-      {seoImage && <meta property="og:image:height" content={`${seoImage.height}`} />}
+      {seoImage && <meta property="og:image:width" content={`${seoImage.dimensions.width}`} />}
+      {seoImage && <meta property="og:image:height" content={`${seoImage.dimensions.height}`} />}
       <script type="application/ld+json">{JSON.stringify(jsonLd, undefined, 4)}</script>
     </Head>
   )
@@ -102,8 +102,7 @@ const getJsonLd = ({ title, description, canonical, seoImage, settings, sameAs, 
       ...seoImage && {
         '@type': `ImageObject`,
         url: seoImage.url,
-        width: seoImage.width,
-        height: seoImage.height,
+        ...seoImage.dimensions,
       }
     },
     publisher: {

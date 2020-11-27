@@ -80,8 +80,11 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     contactPage = { ...defaultPage, ...customPage }
     isContactPage = contactPage?.slug === slug
     if (!isContactPage) contactPage = null
-    if (contactPage?.feature_image) {
-      contactPage.featureImageMeta = await imageDimensions(contactPage.feature_image)
+
+    const url = contactPage?.feature_image
+    if (!contactPage?.featureImage && contactPage && url) {
+      const dimensions = await imageDimensions(url)
+      if (dimensions) contactPage.featureImage = { url, dimensions }
     }
   }
   if (!post && !page && !isContactPage) throw new Error(`Expected post or page for slug: ${slug}`)
@@ -105,7 +108,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     nextPost = nextSlug && await getPostBySlug(nextSlug) || null
   }
 
-  const imageUrl =  (post || contactPage || page)?.feature_image || undefined
+  const imageUrl = (post || contactPage || page)?.feature_image || undefined
   const image = await seoImage({ imageUrl })
 
   return {
@@ -129,7 +132,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const posts = await getAllPosts()
   const pages = await getAllPages()
 
-  const postRoutes = posts.map(post => {
+  const postRoutes = (posts as GhostPostsOrPages).map(post => {
     const collectionPath = collections.getCollectionByNode(post)
     const { slug, url } = post
     return resolveUrl({ collectionPath, slug, url })
@@ -142,9 +145,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
     contactPageRoute = resolveUrl({ slug, url })
   }
 
-  const customPages = contactPageRoute && [contactPageRoute] || []
-  const pageRoutes = pages.map(({ slug, url }) => resolveUrl({ slug, url }))
-  const paths = [...postRoutes, ...pageRoutes, ...customPages]
+  const customRoutes = contactPageRoute && [contactPageRoute] || []
+  const pageRoutes = (pages as GhostPostsOrPages).map(({ slug, url }) => resolveUrl({ slug, url }))
+  const paths = [...postRoutes, ...pageRoutes, ...customRoutes]
 
   return {
     paths,

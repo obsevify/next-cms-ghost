@@ -1,4 +1,3 @@
-import { Author } from '@tryghost/content-api'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import { Layout } from '@components/Layout'
 import { PostView } from '@components/PostView'
@@ -7,7 +6,7 @@ import { HeaderAuthor } from '@components/HeaderAuthor'
 import { resolveUrl } from '@utils/routing'
 import { SEO, authorSameAs } from '@meta/seo'
 
-import { getAuthorBySlug, getAllAuthors, getAllSettings, getPostsByAuthor, GhostSettings, GhostPostOrPage, GhostPostsOrPages } from '@lib/ghost'
+import { getAuthorBySlug, getAllAuthors, getAllSettings, getPostsByAuthor, GhostSettings, GhostPostOrPage, GhostPostsOrPages, GhostAuthor } from '@lib/ghost'
 import { ISeoImage, seoImage } from '@meta/seoImage'
 
 /**
@@ -17,7 +16,7 @@ import { ISeoImage, seoImage } from '@meta/seoImage'
  *
  */
 interface CmsData {
-  author: Author
+  author: GhostAuthor
   posts: GhostPostsOrPages
   seoImage: ISeoImage
   previewPosts?: GhostPostsOrPages

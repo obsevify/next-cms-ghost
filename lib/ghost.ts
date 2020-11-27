@@ -33,7 +33,7 @@ export interface GhostTag extends Tag {
 }
 
 export interface GhostAuthor extends Author {
-  featureImage?: NextImage
+  profileImage?: NextImage
 }
 
 export interface GhostPostOrPage extends PostOrPage {
@@ -156,11 +156,17 @@ export async function getTagBySlug(slug: string): Promise<Tag> {
     slug,
   })
 }
-export async function getAuthorBySlug(slug: string): Promise<Author> {
-  return await api.authors.read({
+export async function getAuthorBySlug(slug: string): Promise<GhostAuthor> {
+  const author = await api.authors.read({
     ...tagAndAuthorFetchOptions,
     slug,
   })
+  const profileImage = await createNextImage(author.profile_image)
+  const result = {
+    ...author,
+    ...profileImage && { profileImage },
+  }
+  return result
 }
 
 export async function getPostBySlug(slug: string): Promise<GhostPostOrPage | null> {

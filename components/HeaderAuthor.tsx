@@ -1,14 +1,17 @@
+import Image from 'next/image'
+
 import { SiteNav } from '@components/SiteNav'
 import { HeaderBackground } from '@components/HeaderBackground'
 import { useLang, get } from '@utils/use-lang'
 
 import { AvatarIcon } from '@icons/AvatarIcon'
-import { GhostSettings } from '@lib/ghost'
-import { Author } from '@tryghost/content-api'
+import { GhostAuthor, GhostSettings } from '@lib/ghost'
+import { nextImages } from '@siteOptions'
+import { imageQuality } from '@mediaConfig'
 
 interface HeaderAuthorProps {
   settings: GhostSettings
-  author: Author
+  author: GhostAuthor
 }
 
 export const HeaderAuthor = ({ settings, author }: HeaderAuthorProps) => {
@@ -17,7 +20,7 @@ export const HeaderAuthor = ({ settings, author }: HeaderAuthorProps) => {
   const facebookUrl = author.facebook ? `https://www.facebook.com/${author.facebook.replace(/^\//, ``)}` : null
 
   const coverImg = author.cover_image || ''
-  const profileImg = author.profile_image
+  const profileImg = author.profileImage
 
   const numberOfPosts = author.count?.posts
 
@@ -31,13 +34,25 @@ export const HeaderAuthor = ({ settings, author }: HeaderAuthorProps) => {
       <HeaderBackground srcImg={coverImg}>
         <div className="inner">
           <div className="site-header-content author-header">
-            {profileImg ? (
-              <img className="author-profile-image" src={profileImg} alt={author.name} />
+            {profileImg && nextImages ? (
+              <div className="author-profile-image">
+                <Image
+                  className="author-profile-image"
+                  src={profileImg.url}
+                  alt={author.name}
+                  layout="responsive"
+                  quality={imageQuality}
+                  {...profileImg.dimensions}
+                />
+              </div>
+            ) : (author.profile_image ? (
+              <img className="author-profile-image" src={author.profile_image} alt={author.name} />
             ) : (
                 <div className="author-profile-image">
                   <AvatarIcon />
                 </div>
-              )}
+              ))
+            }
             <div className="author-header-content">
               <h1 className="site-title">{author.name}</h1>
               {author.bio && <h2 className="author-bio">{author.bio}</h2>}

@@ -36,7 +36,7 @@ A Next.js app for creating blogs from headless content managment systems (CMS).
 
 ## Performance
 
-![Lighthouse Score](https://static.gotsby.org/v1/assets/images/jamify-lh-scores.gif)
+![Lighthouse Score](https://static.gotsby.org/v1/assets/images/jamify-lh-scores-light.gif)
 
 <sup>Scores calculated with Lighthouse 6.4.0.</sup>
 

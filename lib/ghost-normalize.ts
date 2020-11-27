@@ -5,12 +5,18 @@ import { cloneDeep } from 'lodash'
 import refractor from 'refractor'
 import nodeToString from 'hast-util-to-string'
 import { prism, prismIgnoreMissing, toc } from '@appConfig'
-import { PostOrPage } from '@tryghost/content-api'
+import { Author, PostOrPage } from '@tryghost/content-api'
 import { imageDimensions } from '@lib/images'
 import { generateTableOfContents } from '@lib/toc'
-import { GhostPostOrPage } from './ghost'
+import { GhostPostOrPage, createNextImage } from './ghost'
 
 const rehype = Rehype().use({ settings: { fragment: true, space: `html`, emitParseErrors: false, verbose: false } })
+
+async function createNextProfileImages(nodes: Author[] | undefined): Promise<Author[] | undefined> {
+  if (!nodes) return undefined
+  const images = await Promise.all(nodes.map(node => createNextImage(node.profile_image)))
+  return nodes.map((node, i) => ({ ...node, ...images[i] && { profileImage: images[i] } }))
+}
 
 export const normalizePost = async (post: PostOrPage, cmsUrl: string | undefined, basePath?: string): Promise<GhostPostOrPage> => {
   if (!cmsUrl) throw Error('ghost-normalize.ts: cmsUrl expected.')
@@ -33,8 +39,12 @@ export const normalizePost = async (post: PostOrPage, cmsUrl: string | undefined
   const url = post.feature_image
   const dimensions = await imageDimensions(url)
 
+  // author images
+  const authors = await createNextProfileImages(post.authors)
+
   return {
     ...post,
+    authors,
     htmlAst,
     featureImage: url && dimensions && { url, dimensions } || undefined,
     toc

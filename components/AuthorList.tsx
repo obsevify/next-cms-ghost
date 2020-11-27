@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 
 import { resolveUrl } from '@utils/routing'
@@ -5,10 +6,13 @@ import { useLang, get } from '@utils/use-lang'
 
 import { HoverOnAvatar } from '@components/effects/HoverOnAvatar'
 import { AvatarIcon } from '@icons/AvatarIcon'
-import { Author } from '@tryghost/content-api'
+import { GhostAuthor } from '@lib/ghost'
+
+import { nextImages } from '@siteOptions'
+import { imageQuality } from '@mediaConfig'
 
 interface AuthorListProps {
-  authors?: Author[]
+  authors?: GhostAuthor[]
   isPost?: boolean
 }
 
@@ -19,7 +23,7 @@ export const AuthorList = ({ authors, isPost }: AuthorListProps) => {
     <ul className="author-list">
       {authors?.map((author, i) => {
         const url = resolveUrl({ slug: author.slug, url: author.url || undefined })
-        const profileImg = author.profile_image || ''
+        const profileImg = author.profileImage
 
         return (
           <HoverOnAvatar
@@ -31,7 +35,17 @@ export const AuthorList = ({ authors, isPost }: AuthorListProps) => {
                 {isPost && (
                   <div className={`author-card ${hover.state.currentClass}`}>
                     <div className="author-profile-image">
-                      <img src={profileImg} alt={author.name} />
+                      {profileImg && nextImages ? (
+                        <Image
+                          src={profileImg.url}
+                          alt={author.name}
+                          layout="responsive"
+                          quality={imageQuality}
+                          {...profileImg.dimensions}
+                        />
+                      ) : (author.profile_image && (
+                        <img src={author.profile_image} alt={author.name} />
+                      ))}
                     </div>
                     <div className="author-info">
                       {author.bio ? (
@@ -60,24 +74,34 @@ export const AuthorList = ({ authors, isPost }: AuthorListProps) => {
                     </div>
                   </div>
                 )}
-                {profileImg ? (
-                  <Link href={url}>
+                <Link href={url}>
+                  {profileImg && nextImages ? (
                     <a className={`${(isPost && `author`) || `static`}-avatar`}>
-                      <img src={profileImg} alt={author.name} />
+                      <Image
+                        src={profileImg.url}
+                        alt={author.name}
+                        layout="responsive"
+                        quality={imageQuality}
+                        {...profileImg.dimensions}
+                      />
                     </a>
-                  </Link>
-                ) : (
-                    <Link href={url}>
+                  ) : (author.profile_image ? (
+                    <a className={`${(isPost && `author`) || `static`}-avatar`}>
+                      <img src={author.profile_image} alt={author.name} />
+                    </a>
+                  ) : (
                       <a className={`${(isPost && `author`) || `static`}-avatar author-profile-image`}>
                         <AvatarIcon />
                       </a>
-                    </Link>
-                  )}
+                    ))
+                  }
+                </Link>
               </li>
-            )}
+            )
+            }
           />
         )
       })}
-    </ul>
+    </ul >
   )
 }

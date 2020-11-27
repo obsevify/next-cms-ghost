@@ -1,3 +1,5 @@
+import Image from 'next/image'
+
 import { HeaderPage } from '@components/HeaderPage'
 import { Layout } from '@components/Layout'
 import { RenderContent } from '@components/RenderContent'
@@ -7,6 +9,9 @@ import { SEO } from '@meta/seo'
 
 import { GhostPostOrPage, GhostSettings } from '@lib/ghost'
 import { ISeoImage } from '@meta/seoImage'
+
+import { nextImages } from '@siteOptions'
+import { imageQuality } from '@mediaConfig'
 
 /**
  * Single page (/:slug)
@@ -43,9 +48,28 @@ export const Page = ({ cmsData }: PageProps) => {
             </header>
 
             {featImg && (
-              <figure className="post-full-image">
-                <img src={featImg.url} alt={page.title} />
-              </figure>
+              nextImages && featImg.dimensions ? (
+                <figure className="post-full-image" style={{ display: 'inherit' }}>
+                  <Image
+                    src={featImg.url}
+                    alt={page.title}
+                    quality={imageQuality}
+                    layout="responsive"
+                    sizes={`
+                              (max-width: 350px) 350px,
+                              (max-width: 530px) 530px,
+                              (max-width: 710px) 710px,
+                              (max-width: 1170px) 1170px,
+                              (max-width: 2110px) 2110px, 2000px
+                            `}
+                    {...featImg.dimensions}
+                  />
+                </figure>
+              ) : (page.feature_image && (
+                <figure className="post-full-image">
+                  <img src={page.feature_image} alt={page.title} />
+                </figure>
+              ))
             )}
 
             {/* The main page content */}

@@ -1,3 +1,5 @@
+import Image from 'next/image'
+
 import DefaultErrorPage from 'next/error'
 import Head from 'next/head'
 import { contactPage } from '@appConfig'
@@ -12,6 +14,9 @@ import { SEO } from '@meta/seo'
 
 import { GhostPostOrPage, GhostPostsOrPages, GhostSettings } from '@lib/ghost'
 import { ISeoImage } from '@meta/seoImage'
+
+import { nextImages } from '@siteOptions'
+import { imageQuality } from '@mediaConfig'
 
 interface ContactPage extends GhostPostOrPage {
   form_topics: string[]
@@ -63,11 +68,30 @@ export function Contact({ cmsData }: PageProps) {
               }
             </header>
 
-            {featImg &&
-              <figure className="post-full-image">
-                <img src={featImg.url} alt={page.title} />
-              </figure>
-            }
+            {featImg && (
+              nextImages && featImg.dimensions ? (
+                <figure className="post-full-image" style={{ display: 'inherit' }}>
+                  <Image
+                    src={featImg.url}
+                    alt={page.title}
+                    quality={imageQuality}
+                    layout="responsive"
+                    sizes={`
+                              (max-width: 350px) 350px,
+                              (max-width: 530px) 530px,
+                              (max-width: 710px) 710px,
+                              (max-width: 1170px) 1170px,
+                              (max-width: 2110px) 2110px, 2000px
+                            `}
+                    {...featImg.dimensions}
+                  />
+                </figure>
+              ) : (page.feature_image && (
+                <figure className="post-full-image">
+                  <img src={page.feature_image} alt={page.title} />
+                </figure>
+              ))
+            )}
 
             <section className="post-full-content">
 

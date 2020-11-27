@@ -14,6 +14,7 @@ wget -q -P compare -N ${github}/${repo}/${branch}/assets/css/screen.css
 cat ./styles/global.css \
   | sed 's/html\.casper {/html {/g' \
   | sed 's/html\.casper //g' \
+  | sed 's/#0078d0/#3eb0ef/g' \
   > compare/global-used.css
 
 cat ./styles/dark-mode.css \

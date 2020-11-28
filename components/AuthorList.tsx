@@ -76,7 +76,7 @@ export const AuthorList = ({ authors, isPost }: AuthorListProps) => {
                 )}
                 <Link href={url}>
                   {profileImg && nextImages ? (
-                    <a className={`${(isPost && `author`) || `static`}-avatar`}>
+                    <a className={`${(isPost && `author`) || `static`}-avatar`} aria-label={author.name}>
                       <Image
                         src={profileImg.url}
                         alt={author.name}
@@ -86,7 +86,7 @@ export const AuthorList = ({ authors, isPost }: AuthorListProps) => {
                       />
                     </a>
                   ) : (author.profile_image ? (
-                    <a className={`${(isPost && `author`) || `static`}-avatar`}>
+                    <a className={`${(isPost && `author`) || `static`}-avatar`} aria-label={author.name}>
                       <img src={author.profile_image} alt={author.name} />
                     </a>
                   ) : (

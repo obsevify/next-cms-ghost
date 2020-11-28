@@ -8,15 +8,9 @@ import { prism, prismIgnoreMissing, toc } from '@appConfig'
 import { Author, PostOrPage } from '@tryghost/content-api'
 import { imageDimensions } from '@lib/images'
 import { generateTableOfContents } from '@lib/toc'
-import { GhostPostOrPage, createNextImage } from './ghost'
+import { GhostPostOrPage, createNextProfileImagesFromAuthors } from './ghost'
 
 const rehype = Rehype().use({ settings: { fragment: true, space: `html`, emitParseErrors: false, verbose: false } })
-
-async function createNextProfileImages(nodes: Author[] | undefined): Promise<Author[] | undefined> {
-  if (!nodes) return undefined
-  const images = await Promise.all(nodes.map(node => createNextImage(node.profile_image)))
-  return nodes.map((node, i) => ({ ...node, ...images[i] && { profileImage: images[i] } }))
-}
 
 export const normalizePost = async (post: PostOrPage, cmsUrl: string | undefined, basePath?: string): Promise<GhostPostOrPage> => {
   if (!cmsUrl) throw Error('ghost-normalize.ts: cmsUrl expected.')
@@ -40,7 +34,7 @@ export const normalizePost = async (post: PostOrPage, cmsUrl: string | undefined
   const dimensions = await imageDimensions(url)
 
   // author images
-  const authors = await createNextProfileImages(post.authors)
+  const authors = await createNextProfileImagesFromAuthors(post.authors)
 
   return {
     ...post,

@@ -31,8 +31,8 @@ A Next.js app for creating blogs from headless content managment systems (CMS).
 ## ToDo
 
 - [ ] Next.js inline images
-- [ ] Incremental Regeneration
 - [ ] Preview
+- [ ] Incremental Regeneration
 
 ## Performance
 

@@ -99,6 +99,19 @@ async function createNextProfileImages(nodes: BrowseResults<Author>): Promise<Gh
   return Object.assign(results, { meta })
 }
 
+export async function createNextProfileImagesFromAuthors(nodes: Author[] | undefined): Promise<Author[] | undefined> {
+  if (!nodes) return undefined
+  const images = await Promise.all(nodes.map(node => createNextImage(node.profile_image)))
+  return nodes.map((node, i) => ({ ...node, ...images[i] && { profileImage: images[i] } }))
+}
+
+async function createNextProfileImagesFromPosts(nodes: BrowseResults<PostOrPage>): Promise<PostsOrPages> {
+  const { meta } = nodes
+  const authors = await Promise.all(nodes.map(node => createNextProfileImagesFromAuthors(node.authors)))
+  const results = nodes.map((node, i) => ({ ...node, ...authors[i] && { authors: authors[i] } }))
+  return Object.assign(results, { meta })
+}
+
 // all data (images: icon (png), logo (svg), cover_image (null | png))
 export async function getAllSettings(): Promise<GhostSettings> {
   //const cached = getCache<SettingsResponse>('settings')
@@ -133,7 +146,8 @@ export async function getAllPosts(): Promise<GhostPostsOrPages> {
     ...postAndPageFetchOptions,
     filter: excludePostOrPageBySlug()
   })
-  return await createNextFeatureImages(posts)
+  const results = await createNextProfileImagesFromPosts(posts)
+  return await createNextFeatureImages(results)
 }
 
 export async function getAllPostSlugs(): Promise<string[]> {

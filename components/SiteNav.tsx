@@ -1,11 +1,18 @@
+import Image from 'next/image'
+import Link from 'next/link'
+
 import { Navigation } from '@components/Navigation'
 import { SocialLinks } from '@components/SocialLinks'
 import { DarkMode } from '@components/DarkMode'
 import { SubscribeButton } from '@components/SubscribeButton'
 import { useLang, get } from '@utils/use-lang'
-import { GhostSettings, NavItem } from '@lib/ghost'
+import { GhostSettings, NavItem, NextImage } from '@lib/ghost'
 import { siteUrl, customNavigation } from '@siteConfig'
 import { memberSubscriptions } from '@appConfig'
+
+import { nextImages } from '@siteOptions'
+import { imageQuality } from '@mediaConfig'
+import { imageDimensions } from '@lib/images'
 
 export interface SiteNavProps {
   settings: GhostSettings
@@ -25,7 +32,7 @@ export const SiteNav = ({ settings, className, postTitle }: SiteNavProps) => {
   const site = settings
   const title = text(`SITE_TITLE`, site.title)
   const secondaryNav = site.secondary_navigation && 0 < site.secondary_navigation.length
-  const siteLogo = site.logo
+  const siteLogo = site.logoImage
 
   const navigation = site.navigation
 
@@ -46,19 +53,41 @@ export const SiteNav = ({ settings, className, postTitle }: SiteNavProps) => {
     config.addNavigation.map(item => urls?.indexOf(item.url) === -1 && navigation?.push(item))
   }
 
+  // targetHeight is coming from style .site-nav-logo img
+  const targetHeight = 21
+  const calcSiteLogoWidth = (image: NextImage, targetHeight: number) => {
+    const { width, height } = image.dimensions
+    return targetHeight * width / height
+  }
+
   return (
     <nav className={className}>
       <div className="site-nav-left-wrapper">
         <div className="site-nav-left">
-          {siteLogo ? (
-            <a className="site-nav-logo" href={siteUrl}>
-              <img src={siteLogo} alt={title} />
+          <Link href={siteUrl}>
+            <a className="site-nav-logo">
+              {siteLogo && nextImages ? (
+                <div style={{
+                  height: "${targetHeight}px",
+                  width: `${calcSiteLogoWidth(siteLogo, targetHeight)}px`
+                }}>
+                  <Image
+                    className="site-nav-logo"
+                    src={siteLogo.url}
+                    alt={title}
+                    layout="responsive"
+                    quality={imageQuality}
+                    {...siteLogo.dimensions}
+                  />
+                </div>
+              ) : (site.logo ? (
+                <img src={site.logo} alt={title} />
+              ) : (
+                  { title }
+                ))
+              }
             </a>
-          ) : (
-              <a className="site-nav-logo" href={siteUrl}>
-                {title}
-              </a>
-            )}
+          </Link>
           <div className="site-nav-content">
             <Navigation data={navigation} />
             {postTitle && <span className={`nav-post-title ${site.logo || `dash`}`}>{postTitle}</span>}

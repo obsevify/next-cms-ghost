@@ -25,6 +25,7 @@ interface BrowseResults<T> extends Array<T> {
 export interface GhostSettings extends SettingsResponse {
   secondary_navigation?: NavItem[]
   iconImage?: NextImage
+  logoImage?: NextImage
   coverImage?: NextImage
 }
 
@@ -112,7 +113,6 @@ async function createNextProfileImagesFromPosts(nodes: BrowseResults<PostOrPage>
   return Object.assign(results, { meta })
 }
 
-// all data (images: icon (png), logo (svg), cover_image (null | png))
 export async function getAllSettings(): Promise<GhostSettings> {
   //const cached = getCache<SettingsResponse>('settings')
   //if (cached) return cached
@@ -120,11 +120,13 @@ export async function getAllSettings(): Promise<GhostSettings> {
   settings.url = settings?.url?.replace(/\/$/, ``)
 
   const iconImage = await createNextImage(settings.icon)
+  const logoImage = await createNextImage(settings.logo) // svg
   const coverImage = await createNextImage(settings.cover_image)
 
   const result = {
     ...settings,
     ...iconImage && { iconImage },
+    ...logoImage && { logoImage },
     ...coverImage && { coverImage }
   }
   //setCache('settings', result)

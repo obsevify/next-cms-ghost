@@ -90,7 +90,7 @@ export const AuthorList = ({ authors, isPost }: AuthorListProps) => {
                       <img src={author.profile_image} alt={author.name} />
                     </a>
                   ) : (
-                      <a className={`${(isPost && `author`) || `static`}-avatar author-profile-image`}>
+                      <a className={`${(isPost && `author`) || `static`}-avatar author-profile-image`} aria-label={author.name}>
                         <AvatarIcon />
                       </a>
                     ))

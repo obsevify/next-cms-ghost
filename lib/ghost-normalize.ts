@@ -5,7 +5,8 @@ import { cloneDeep } from 'lodash'
 import refractor from 'refractor'
 import nodeToString from 'hast-util-to-string'
 import { prism, prismIgnoreMissing, toc } from '@appConfig'
-import { Author, PostOrPage } from '@tryghost/content-api'
+import { inlineImages } from '@mediaConfig'
+import { PostOrPage } from '@tryghost/content-api'
 import { imageDimensions } from '@lib/images'
 import { generateTableOfContents } from '@lib/toc'
 import { GhostPostOrPage, createNextProfileImagesFromAuthors } from './ghost'
@@ -20,11 +21,12 @@ export const normalizePost = async (post: PostOrPage, cmsUrl: string | undefined
     rewriteGhostLinks,
     rewriteRelativeLinks,
     syntaxHighlightWithPrismJS,
+    rewriteInlineImages
   ]
 
   let htmlAst = rehype.parse(post.html || '')
   for (const process of processors) {
-    htmlAst = process(htmlAst)
+    htmlAst = await process(htmlAst)
   }
 
   const toc = tableOfContents(htmlAst)
@@ -138,4 +140,27 @@ const syntaxHighlightWithPrismJS = (htmlAst: Node) => {
 const tableOfContents = (htmlAst: Node) => {
   if (!toc) return null
   return generateTableOfContents(htmlAst)
+}
+
+/**
+ * Rewrite img tags to be used with next/image
+ */
+
+const rewriteInlineImages = async (htmlAst: Node) => {
+  if (!inlineImages) return htmlAst
+
+  let nodes: Node[] = []
+
+  visit(htmlAst, { tagName: `img` }, (node: Node) => {
+    node.tagName = `Image`
+
+    const { src } = (node.properties as HTMLImageElement)
+    node.imageDimensions = imageDimensions(src)
+    nodes.push(node)
+  })
+
+  const dimensions = await Promise.all(nodes.map(node => node.imageDimensions))
+  nodes.map((node, i) => node.imageDimensions = dimensions[i])
+
+  return htmlAst
 }

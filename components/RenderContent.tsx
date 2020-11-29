@@ -4,13 +4,15 @@ import unified from 'unified'
 import { Node } from 'unist'
 
 import { NextLink } from '@components/NextLink'
+import { NextImage } from '@components/NextImage'
 
 const options = {
   createElement: React.createElement,
   Fragment: React.Fragment,
   passNode: true,
   components: {
-    Link: (props: ComponentProps) => <NextLink {...props} />
+    Link: (props: ComponentProps) => <NextLink {...props} />,
+    Image: (props: ComponentProps) => <NextImage {...props} />,
   }
 }
 

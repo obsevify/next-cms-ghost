@@ -4,12 +4,12 @@ import visit from 'unist-util-visit'
 import { cloneDeep } from 'lodash'
 import refractor from 'refractor'
 import nodeToString from 'hast-util-to-string'
-import { prism, prismIgnoreMissing, toc } from '@appConfig'
-import { inlineImages } from '@mediaConfig'
 import { PostOrPage } from '@tryghost/content-api'
 import { imageDimensions } from '@lib/images'
 import { generateTableOfContents } from '@lib/toc'
 import { GhostPostOrPage, createNextProfileImagesFromAuthors } from './ghost'
+
+import { prism, prismIgnoreMissing, toc, nextInlineImages } from '@appConfig'
 
 const rehype = Rehype().use({ settings: { fragment: true, space: `html`, emitParseErrors: false, verbose: false } })
 
@@ -147,7 +147,7 @@ const tableOfContents = (htmlAst: Node) => {
  */
 
 const rewriteInlineImages = async (htmlAst: Node) => {
-  if (!inlineImages) return htmlAst
+  if (!nextInlineImages) return htmlAst
 
   let nodes: Node[] = []
 

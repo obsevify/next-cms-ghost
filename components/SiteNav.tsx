@@ -10,9 +10,7 @@ import { GhostSettings, NavItem, NextImage } from '@lib/ghost'
 import { siteUrl, customNavigation } from '@siteConfig'
 import { memberSubscriptions } from '@appConfig'
 
-import { nextImages } from '@siteOptions'
-import { imageQuality } from '@mediaConfig'
-import { imageDimensions } from '@lib/images'
+import { imageQuality, nextFeatureImages } from '@appConfig'
 
 export interface SiteNavProps {
   settings: GhostSettings
@@ -66,7 +64,7 @@ export const SiteNav = ({ settings, className, postTitle }: SiteNavProps) => {
         <div className="site-nav-left">
           <Link href={siteUrl}>
             <a className="site-nav-logo">
-              {siteLogo && nextImages ? (
+              {siteLogo && nextFeatureImages ? (
                 <div style={{
                   height: "${targetHeight}px",
                   width: `${calcSiteLogoWidth(siteLogo, targetHeight)}px`

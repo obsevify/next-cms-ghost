@@ -15,8 +15,7 @@ import { SEO } from '@meta/seo'
 import { GhostPostOrPage, GhostPostsOrPages, GhostSettings } from '@lib/ghost'
 import { ISeoImage } from '@meta/seoImage'
 
-import { nextImages } from '@siteOptions'
-import { imageQuality } from '@mediaConfig'
+import { nextFeatureImages, imageQuality } from 'appConfig'
 
 interface ContactPage extends GhostPostOrPage {
   form_topics: string[]
@@ -69,7 +68,7 @@ export function Contact({ cmsData }: PageProps) {
             </header>
 
             {featImg && (
-              nextImages && featImg.dimensions ? (
+              nextFeatureImages && featImg.dimensions ? (
                 <figure className="post-full-image" style={{ display: 'inherit' }}>
                   <Image
                     src={featImg.url}

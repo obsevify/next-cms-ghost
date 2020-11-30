@@ -6,8 +6,7 @@ import { useLang, get } from '@utils/use-lang'
 
 import { AvatarIcon } from '@icons/AvatarIcon'
 import { GhostAuthor, GhostSettings } from '@lib/ghost'
-import { nextImages } from '@siteOptions'
-import { imageQuality } from '@mediaConfig'
+import { imageQuality, nextFeatureImages } from '@appConfig'
 
 interface HeaderAuthorProps {
   settings: GhostSettings
@@ -34,7 +33,7 @@ export const HeaderAuthor = ({ settings, author }: HeaderAuthorProps) => {
       <HeaderBackground srcImg={coverImg}>
         <div className="inner">
           <div className="site-header-content author-header">
-            {profileImg && nextImages ? (
+            {profileImg && nextFeatureImages ? (
               <div className="author-profile-image">
                 <Image
                   src={profileImg.url}

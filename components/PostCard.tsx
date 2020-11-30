@@ -9,8 +9,7 @@ import { useLang, get } from '@utils/use-lang'
 import { AuthorList } from '@components/AuthorList'
 import { PostClass } from '@helpers/PostClass'
 import { collections } from '@lib/collections'
-import { nextImages } from '@siteOptions'
-import { imageQuality } from '@mediaConfig'
+import { nextFeatureImages, imageQuality } from '@appConfig'
 import { GhostPostOrPage } from '@lib/ghost'
 
 interface PostCardProps {
@@ -34,7 +33,7 @@ export const PostCard = ({ post, num, isHome }: PostCardProps) => {
       { featImg && (
         <Link href={url}>
           <a className="post-card-image-link" aria-label={post.title}>
-            {nextImages ? (
+            {nextFeatureImages ? (
               <div className="post-card-image">
                 <Image
                   src={featImg.url}

@@ -6,8 +6,7 @@ import { HeaderBackground } from '@components/HeaderBackground'
 import { useLang, get } from '@utils/use-lang'
 import { GhostSettings, NextImage } from '@lib/ghost'
 
-import { nextImages } from '@siteOptions'
-import { imageQuality } from '@mediaConfig'
+import { imageQuality, nextFeatureImages } from '@appConfig'
 
 interface HeaderIndexProps {
   settings: GhostSettings
@@ -34,7 +33,7 @@ export const HeaderIndex = ({ settings }: HeaderIndexProps) => {
           <SiteNav className="site-nav"  {...{ settings }} />
           <div className="site-header-content" >
             <h1 className="site-title">
-              {siteLogo && nextImages ? (
+              {siteLogo && nextFeatureImages ? (
                 <Link href="/">
                   <a>
                     <div className="site-logo" style={{

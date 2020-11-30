@@ -10,8 +10,7 @@ import { SEO } from '@meta/seo'
 import { GhostPostOrPage, GhostSettings } from '@lib/ghost'
 import { ISeoImage } from '@meta/seoImage'
 
-import { nextImages } from '@siteOptions'
-import { imageQuality } from '@mediaConfig'
+import { imageQuality, nextFeatureImages } from '@appConfig'
 
 /**
  * Single page (/:slug)
@@ -48,7 +47,7 @@ export const Page = ({ cmsData }: PageProps) => {
             </header>
 
             {featImg && (
-              nextImages && featImg.dimensions ? (
+              nextFeatureImages && featImg.dimensions ? (
                 <figure className="post-full-image" style={{ display: 'inherit' }}>
                   <Image
                     src={featImg.url}

@@ -8,8 +8,7 @@ import { HoverOnAvatar } from '@components/effects/HoverOnAvatar'
 import { AvatarIcon } from '@icons/AvatarIcon'
 import { GhostAuthor } from '@lib/ghost'
 
-import { nextImages } from '@siteOptions'
-import { imageQuality } from '@mediaConfig'
+import { nextFeatureImages, imageQuality } from '@appConfig'
 
 interface AuthorListProps {
   authors?: GhostAuthor[]
@@ -35,7 +34,7 @@ export const AuthorList = ({ authors, isPost }: AuthorListProps) => {
                 {isPost && (
                   <div className={`author-card ${hover.state.currentClass}`}>
                     <div className="author-profile-image">
-                      {profileImg && nextImages ? (
+                      {profileImg && nextFeatureImages ? (
                         <Image
                           src={profileImg.url}
                           alt={author.name}
@@ -75,7 +74,7 @@ export const AuthorList = ({ authors, isPost }: AuthorListProps) => {
                   </div>
                 )}
                 <Link href={url}>
-                  {profileImg && nextImages ? (
+                  {profileImg && nextFeatureImages ? (
                     <a className={`${(isPost && `author`) || `static`}-avatar`} aria-label={author.name}>
                       <Image
                         src={profileImg.url}

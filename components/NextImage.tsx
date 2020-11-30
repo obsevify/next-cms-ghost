@@ -13,18 +13,11 @@ export const NextImage = (props: ComponentProps) => {
   const imageDimensions = node.imageDimensions as Dimensions
   const { src, className: classArray } = node.properties as PropertyProps
   const className = classArray?.join(' ')
-  //console.log(className)
 
   return (
-    <>
-      <div {...{ className }}>
-        <Image layout="responsive" src={src} {...{ className, ...imageDimensions }} />
-      </div>
-
-      <div {...{ className }}>
-        <img src={src} {...{ className }} />
-      </div>
-    </>
+    <div {...{ className }}>
+      <Image src={src} {...imageDimensions} objectFit="cover" />
+    </div>
   )
 }
 

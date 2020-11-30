@@ -22,10 +22,10 @@ import { SEO } from '@meta/seo'
 import { PostClass } from '@helpers/PostClass'
 import { GhostPostOrPage, GhostPostsOrPages, GhostSettings } from '@lib/ghost'
 import { collections } from '@lib/collections'
-import { imageQuality } from '@mediaConfig'
 
-import { nextImages } from '@siteOptions'
+import { nextFeatureImages, imageQuality } from '@appConfig'
 import { memberSubscriptions, commento, toc as optionsTOC } from '@appConfig'
+
 import { ISeoImage } from '@meta/seoImage'
 
 interface PostProps {
@@ -115,7 +115,7 @@ export const Post = ({ cmsData }: PostProps) => {
                 </header>
 
                 {featImg && (
-                  nextImages && featImg.dimensions ? (
+                  nextFeatureImages && featImg.dimensions ? (
                     <figure className="post-full-image" style={{ display: 'inherit' }}>
                       <Image
                         src={featImg.url}

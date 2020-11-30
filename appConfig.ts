@@ -6,6 +6,11 @@ export type DarkMode = 'dark' | 'light' | null
 export const defaultMode: DarkMode = 'light'
 export const overrideOS: boolean = true
 
+// Images
+export const imageQuality: number = 80
+export const nextFeatureImages: boolean = true
+export const nextInlineImages: boolean = true
+
 // RSS
 export const rssFeed: boolean = true
 

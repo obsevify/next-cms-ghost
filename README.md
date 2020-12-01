@@ -16,17 +16,25 @@ Create and publish flaring fast blogs with this Jamify blogging system. Powered 
 
 ## ✨ Features
 
-- Ghost CMS integration
-- Ghost Casper look & feel
-  - Infinite scroll
-  - Fully responsive
-  - Sticky navigation headers 
-  - Hover on author avatar
-  - Styled 404 page
-  - Preview Section in posts
-  - Sitemap
-  - RSS feed
-  - Member Subscriptions
+<details>
+<summary>Ghost CMS integration</summary>
+</details>
+<details>
+<summary>Ghost Casper look & feel</summary>
+<ul>
+  <li>Infinite scroll</li>
+  <li>Fully responsive</li>
+  <li>Sticky navigation headers</li>
+  <li>Hover on author avatar</li>
+  <li>Styled 404 page</li>
+  <li>Preview Section in posts</li>
+  <li>Sitemap</li>
+  <li>RSS feed</li>
+  <li>Member Subscriptions</li>
+</ul>
+</details>
+
+
 - Extened Casper Styles
   - Dark Mode
   - Featured posts pinned on top

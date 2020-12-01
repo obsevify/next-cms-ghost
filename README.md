@@ -168,15 +168,17 @@ For best SEO results it is strongly recommended to disable the default Ghost Han
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/styxlab/next-cms-ghost)
 
-## Contributions
-
-PRs are welcome! Consider contributing to this project if you want to make a better web.
-
 &nbsp;
 
 ## 💣 Reporting issues
 
 Please report all bugs and issues at [next-cms-ghost/issues](https://github.com/styxlab/next-cms-ghost/issues).
+
+&nbsp;
+
+## Contributing
+
+PRs are welcome! Consider contributing to this project if you want to make a better web.
 
 &nbsp;
 

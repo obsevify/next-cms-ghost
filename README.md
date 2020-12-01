@@ -31,12 +31,10 @@ A Next.js app for creating blogs from headless content managment systems (CMS).
 
 <details>
 <summary>Coming soon...</summary>
-<br>
 
 - [ ] Preview
-
+  
 - [ ] Incremental Regeneration
-
 </details>
 
 ## Performance

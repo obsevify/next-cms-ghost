@@ -21,7 +21,7 @@ Play with the [Demo](https://next.jamify.org/) to get a first impression.
 </details>
 <details>
 <summary>Ghost Casper look & feel</summary>
-<ul>
+<ul style="margin-top: 5px;">
   <li>Infinite scroll</li>
   <li>Fully responsive</li>
   <li>Sticky navigation headers</li>
@@ -36,7 +36,7 @@ Play with the [Demo](https://next.jamify.org/) to get a first impression.
 </details>
 <details>
 <summary>Extened Casper Styles ✨</summary>
-<ul>
+<ul style="margin-top: 5px;">
   <li>Dark Mode</li>
   <li>Featured posts pinned on top</li>
   <li>Table Of Contents</li>
@@ -46,7 +46,7 @@ Play with the [Demo](https://next.jamify.org/) to get a first impression.
 </details>
 <details>
 <summary>Images with Next/Images 🚀</summary>
-<ul>
+<ul style="margin-top: 5px;">
   <li>Feature and inline images</li>
   <li>auto optimized images</li>
   <li>No content shifts due to conistent placeholders</li>
@@ -54,14 +54,14 @@ Play with the [Demo](https://next.jamify.org/) to get a first impression.
 </details>
 <details>
 <summary>Andvanced Routing</summary>
-<ul>
+<ul style="margin-top: 5px;">
   <li>Auto detects custom paths</li>
   <li>Configurable collections</li>
 </ul>
 </details>
 <details>
 <summary>Developer friendly</summary>
-<ul>
+<ul style="margin-top: 5px;">
   <li>Truly open-source</li>
   <li>MIT licenced</li>
   <li>Easy to contribute</li>
@@ -70,14 +70,14 @@ Play with the [Demo](https://next.jamify.org/) to get a first impression.
 </details>
 <details>
 <summary>Integrated Plugins</summary>
-<ul>
+<ul style="margin-top: 5px;">
   <li>Commento</li>
   <li>Contact Page with built-in notification service</li>
 </ul>
 </details>
 <details>
 <summary>Coming soon...</summary>
-<ul>
+<ul style="margin-top: 5px;">
   <li>Preview</li>
   <li>Incremental Regeneration</li>
 </ul>

@@ -21,7 +21,6 @@ Create and publish flaring fast blogs with this Jamify blogging system. Powered 
 </details>
 <details>
 <summary>Ghost Casper look & feel</summary>
-<br>
 <ul>
   <li>Infinite scroll</li>
   <li>Fully responsive</li>
@@ -37,7 +36,6 @@ Create and publish flaring fast blogs with this Jamify blogging system. Powered 
 </details>
 <details>
 <summary>Extened Casper Styles ✨</summary>
-<br>
 <ul>
   <li>Dark Mode</li>
   <li>Featured posts pinned on top</li>
@@ -48,7 +46,6 @@ Create and publish flaring fast blogs with this Jamify blogging system. Powered 
 </details>
 <details>
 <summary>Images with Next/Images 🚀</summary>
-<br>
 <ul>
   <li>Feature and inline images</li>
   <li>auto optimized images</li>
@@ -57,7 +54,6 @@ Create and publish flaring fast blogs with this Jamify blogging system. Powered 
 </details>
 <details>
 <summary>Andvanced Routing</summary>
-<br>
 <ul>
   <li>Auto detects custom paths</li>
   <li>Configurable collections</li>
@@ -65,7 +61,6 @@ Create and publish flaring fast blogs with this Jamify blogging system. Powered 
 </details>
 <details>
 <summary>Developer friendly</summary>
-<br>
 <ul>
   <li>Truly open-source</li>
   <li>MIT licenced</li>
@@ -75,7 +70,6 @@ Create and publish flaring fast blogs with this Jamify blogging system. Powered 
 </details>
 <details>
 <summary>Integrated Plugins</summary>
-<br>
 <ul>
   <li>Commento</li>
   <li>Contact Page with built-in notification service</li>
@@ -83,7 +77,6 @@ Create and publish flaring fast blogs with this Jamify blogging system. Powered 
 </details>
 <details>
 <summary>Coming soon...</summary>
-<br>
 <ul>
   <li>Preview</li>
   <li>Incremental Regeneration</li>

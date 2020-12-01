@@ -88,6 +88,7 @@ Create and publish flaring fast blogs with this Jamify blogging system. Powered 
   <li>Preview</li>
   <li>Incremental Regeneration</li>
 </ul>
+</details>
 
 ## 🚀 Performance
 

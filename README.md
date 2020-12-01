@@ -1,40 +1,58 @@
+![next-cms-ghost](https://static.gotsby.org/v1/assets/images/next-ghost.png)
+
 # next-cms-ghost
 
 [![PRs welcome!](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)]()
 
-A Next.js app for creating blogs from headless content managment systems (CMS).
+Create and publish flaring fast blogs with this Jamify blogging system. Powered by the React framework Next.js and content fed by headleass Ghost, you'll get a production ready hybrid static & server rendered website that you can easily distribute globally. At the same time your content creators can continue to work with the Ghost authoring system as they are used to.
 
-## Features
+&nbsp;
 
-- [x] Ghost CMS integration
-- [x] Ghost Casper look & feel
-- [x] Dark Mode
-- [x] Optimized feature images with next/image
-- [x] Andvanced Routing
-- [x] SEO optimized
-- [x] Sticky navigation headers
-- [x] Hover on author avatar
-- [x] Styled 404 page
-- [x] Fully responsive
-- [x] Made type safe with TypeScript
-- [x] Sitemap
-- [x] RSS feed
-- [x] Member Subscriptions
-- [x] Commento
-- [x] PrismJS
-- [x] Preview Section in Posts
-- [x] Contact Page with built-in notification service
-- [x] Customized Navigation Header
-- [x] Featured posts pinned on top
-- [x] Table Of Contents
-- [x] Next.js inline images
+## 🎉 Demo
 
+>Play with the [Demo](https://next.jamify.org/) to get a first impression.
+
+&nbsp;
+
+## ✨ Features
+
+- Ghost CMS integration
+- Ghost Casper look & feel
+  - Infinite scroll
+  - Fully responsive
+  - Sticky navigation headers 
+  - Hover on author avatar
+  - Styled 404 page
+  - Preview Section in posts
+  - Sitemap
+  - RSS feed
+  - Member Subscriptions
+- Extened Casper Styles
+  - Dark Mode
+  - Featured posts pinned on top
+  - Table Of Contents
+  - PrismJS
+  - Customizable navigation headers
+- Images with Next/Images
+  - feature and inline images
+  - automatically performance optimized images
+  - No content shifts due to conistent placeholders
+- SEO optimized
+- Andvanced Routing
+- Developer friendly
+  - truly open-source
+  - MIT licenced
+  - Made type safe with TypeScript
+- Integrated Plugins
+  - Commento
+  - Contact Page with built-in notification service
+  
 <details>
 <summary>Coming soon...</summary>
-
-- [ ] Preview
   
-- [ ] Incremental Regeneration
+- Preview
+
+- Incremental Regeneration
 </details>
 
 ## Performance

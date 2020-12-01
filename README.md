@@ -16,11 +16,12 @@ Create and publish flaring fast blogs with this Jamify blogging system. Powered 
 
 ## ✨ Features
 
-<details open>
+<details>
 <summary>Ghost CMS integration</summary>
 </details>
 <details>
 <summary>Ghost Casper look & feel</summary>
+<br>
 <ul>
   <li>Infinite scroll</li>
   <li>Fully responsive</li>
@@ -30,11 +31,13 @@ Create and publish flaring fast blogs with this Jamify blogging system. Powered 
   <li>Preview Section in posts</li>
   <li>Sitemap</li>
   <li>RSS feed</li>
+  <li>SEO optimized</li>
   <li>Member Subscriptions</li>
 </ul>
 </details>
 <details>
 <summary>Extened Casper Styles ✨</summary>
+<br>
 <ul>
   <li>Dark Mode</li>
   <li>Featured posts pinned on top</li>
@@ -43,31 +46,50 @@ Create and publish flaring fast blogs with this Jamify blogging system. Powered 
   <li>Customizable navigation headers</li>
 </ul>
 </details>
-
-
-- Images with Next/Images
-  - feature and inline images
-  - automatically performance optimized images
-  - No content shifts due to conistent placeholders
-- SEO optimized
-- Andvanced Routing
-- Developer friendly
-  - truly open-source
-  - MIT licenced
-  - Made type safe with TypeScript
-- Integrated Plugins
-  - Commento
-  - Contact Page with built-in notification service
-  
+<details>
+<summary>Images with Next/Images 🚀</summary>
+<br>
+<ul>
+  <li>Feature and inline images</li>
+  <li>auto optimized images</li>
+  <li>No content shifts due to conistent placeholders</li>
+</ul>
+</details>
+<details>
+<summary>Andvanced Routing</summary>
+<br>
+<ul>
+  <li>Auto detects custom paths</li>
+  <li>Configurable collections</li>
+</ul>
+</details>
+<details>
+<summary>Developer friendly</summary>
+<br>
+<ul>
+  <li>Truly open-source</li>
+  <li>MIT licenced</li>
+  <li>Easy to contribute</li>
+  <li>Made type safe with TypeScript</li>
+</ul>
+</details>
+<details>
+<summary>Integrated Plugins</summary>
+<br>
+<ul>
+  <li>Commento</li>
+  <li>Contact Page with built-in notification service</li>
+</ul>
+</details>
 <details>
 <summary>Coming soon...</summary>
-  
-- Preview
+<br>
+<ul>
+  <li>Preview</li>
+  <li>Incremental Regeneration</li>
+</ul>
 
-- Incremental Regeneration
-</details>
-
-## Performance
+## 🚀 Performance
 
 ![Lighthouse Score](https://static.gotsby.org/v1/assets/images/jamify-lh-scores-light.gif)
 

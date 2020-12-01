@@ -38,7 +38,7 @@ export interface GhostAuthor extends Author {
 }
 
 export interface GhostPostOrPage extends PostOrPage {
-  featureImage?: NextImage
+  featureImage?: NextImage | null
   htmlAst?: Node | null
   toc?: IToC[] | null
 }

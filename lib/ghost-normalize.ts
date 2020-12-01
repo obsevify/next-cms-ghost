@@ -5,7 +5,7 @@ import { cloneDeep } from 'lodash'
 import refractor from 'refractor'
 import nodeToString from 'hast-util-to-string'
 import { PostOrPage } from '@tryghost/content-api'
-import { imageDimensions } from '@lib/images'
+import { Dimensions, imageDimensions } from '@lib/images'
 import { generateTableOfContents } from '@lib/toc'
 import { GhostPostOrPage, createNextProfileImagesFromAuthors } from './ghost'
 
@@ -42,7 +42,7 @@ export const normalizePost = async (post: PostOrPage, cmsUrl: string | undefined
     ...post,
     authors,
     htmlAst,
-    featureImage: url && dimensions && { url, dimensions } || undefined,
+    featureImage: url && dimensions && { url, dimensions } || null,
     toc
   }
 }
@@ -91,6 +91,7 @@ const rewriteRelativeLinks = (htmlAst: Node) => {
 
 interface NodeProperties {
   className?: string[]
+  style?: string[]
 }
 
 const syntaxHighlightWithPrismJS = (htmlAst: Node) => {
@@ -149,18 +150,28 @@ const tableOfContents = (htmlAst: Node) => {
 const rewriteInlineImages = async (htmlAst: Node) => {
   if (!nextInlineImages) return htmlAst
 
-  let nodes: Node[] = []
+  let nodes: { node: Node, parent: Parent | undefined }[] = []
 
-  visit(htmlAst, { tagName: `img` }, (node: Node) => {
+  visit(htmlAst, { tagName: `img` }, (node: Node, _index: number, parent: Parent | undefined) => {
     node.tagName = `Image`
 
     const { src } = (node.properties as HTMLImageElement)
     node.imageDimensions = imageDimensions(src)
-    nodes.push(node)
+    nodes.push({ node, parent })
   })
 
-  const dimensions = await Promise.all(nodes.map(node => node.imageDimensions))
-  nodes.map((node, i) => node.imageDimensions = dimensions[i])
+  const dimensions = await Promise.all(nodes.map(({ node }) => node.imageDimensions))
+
+  nodes.forEach(({ node, parent }, i) => {
+    node.imageDimensions = dimensions[i]
+    const { width, height } = dimensions[i] as Dimensions
+    const aspectRatio = width / height
+    const flex = `flex: ${aspectRatio} 1 0`
+    if (parent) {
+      const parentStyle = (parent.properties as NodeProperties).style || [];
+      (parent.properties as NodeProperties).style = [...parentStyle, flex]
+    }
+  })
 
   return htmlAst
 }

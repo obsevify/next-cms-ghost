@@ -15,9 +15,10 @@ export const NextImage = (props: ComponentProps) => {
   const className = classArray?.join(' ')
 
   return (
-    <div {...{ className }}>
-      <Image src={src} {...imageDimensions} objectFit="cover" />
+    <div className="next-image-wrapper">
+      <div {...{ className }}>
+        <Image src={src} {...imageDimensions} {...{ className }} />
+      </div>
     </div>
   )
 }
-

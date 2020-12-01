@@ -11,6 +11,8 @@ module.exports = {
       'www.jamify.org',
       'www.gatsbyjs.org',
       'cdn.commento.io',
+      'gatsby.ghost.io',
+      'ghost.org',
     ],
   },
   reactStrictMode: false,

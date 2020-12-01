@@ -40,10 +40,6 @@ html.casper .post-content h6::before {
 }
 
 /* Adjustments to wide and full width cards */
-html.casper .post-full-content .kg-image {
-  margin: 0;
-}
-
 html.casper .kg-gallery-card,
 html.casper .kg-width-wide,
 html.casper .kg-width-full {

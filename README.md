@@ -120,7 +120,7 @@ export const siteUrl = `http://localhost:3000`
 
 &nbsp;
 
-## 🌀Next.js image optimizations
+## 🌀 NextJS image optimizations
 
 You must add all domains that you use for insourcing images in the `next.config.js` file, for example:
 

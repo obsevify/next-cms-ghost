@@ -16,7 +16,7 @@ Create and publish flaring fast blogs with this Jamify blogging system. Powered 
 
 ## ✨ Features
 
-<details>
+<details open>
 <summary>Ghost CMS integration</summary>
 </details>
 <details>
@@ -33,14 +33,18 @@ Create and publish flaring fast blogs with this Jamify blogging system. Powered 
   <li>Member Subscriptions</li>
 </ul>
 </details>
+<details>
+<summary>Extened Casper Styles ✨</summary>
+<ul>
+  <li>Dark Mode</li>
+  <li>Featured posts pinned on top</li>
+  <li>Table Of Contents</li>
+  <li>PrismJS</li>
+  <li>Customizable navigation headers</li>
+</ul>
+</details>
 
 
-- Extened Casper Styles
-  - Dark Mode
-  - Featured posts pinned on top
-  - Table Of Contents
-  - PrismJS
-  - Customizable navigation headers
 - Images with Next/Images
   - feature and inline images
   - automatically performance optimized images

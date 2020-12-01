@@ -63,8 +63,8 @@ export const SiteNav = ({ settings, className, postTitle }: SiteNavProps) => {
       <div className="site-nav-left-wrapper">
         <div className="site-nav-left">
           <Link href={siteUrl}>
-            <a className="site-nav-logo">
-              {siteLogo && nextFeatureImages ? (
+            {siteLogo && nextFeatureImages ? (
+              <a className="site-nav-logo">
                 <div style={{
                   height: "${targetHeight}px",
                   width: `${calcSiteLogoWidth(siteLogo, targetHeight)}px`
@@ -78,13 +78,17 @@ export const SiteNav = ({ settings, className, postTitle }: SiteNavProps) => {
                     {...siteLogo.dimensions}
                   />
                 </div>
-              ) : (site.logo ? (
+              </a>
+            ) : (site.logo ? (
+              <a className="site-nav-logo">
                 <img src={site.logo} alt={title} />
-              ) : (
-                  { title }
-                ))
-              }
-            </a>
+              </a>
+            ) : (
+                <a className="site-nav-logo">
+                  {title}
+                </a>
+              ))
+            }
           </Link>
           <div className="site-nav-content">
             <Navigation data={navigation} />

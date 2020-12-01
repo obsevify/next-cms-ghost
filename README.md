@@ -27,10 +27,10 @@ A Next.js app for creating blogs from headless content managment systems (CMS).
 - [x] Customized Navigation Header
 - [x] Featured posts pinned on top
 - [x] Table Of Contents
+- [x] Next.js inline images
 
 ## ToDo
 
-- [ ] Next.js inline images
 - [ ] Preview
 - [ ] Incremental Regeneration
 

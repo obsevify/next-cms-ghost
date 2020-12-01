@@ -164,6 +164,7 @@ const rewriteInlineImages = async (htmlAst: Node) => {
 
   nodes.forEach(({ node, parent }, i) => {
     node.imageDimensions = dimensions[i]
+    if (dimensions[i] === null) return
     const { width, height } = dimensions[i] as Dimensions
     const aspectRatio = width / height
     const flex = `flex: ${aspectRatio} 1 0`

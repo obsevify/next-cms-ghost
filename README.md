@@ -4,13 +4,13 @@
 
 [![PRs welcome!](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)]()
 
-Create and publish flaring fast blogs with this Jamify blogging system. Powered by the React framework Next.js and content fed by headleass Ghost, you'll get a production ready hybrid static & server rendered website that you can easily distribute globally. At the same time your content creators can continue to work with the Ghost authoring system as they are used to.
+Create and publish flaring fast blogs with this Jamify blogging system. Powered by the React framework Next.js and content fed by headleass Ghost, you'll get a production ready hybrid static & server rendered website that you can easily distribute globally. At the same time your content creators can continue to work with the Ghost authoring system as they used to.
 
 &nbsp;
 
 ## 🎉 Demo
 
-> Play with the [Demo](https://next.jamify.org/) to get a first impression.
+Play with the [Demo](https://next.jamify.org/) to get a first impression.
 
 &nbsp;
 

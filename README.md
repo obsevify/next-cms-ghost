@@ -32,7 +32,6 @@ Play with the [Demo](https://next.jamify.org/) to get a first impression.
   <li>Sitemap</li>
   <li>RSS feed</li>
   <li>SEO optimized</li>
-  <li>Member Subscriptions</li>
 </ul>
 </details>
 <details>
@@ -41,8 +40,6 @@ Play with the [Demo](https://next.jamify.org/) to get a first impression.
 <ul>
   <li>Dark Mode</li>
   <li>Featured posts pinned on top</li>
-  <li>Table Of Contents</li>
-  <li>PrismJS</li>
   <li>Customizable navigation headers</li>
 </ul>
 </details>
@@ -77,7 +74,10 @@ Play with the [Demo](https://next.jamify.org/) to get a first impression.
 <summary>Integrated Plugins</summary>
 <br />
 <ul>
-  <li>Commento</li>
+  <li>Member Subscriptions</li>
+  <li>Commenting with Commento</li>
+  <li>Syntax highlighting with PrismJS</li>
+  <li>Table Of Contents</li>
   <li>Contact Page with built-in notification service</li>
 </ul>
 </details>

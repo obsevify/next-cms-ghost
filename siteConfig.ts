@@ -17,6 +17,3 @@ export const themeColor = `#15171A`
 // Example override: [{ label: `Home`, url: `/` }]
 // Example add new: [{ label: `Contact`, url: `/contact` }]
 export const customNavigation = [{ label: `Contact`, url: `/contact` }]
-
-// Exclude post or pages (default: do not exclude)
-//export const constexcludePostsOrPages = (() => false)

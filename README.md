@@ -164,7 +164,7 @@ to the public facing URL of your site. This can be done by setting the `SITE_URL
 | -------- | --------------------- |
 | SITE_URL | https://your.blog.org |
 
-&nbsp; |
+&nbsp;
 
 ## 💫 Deploy
 

@@ -13,7 +13,8 @@ import { GhostSettings } from '@lib/ghost'
 import { StickyNavContainer } from '@effects/StickyNavContainer'
 import { Author, PostOrPage, Tag } from '@tryghost/content-api'
 
-import { siteUrl } from '@siteConfig'
+import { siteUrl } from '@lib/environment'
+import { resolve } from 'url'
 import { memberSubscriptions } from '@appConfig'
 
 /**
@@ -73,7 +74,7 @@ export const Layout = ({ settings, header, children, isHome, isPost, sticky, pre
         <footer className="site-footer outer">
           <div className="site-footer-content inner">
             <section className="copyright">
-              <a href={siteUrl}>{title}</a> &copy; {new Date().getFullYear()}
+              <a href={resolve(siteUrl, '')}>{title}</a> &copy; {new Date().getFullYear()}
             </section>
 
             <nav className="site-footer-nav">

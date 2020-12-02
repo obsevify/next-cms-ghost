@@ -116,17 +116,6 @@ yarn build
 
 &nbsp;
 
-## 💡 Configure
-
-Please change the `siteUrl` to your build system in `siteConfig.ts`:
-
-```javascript
-export const siteUrl = `http://localhost:3000`
-//export const siteUrl = `https://your.blog.org
-```
-
-&nbsp;
-
 ## 🌀 NextJS image optimizations
 
 You must add all domains that you use for insourcing images in the `next.config.js` file, for example:
@@ -162,6 +151,10 @@ If you build your project with a cloud provider, the best option is to provide t
 | ----------------- | -------------------------- |
 | CMS_GHOST_API_URL | http:\/\/localhost:2368    |
 | CMS_GHOST_API_KEY | 9fccdb0e4ea5b572e2e5b92942 |
+| SITE_URL          | https://your.blog.org      |
+
+Also note that you must set the `SITE_URL` fpr production builds. You will be prompted for these variables, if you use the vercel deploy
+button below (recommened).
 
 &nbsp;
 
@@ -175,7 +168,9 @@ For best SEO results it is strongly recommended to disable the default Ghost Han
 
 [![Deploy to Vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/styxlab/next-cms-ghost)
 
+<!--
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/styxlab/next-cms-ghost&utm_source=github&utm_medium=next-cms-ghost-netlify)
+-->
 
 &nbsp;
 

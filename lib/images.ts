@@ -71,3 +71,17 @@ export const imageDimensions = async (url: string | undefined | null, noCache?: 
   setCache(cacheKey, { width, height })
   return { width, height }
 }
+
+export const imageDimensionsFromFile = async (file: string, noCache?: boolean) => {
+  if (!file) return null
+
+  const cacheKey = !noCache && encodeURIComponent(file) || null
+  const cached = getCache<Dimensions>(cacheKey)
+  if (cached) return cached
+
+  const { width, height } = await probe(require('fs').createReadStream(file))
+  if (0 === width + height) return null
+
+  setCache(cacheKey, { width, height })
+  return { width, height }
+}

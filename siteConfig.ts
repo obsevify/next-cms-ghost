@@ -1,7 +1,3 @@
-//export const siteUrl = `http://localhost:3000`
-//export const siteUrl = `https://next.jamify.org`
-export const siteUrl = `next-cms-ghost-netlify.netlify.app`
-
 // This allows an alternative site title for meta data for pages.
 export const siteTitleMeta = `Next.js Headless Ghost Casper`
 

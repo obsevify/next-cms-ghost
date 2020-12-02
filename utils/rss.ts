@@ -2,7 +2,9 @@ import cheerio from 'cheerio'
 import RSS from 'rss'
 
 import { GhostPostOrPage, GhostPostsOrPages, GhostSettings } from "@lib/ghost"
-import { siteUrl, siteTitleMeta, siteDescriptionMeta, siteIcon } from '@siteConfig'
+import { siteTitleMeta, siteDescriptionMeta, siteIcon } from '@siteConfig'
+import { siteUrl } from '@lib/environment'
+import { resolve } from 'url'
 import { Tag } from '@tryghost/content-api'
 
 interface FeedProps {
@@ -15,9 +17,9 @@ export const generateRSSFeed = ({ posts, settings }: FeedProps) => {
     title: siteTitleMeta,
     description: siteDescriptionMeta,
     generator: `Jamify Blog Starter 2.0`,
-    feed_url: `${siteUrl}/rss/`,
-    site_url: `${siteUrl}/`,
-    image_url: `${siteUrl}/${siteIcon}`,
+    feed_url: resolve(siteUrl, 'rss/'),
+    site_url: resolve(siteUrl, ''),
+    image_url: resolve(siteUrl, siteIcon),
     ttl: 60,
     custom_namespaces: {
       content: `http://purl.org/rss/1.0/modules/content/`,

@@ -2,8 +2,9 @@ import { useRouter } from 'next/router'
 import Head from 'next/head'
 import url from 'url'
 
+import { siteUrl } from '@lib/environment'
 import { GhostSettings } from '@lib/ghost'
-import { siteUrl, siteIcon, siteTitleMeta, siteDescriptionMeta } from '@siteConfig'
+import { siteIcon, siteTitleMeta, siteDescriptionMeta } from '@siteConfig'
 import { Author, PostOrPage, Tag } from '@tryghost/content-api'
 import { ISeoImage } from '@meta/seoImage'
 

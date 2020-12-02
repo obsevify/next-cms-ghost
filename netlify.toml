@@ -1,5 +1,5 @@
 [build]
-  command = "yarn build && yarn export"
+  command = "yarn build"
   publish = "out/"
 
 [build.environment]
@@ -9,6 +9,9 @@
 [template.environment]
   CMS_GHOST_API_URL = "https://cms.gotsby.org"
   CMS_GHOST_API_KEY = "387f956eaa95345f7bb484d0b8"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
 
 [[plugins]]
   package = "netlify-plugin-cache-nextjs"

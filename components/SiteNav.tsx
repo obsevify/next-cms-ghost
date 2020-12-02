@@ -7,7 +7,9 @@ import { DarkMode } from '@components/DarkMode'
 import { SubscribeButton } from '@components/SubscribeButton'
 import { useLang, get } from '@utils/use-lang'
 import { GhostSettings, NavItem, NextImage } from '@lib/ghost'
-import { siteUrl, customNavigation } from '@siteConfig'
+import { siteUrl } from '@lib/environment'
+import { resolve } from 'url'
+import { customNavigation } from '@siteConfig'
 import { memberSubscriptions } from '@appConfig'
 
 import { imageQuality, nextFeatureImages } from '@appConfig'
@@ -62,7 +64,7 @@ export const SiteNav = ({ settings, className, postTitle }: SiteNavProps) => {
     <nav className={className}>
       <div className="site-nav-left-wrapper">
         <div className="site-nav-left">
-          <Link href={siteUrl}>
+          <Link href={resolve(siteUrl, '')}>
             {siteLogo && nextFeatureImages ? (
               <a className="site-nav-logo">
                 <div style={{
@@ -101,7 +103,7 @@ export const SiteNav = ({ settings, className, postTitle }: SiteNavProps) => {
           <Navigation data={site.secondary_navigation} />
         ) : (
             <div className="social-links">
-              <SocialLinks site={site} siteUrl={siteUrl} />
+              <SocialLinks site={site} />
             </div>
           )}
         <DarkMode />

@@ -4,7 +4,7 @@ import nodemailer from 'nodemailer'
 import smtpTrans from 'nodemailer-smtp-transport'
 import validator from 'email-validator'
 import sanitize from 'sanitize-html'
-import { siteUrl } from '@siteConfig'
+import { siteUrl } from '@lib/environment'
 import { contactPage } from '@appConfig'
 
 interface SendEmailProps {

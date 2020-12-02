@@ -1,7 +1,8 @@
 
 import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/document'
 import { Helmet, HelmetData } from 'react-helmet'
-import { siteUrl } from '@siteConfig'
+import { resolve } from 'url'
+import { siteUrl } from '@lib/environment'
 
 interface Props {
   helmet: HelmetData
@@ -52,7 +53,7 @@ export default class MyDocument extends Document<Props> {
             rel="alternate"
             type="application/rss+xml"
             title="Jamify RSS Feed"
-            href={`${siteUrl}/rss.xml`}
+            href={`${resolve(siteUrl, 'rss.xml')}`}
           />
         </Head>
         <body {...this.helmetBodyAttrComponents}>

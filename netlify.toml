@@ -7,7 +7,7 @@
   CMS_GHOST_API_KEY = "387f956eaa95345f7bb484d0b8"
 
 [[plugins]]
-  package = "netlify-plugin-nextjs"
+  package = "@netlify/plugin-nextjs"
 
 [[plugins]]
   package = "netlify-plugin-cache-nextjs"

@@ -156,8 +156,11 @@ If you build your project with a cloud provider, the best option is to provide t
 
 ## 🌎 Domain Settings
 
-The `SITE_URL` environment variable should be set to the public facing URL of your site, in most cases to your custom domain. If you don't have a
-custom domain and you deploy with Vercel, you can map `VERCEL_URL` to `SITE_URL` in the dashboard under _Settings > Environment Variables_.
+The `SITE_URL` environment variable should be set to the public facing URL of your site, in most cases to your custom domain.
+
+<!--
+If you don't have a custom domain and you deploy with Vercel, you can map `VERCEL_URL` to `SITE_URL` in the dashboard under _Settings > Environment Variables_.
+-->
 
 | Key      | Value (example)       |
 | -------- | --------------------- |
@@ -167,7 +170,7 @@ custom domain and you deploy with Vercel, you can map `VERCEL_URL` to `SITE_URL`
 
 ## 💫 Deploy
 
-[![Deploy to Vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/styxlab/next-cms-ghost)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Fstyxlab%2Fnext-cms-ghost&env=SITE_URL,CMS_GHOST_API_URL,CMS_GHOST_API_KEY&project-name=next-cms-ghost&repository-name=next-cms-ghost)
 
 <!--
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/styxlab/next-cms-ghost&utm_source=github&utm_medium=next-cms-ghost-netlify)

@@ -156,9 +156,8 @@ If you build your project with a cloud provider, the best option is to provide t
 
 ## 🌎 Domain Settings
 
-If you deploy to Vercel **and** _sutomatically expose System Environment Variables_ is checked the `SITE_URL` is autmatically poulated with
-the `VERCEL_URL` of your deploy, e.g.: `my-site-7q03y4pi5.vercel.app`. If you have a custom domain, you may wish to set the `SITE_URL`
-to the public facing URL of your site. This can be done by setting the `SITE_URL` environment variable with your provider.
+The `SITE_URL` environment variable should be set to the public facing URL of your site, in most cases to your custom domain. If you don't have a
+custom domain and you deploy with vercel, you can map `VERCEL_URL` to `SITE_URL` in the vercel dahboard under _Settings > Environment Variables_.
 
 | Key      | Value (example)       |
 | -------- | --------------------- |

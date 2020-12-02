@@ -56,12 +56,10 @@ export default function Index({ cmsData }: IndexProps) {
   )
 }
 
-export const getStaticProps: GetStaticProps = async (ctx: GetStaticPropsContext) => {
+export const getStaticProps: GetStaticProps = async () => {
 
   let settings
   let posts: GhostPostsOrPages | []
-
-  console.log('ctx:', ctx)
 
   try {
     settings = await getAllSettings()

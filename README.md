@@ -151,18 +151,20 @@ If you build your project with a cloud provider, the best option is to provide t
 | ----------------- | -------------------------- |
 | CMS_GHOST_API_URL | http:\/\/localhost:2368    |
 | CMS_GHOST_API_KEY | 9fccdb0e4ea5b572e2e5b92942 |
-| SITE_URL          | https://your.blog.org      |
-
-Also note that you must set the `SITE_URL` fpr production builds. You will be prompted for these variables, if you use the vercel deploy
-button below (recommened).
 
 &nbsp;
 
-## 🤯 Ensure headless mode of Ghost CMS
+## 🌎 Domain Settings
 
-For best SEO results it is strongly recommended to disable the default Ghost Handlebars theme front-end by selecting the _Make this site private_ flag within your Ghost admin settings.
+If you deploy to Vercel **and** _sutomatically expose System Environment Variables_ is checked the `SITE_URL` is autmatically poulated with
+the `VERCEL_URL` of your deploy, e.g.: `my-site-7q03y4pi5.vercel.app`. If you have a custom domain, you may wish to set the `SITE_URL`
+to the public facing URL of your site. This can be done by setting the `SITE_URL` environment variable with your provider.
 
-&nbsp;
+| Key      | Value (example)       |
+| -------- | --------------------- |
+| SITE_URL | https://your.blog.org |
+
+&nbsp; |
 
 ## 💫 Deploy
 
@@ -171,6 +173,12 @@ For best SEO results it is strongly recommended to disable the default Ghost Han
 <!--
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/styxlab/next-cms-ghost&utm_source=github&utm_medium=next-cms-ghost-netlify)
 -->
+
+&nbsp;
+
+## 🤯 Ensure headless mode of Ghost CMS
+
+For best SEO results it is strongly recommended to disable the default Ghost Handlebars theme front-end by selecting the _Make this site private_ flag within your Ghost admin settings.
 
 &nbsp;
 

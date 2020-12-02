@@ -130,6 +130,20 @@ module.exports = {
 
 &nbsp;
 
+## 🌎 Domain Settings
+
+The `SITE_URL` environment variable should be set to the public facing URL of your site, in most cases to your custom domain.
+
+<!--
+If you don't have a custom domain and you deploy with Vercel, you can map `VERCEL_URL` to `SITE_URL` in the dashboard under _Settings > Environment Variables_.
+-->
+
+| Key      | Value (example)           |
+| -------- | ------------------------- |
+| SITE_URL | https://www.your-blog.org |
+
+&nbsp;
+
 ## 🔑 Ghost Content API keys
 
 All content is sourced from a Ghost CMS. Choose the method according to your build scenario.
@@ -147,30 +161,16 @@ CMS_GHOST_API_KEY=9fccdb0e4ea5b572e2e5b92942
 
 If you build your project with a cloud provider, the best option is to provide the keys with environment variables:
 
-| Key               | Value (example)            |
-| ----------------- | -------------------------- |
-| CMS_GHOST_API_URL | http:\/\/localhost:2368    |
-| CMS_GHOST_API_KEY | 9fccdb0e4ea5b572e2e5b92942 |
-
-&nbsp;
-
-## 🌎 Domain Settings
-
-The `SITE_URL` environment variable should be set to the public facing URL of your site, in most cases to your custom domain.
-
-<!--
-If you don't have a custom domain and you deploy with Vercel, you can map `VERCEL_URL` to `SITE_URL` in the dashboard under _Settings > Environment Variables_.
--->
-
-| Key      | Value (example)       |
-| -------- | --------------------- |
-| SITE_URL | https://your.blog.org |
+| Key               | Value (example)             |
+| ----------------- | --------------------------- |
+| CMS_GHOST_API_URL | https:\/\/cms.your-blog.org |
+| CMS_GHOST_API_KEY | 9fccdb0e4ea5b572e2e5b92942  |
 
 &nbsp;
 
 ## 💫 Deploy
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Fstyxlab%2Fnext-cms-ghost&env=SITE_URL,CMS_GHOST_API_URL,CMS_GHOST_API_KEY&project-name=next-cms-ghost&repository-name=next-cms-ghost)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Fstyxlab%2Fnext-cms-ghost&env=SITE_URL&project-name=next-cms-ghost&repository-name=next-cms-ghost)
 
 <!--
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/styxlab/next-cms-ghost&utm_source=github&utm_medium=next-cms-ghost-netlify)

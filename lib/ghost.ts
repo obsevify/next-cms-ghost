@@ -3,6 +3,8 @@ import { normalizePost } from '@lib/ghost-normalize'
 import { Node } from 'unist'
 import { collections as config } from '@routesConfig'
 import { Collections } from '@lib/collections'
+
+import { ghostAPIUrl, ghostAPIKey } from '@lib/environment'
 import { imageDimensions, Dimensions } from '@lib/images'
 import { IToC } from '@lib/toc'
 
@@ -53,8 +55,8 @@ export interface GhostAuthors extends BrowseResults<GhostAuthor> {
 }
 
 const api = new GhostContentAPI({
-  url: process.env.CMS_GHOST_API_URL || '',
-  key: process.env.CMS_GHOST_API_KEY || '',
+  url: ghostAPIUrl,
+  key: ghostAPIKey,
   version: 'v3',
 })
 

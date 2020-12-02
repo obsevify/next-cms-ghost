@@ -48,7 +48,7 @@ Play with the [Demo](https://next.jamify.org/) to get a first impression.
 <br />
 <ul>
   <li>Feature and inline images</li>
-  <li>auto optimized images</li>
+  <li>Auto optimized images</li>
   <li>No content shifts due to conistent placeholders</li>
 </ul>
 </details>
@@ -173,7 +173,9 @@ For best SEO results it is strongly recommended to disable the default Ghost Han
 
 ## 💫 Deploy
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/styxlab/next-cms-ghost)
+[![Deploy to Vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/styxlab/next-cms-ghost)
+
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/styxlab/next-cms-ghost&utm_source=github)
 
 &nbsp;
 

@@ -4,6 +4,7 @@ import { Page } from '@components/Page'
 
 import { getPostsByTag, getTagBySlug, GhostPostOrPage, GhostPostsOrPages, GhostSettings } from '@lib/ghost'
 
+import { siteUrl } from '@lib/environment'
 import { getPosts, getPostBySlug, getPageBySlug, getAllPosts, getAllPages, getAllSettings, getAllPostSlugs } from '@lib/ghost'
 import { resolveUrl } from '@utils/routing'
 import { collections } from '@lib/collections'
@@ -22,6 +23,7 @@ import { ISeoImage, seoImage } from '@meta/seoImage'
  */
 
 interface CmsDataCore {
+  siteUrl: string
   post: GhostPostOrPage
   page: GhostPostOrPage
   contactPage: ContactPage
@@ -41,13 +43,13 @@ interface PostOrPageProps {
 }
 
 const PostOrPageIndex = ({ cmsData }: PostOrPageProps) => {
-  const { isPost, contactPage } = cmsData
+  const { isPost, siteUrl, contactPage } = cmsData
 
   if (isPost) {
-    return <Post cmsData={cmsData} />
+    return <Post {...{ cmsData }} />
   } else if (!!contactPage) {
     const { contactPage, previewPosts, settings, seoImage } = cmsData
-    return <Contact cmsData={{ page: contactPage, previewPosts, settings, seoImage }} />
+    return <Contact cmsData={{ page: contactPage, previewPosts, siteUrl, settings, seoImage }} />
   } else {
     return <Page cmsData={cmsData} />
   }
@@ -114,6 +116,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
     props: {
       cmsData: {
+        siteUrl,
         settings,
         post,
         page,

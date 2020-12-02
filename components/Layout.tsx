@@ -13,7 +13,6 @@ import { GhostSettings } from '@lib/ghost'
 import { StickyNavContainer } from '@effects/StickyNavContainer'
 import { Author, PostOrPage, Tag } from '@tryghost/content-api'
 
-import { siteUrl } from '@lib/environment'
 import { resolve } from 'url'
 import { memberSubscriptions } from '@appConfig'
 
@@ -27,6 +26,7 @@ import { memberSubscriptions } from '@appConfig'
  */
 
 interface LayoutProps {
+  siteUrl: string
   settings: GhostSettings
   header: ReactFragment
   children: ReactFragment
@@ -41,7 +41,7 @@ interface LayoutProps {
 }
 
 
-export const Layout = ({ settings, header, children, isHome, isPost, sticky, previewPosts, author, tags, page, errorClass }: LayoutProps) => {
+export const Layout = ({ siteUrl, settings, header, children, isHome, isPost, sticky, previewPosts, author, tags, page, errorClass }: LayoutProps) => {
   const text = get(useLang())
   const site = settings
   const title = text(`SITE_TITLE`, site.title)
@@ -66,7 +66,7 @@ export const Layout = ({ settings, header, children, isHome, isPost, sticky, pre
           {children}
         </main>
         {/* For sticky nav bar */}
-        {isHome && <StickyNav className={`site-nav ${sticky && sticky.state.currentClass}`}  {...{ settings }} />}
+        {isHome && <StickyNav className={`site-nav ${sticky && sticky.state.currentClass}`}  {...{ siteUrl, settings }} />}
         {/* Links to Previous/Next posts */}
         {previewPosts}
 

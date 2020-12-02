@@ -6,6 +6,7 @@ import { Layout } from '@components/Layout'
 import { HeaderPage } from '@components/HeaderPage'
 import { PostCard } from '@components/PostCard'
 
+import { siteUrl } from '@lib/environment'
 import { getPosts, getAllSettings, GhostSettings, GhostPostsOrPages } from '@lib/ghost'
 import { useLang, get } from '@utils/use-lang'
 
@@ -15,6 +16,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: {
+      siteUrl,
       settings,
       posts
     },
@@ -22,16 +24,16 @@ export const getStaticProps: GetStaticProps = async () => {
 }
 
 interface Custom404Props {
+  siteUrl: string
   posts: GhostPostsOrPages
   settings: GhostSettings
 }
 
-
-export default function Custom404({ posts, settings }: Custom404Props) {
+export default function Custom404({ siteUrl, posts, settings }: Custom404Props) {
   const text = get(useLang())
 
   return (
-    <Layout {...{ settings }} header={<HeaderPage {...{ settings }} />} errorClass="error-content">
+    <Layout {...{ siteUrl, settings }} header={<HeaderPage {...{ siteUrl, settings }} />} errorClass="error-content">
       <div className="inner">
         <section className="error-message">
           <h1 className="error-code">404</h1>

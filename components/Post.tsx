@@ -30,6 +30,7 @@ import { ISeoImage } from '@meta/seoImage'
 
 interface PostProps {
   cmsData: {
+    siteUrl: string
     post: GhostPostOrPage
     settings: GhostSettings
     seoImage: ISeoImage
@@ -40,7 +41,7 @@ interface PostProps {
 }
 
 export const Post = ({ cmsData }: PostProps) => {
-  const { post, settings, seoImage, previewPosts, prevPost, nextPost } = cmsData
+  const { post, siteUrl, settings, seoImage, previewPosts, prevPost, nextPost } = cmsData
   const { slug, url, meta_description, excerpt } = post
   const description = meta_description || excerpt
 
@@ -56,17 +57,14 @@ export const Post = ({ cmsData }: PostProps) => {
 
   return (
     <>
-      <SEO {...{ description, settings, seoImage, article: post }} />
+      <SEO {...{ description, siteUrl, settings, seoImage, article: post }} />
       <StickyNavContainer
         throttle={300}
         isPost={true}
         activeClass="nav-post-title-active"
         render={(sticky) => (
-          <Layout
-            settings={settings}
-            isPost={true}
-            sticky={sticky}
-            header={<HeaderPost settings={settings} sticky={sticky} title={post.title} />}
+          <Layout {...{ isPost: true, siteUrl, settings, sticky }}
+            header={<HeaderPost {...{ siteUrl, settings, sticky, title: post.title }} />}
             previewPosts={<PreviewPosts primaryTag={post.primary_tag} posts={previewPosts} prev={prevPost} next={nextPost} />}
           >
             <div className="inner">

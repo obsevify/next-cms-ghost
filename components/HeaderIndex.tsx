@@ -9,10 +9,11 @@ import { GhostSettings, NextImage } from '@lib/ghost'
 import { imageQuality, nextFeatureImages } from '@appConfig'
 
 interface HeaderIndexProps {
+  siteUrl: string
   settings: GhostSettings
 }
 
-export const HeaderIndex = ({ settings }: HeaderIndexProps) => {
+export const HeaderIndex = ({ siteUrl, settings }: HeaderIndexProps) => {
   const text = get(useLang())
   const site = settings
   const siteLogo = site.logoImage
@@ -30,7 +31,7 @@ export const HeaderIndex = ({ settings }: HeaderIndexProps) => {
     <header className="site-home-header">
       <HeaderBackground srcImg={coverImg}>
         <div className="inner">
-          <SiteNav className="site-nav"  {...{ settings }} />
+          <SiteNav className="site-nav"  {...{ siteUrl, settings }} />
           <div className="site-header-content" >
             <h1 className="site-title">
               {siteLogo && nextFeatureImages ? (

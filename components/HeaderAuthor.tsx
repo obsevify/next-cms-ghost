@@ -9,11 +9,12 @@ import { GhostAuthor, GhostSettings } from '@lib/ghost'
 import { imageQuality, nextFeatureImages } from '@appConfig'
 
 interface HeaderAuthorProps {
+  siteUrl: string
   settings: GhostSettings
   author: GhostAuthor
 }
 
-export const HeaderAuthor = ({ settings, author }: HeaderAuthorProps) => {
+export const HeaderAuthor = ({ siteUrl, settings, author }: HeaderAuthorProps) => {
   const text = get(useLang())
   const twitterUrl = author.twitter ? `https://twitter.com/${author.twitter.replace(/^@/, ``)}` : null
   const facebookUrl = author.facebook ? `https://www.facebook.com/${author.facebook.replace(/^\//, ``)}` : null
@@ -27,7 +28,7 @@ export const HeaderAuthor = ({ settings, author }: HeaderAuthorProps) => {
     <header className="site-archive-header">
       <div className="outer site-nav-main">
         <div className="inner">
-          <SiteNav settings={settings} className="site-nav" />
+          <SiteNav {...{ siteUrl, settings }} className="site-nav" />
         </div>
       </div>
       <HeaderBackground srcImg={coverImg}>

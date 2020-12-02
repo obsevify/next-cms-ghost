@@ -21,6 +21,7 @@ import { imageQuality, nextFeatureImages } from '@appConfig'
 
 interface PageProps {
   cmsData: {
+    siteUrl: string
     page: GhostPostOrPage
     settings: GhostSettings
     seoImage: ISeoImage
@@ -28,7 +29,7 @@ interface PageProps {
 }
 
 export const Page = ({ cmsData }: PageProps) => {
-  const { page, settings, seoImage } = cmsData
+  const { page, siteUrl, settings, seoImage } = cmsData
   const { meta_title, meta_description } = page
 
   const featImg = page.featureImage
@@ -38,8 +39,8 @@ export const Page = ({ cmsData }: PageProps) => {
 
   return (
     <>
-      <SEO settings={settings} {...{ meta_title, meta_description, seoImage }} />
-      <Layout settings={settings} page={page} tags={page.tags} header={<HeaderPage settings={settings} />}>
+      <SEO {...{ siteUrl, settings, meta_title, meta_description, seoImage }} />
+      <Layout {...{ siteUrl, settings, page }} tags={page.tags} header={<HeaderPage {...{ siteUrl, settings }} />}>
         <div className="inner">
           <article className={`post-full ${postClass}`}>
             <header className="post-full-header">

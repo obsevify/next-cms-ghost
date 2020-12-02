@@ -7,7 +7,7 @@ import { DarkMode } from '@components/DarkMode'
 import { SubscribeButton } from '@components/SubscribeButton'
 import { useLang, get } from '@utils/use-lang'
 import { GhostSettings, NavItem, NextImage } from '@lib/ghost'
-import { siteUrl } from '@lib/environment'
+
 import { resolve } from 'url'
 import { customNavigation } from '@siteConfig'
 import { memberSubscriptions } from '@appConfig'
@@ -15,12 +15,13 @@ import { memberSubscriptions } from '@appConfig'
 import { imageQuality, nextFeatureImages } from '@appConfig'
 
 export interface SiteNavProps {
+  siteUrl: string
   settings: GhostSettings
   className: string
   postTitle?: string
 }
 
-export const SiteNav = ({ settings, className, postTitle }: SiteNavProps) => {
+export const SiteNav = ({ siteUrl, settings, className, postTitle }: SiteNavProps) => {
   const text = get(useLang())
   const config: {
     overwriteNavigation: NavItem[]
@@ -103,7 +104,7 @@ export const SiteNav = ({ settings, className, postTitle }: SiteNavProps) => {
           <Navigation data={site.secondary_navigation} />
         ) : (
             <div className="social-links">
-              <SocialLinks site={site} />
+              <SocialLinks {...{ siteUrl, site }} />
             </div>
           )}
         <DarkMode />

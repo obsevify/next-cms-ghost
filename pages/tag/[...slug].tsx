@@ -5,6 +5,7 @@ import { Layout } from '@components/Layout'
 import { PostView } from '@components/PostView'
 import { SEO } from '@meta/seo'
 
+import { siteUrl } from '@lib/environment'
 import { getTagBySlug, getAllTags, getAllSettings, getPostsByTag, GhostSettings, GhostPostOrPage, GhostPostsOrPages } from '@lib/ghost'
 import { resolveUrl } from '@utils/routing'
 import { ISeoImage, seoImage } from '@meta/seoImage'
@@ -17,6 +18,7 @@ import { ISeoImage, seoImage } from '@meta/seoImage'
  */
 
 interface CmsData {
+  siteUrl: string
   tag: Tag
   posts: GhostPostsOrPages
   seoImage: ISeoImage
@@ -31,18 +33,16 @@ interface TagIndexProps {
 }
 
 const TagIndex = ({ cmsData }: TagIndexProps) => {
-  const { tag, posts, settings, seoImage } = cmsData
+  const { tag, posts, siteUrl, settings, seoImage } = cmsData
   const { meta_title, meta_description } = tag
 
   return (
     <>
-      <SEO settings={settings} {...{ meta_title, meta_description, seoImage }} />
-      <Layout
-        settings={settings}
-        tags={[tag]}
-        header={<HeaderTag {...{ settings, tag }} />}
+      <SEO {...{ siteUrl, settings, meta_title, meta_description, seoImage }} />
+      <Layout {...{ siteUrl, settings, tags: [tag] }}
+        header={<HeaderTag {...{ siteUrl, settings, tag }} />}
       >
-        <PostView posts={posts} />
+        <PostView {...{ posts }} />
       </Layout>
     </>
   )
@@ -61,6 +61,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   return {
     props: {
       cmsData: {
+        siteUrl,
         tag,
         posts,
         settings,

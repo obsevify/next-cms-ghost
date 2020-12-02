@@ -24,6 +24,7 @@ interface ContactPage extends GhostPostOrPage {
 
 interface PageProps {
   cmsData: {
+    siteUrl: string
     page: ContactPage
     previewPosts?: GhostPostsOrPages
     settings: GhostSettings
@@ -44,7 +45,7 @@ export function Contact({ cmsData }: PageProps) {
     )
   }
 
-  const { page, previewPosts, settings, seoImage } = cmsData
+  const { page, previewPosts, siteUrl, settings, seoImage } = cmsData
   const { meta_title, meta_description } = page
 
   const featImg = page.featureImage
@@ -54,8 +55,8 @@ export function Contact({ cmsData }: PageProps) {
 
   return (
     <>
-      <SEO settings={settings} {...{ meta_title, meta_description, seoImage }} />
-      <Layout settings={settings} page={page} tags={page.tags} header={<HeaderPage settings={settings} />}>
+      <SEO {...{ siteUrl, settings, meta_title, meta_description, seoImage }} />
+      <Layout {...{ siteUrl, settings, page }} tags={page.tags} header={<HeaderPage {...{ siteUrl, settings }} />}>
         <div className="inner">
           <article className={`post-full ${postClass}`}>
 

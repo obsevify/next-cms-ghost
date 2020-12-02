@@ -2,13 +2,13 @@ import { useRouter } from 'next/router'
 import Head from 'next/head'
 import url from 'url'
 
-import { siteUrl } from '@lib/environment'
 import { GhostSettings } from '@lib/ghost'
 import { siteIcon, siteTitleMeta, siteDescriptionMeta } from '@siteConfig'
 import { Author, PostOrPage, Tag } from '@tryghost/content-api'
 import { ISeoImage } from '@meta/seoImage'
 
 interface SEOProps {
+  siteUrl: string
   title?: string
   description?: string
   sameAs?: string
@@ -23,7 +23,7 @@ const getPublicTags = (tags: Tag[] | undefined) =>
 
 export const SEO = (props: SEOProps) => {
   const {
-    title: t, description: d, seoImage, settings, article
+    siteUrl, title: t, description: d, seoImage, settings, article
   } = props
 
   const {
@@ -89,7 +89,7 @@ export const authorSameAs = (author: Author) => {
   return authorProfiles.length > 0 && `["${authorProfiles.join(`", "`)}"]` || undefined
 }
 
-const getJsonLd = ({ title, description, canonical, seoImage, settings, sameAs, article }: SEOProps) => {
+const getJsonLd = ({ siteUrl, title, description, canonical, seoImage, settings, sameAs, article }: SEOProps) => {
   const pubLogoUrl = settings.logo || url.resolve(siteUrl, siteIcon)
   const type = article ? 'Article' : 'WebSite'
 

@@ -1,4 +1,4 @@
-import { GetStaticProps } from 'next'
+import { GetStaticProps, GetStaticPropsContext } from 'next'
 import fs from 'fs'
 
 import { Layout } from '@components/Layout'
@@ -56,10 +56,12 @@ export default function Index({ cmsData }: IndexProps) {
   )
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async (ctx: GetStaticPropsContext) => {
 
   let settings
   let posts: GhostPostsOrPages | []
+
+  console.log('ctx:', ctx)
 
   try {
     settings = await getAllSettings()

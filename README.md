@@ -128,7 +128,7 @@ module.exports = {
 }
 ```
 
-Note that image optimization does not work with Netlify and must be switched off in `appConfig.js`.
+Note that image optimization does not work with Netlify and must be switched off in `appConfig.js` if you deploy to Netlify.
 
 &nbsp;
 

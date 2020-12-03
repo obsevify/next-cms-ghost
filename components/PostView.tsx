@@ -1,9 +1,10 @@
 import React from 'react'
 
 import { PostItems } from '@components/PostItems'
-import { GhostPostsOrPages } from '@lib/ghost'
+import { GhostPostsOrPages, GhostSettings } from '@lib/ghost'
 
 interface PostViewProps {
+  settings: GhostSettings
   posts: GhostPostsOrPages
   isHome?: boolean
 }
@@ -19,12 +20,10 @@ export class PostView extends React.Component<PostViewProps> {
   }
 
   render() {
-    const { posts, isHome } = this.props
-
     return (
       <div className="inner posts">
         <div className="post-feed">
-          <PostItems posts={posts} isHome={isHome} />
+          <PostItems {...this.props } />
         </div>
       </div>
     )

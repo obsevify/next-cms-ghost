@@ -6,15 +6,14 @@ import { useLang, get } from '@utils/use-lang'
 
 import { AvatarIcon } from '@icons/AvatarIcon'
 import { GhostAuthor, GhostSettings } from '@lib/ghost'
-import { imageQuality, nextFeatureImages } from '@appConfig'
 
 interface HeaderAuthorProps {
-  siteUrl: string
   settings: GhostSettings
   author: GhostAuthor
 }
 
-export const HeaderAuthor = ({ siteUrl, settings, author }: HeaderAuthorProps) => {
+export const HeaderAuthor = ({ settings, author }: HeaderAuthorProps) => {
+  const { nextImages } = settings.processEnv
   const text = get(useLang())
   const twitterUrl = author.twitter ? `https://twitter.com/${author.twitter.replace(/^@/, ``)}` : null
   const facebookUrl = author.facebook ? `https://www.facebook.com/${author.facebook.replace(/^\//, ``)}` : null
@@ -28,19 +27,19 @@ export const HeaderAuthor = ({ siteUrl, settings, author }: HeaderAuthorProps) =
     <header className="site-archive-header">
       <div className="outer site-nav-main">
         <div className="inner">
-          <SiteNav {...{ siteUrl, settings }} className="site-nav" />
+          <SiteNav {...{ settings }} className="site-nav" />
         </div>
       </div>
       <HeaderBackground srcImg={coverImg}>
         <div className="inner">
           <div className="site-header-content author-header">
-            {profileImg && nextFeatureImages ? (
+            {profileImg && nextImages.feature ? (
               <div className="author-profile-image">
                 <Image
                   src={profileImg.url}
                   alt={author.name}
                   layout="responsive"
-                  quality={imageQuality}
+                  quality={nextImages.quality}
                   {...profileImg.dimensions}
                 />
               </div>

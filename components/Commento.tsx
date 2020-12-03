@@ -1,5 +1,4 @@
 import { useEffect } from 'react'
-import { commentoUrl } from '@appConfig'
 
 /**
 *
@@ -27,11 +26,10 @@ const removeScript = (id: string, parentElement: HTMLElement) => {
 
 interface CommentoProps {
   id: string
+  url: string
 }
 
-export const Commento = ({ id }: CommentoProps) => {
-  const url = commentoUrl || `https://cdn.commento.io`
-
+export const Commento = ({ id, url }: CommentoProps) => {
   useEffect(() => {
     if (!url) return
 

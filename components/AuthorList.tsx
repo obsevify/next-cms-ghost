@@ -6,17 +6,17 @@ import { useLang, get } from '@utils/use-lang'
 
 import { HoverOnAvatar } from '@components/effects/HoverOnAvatar'
 import { AvatarIcon } from '@icons/AvatarIcon'
-import { GhostAuthor } from '@lib/ghost'
-
-import { nextFeatureImages, imageQuality } from '@appConfig'
+import { GhostAuthor, GhostSettings } from '@lib/ghost'
 
 interface AuthorListProps {
+  settings: GhostSettings
   authors?: GhostAuthor[]
   isPost?: boolean
 }
 
-export const AuthorList = ({ authors, isPost }: AuthorListProps) => {
+export const AuthorList = ({ settings, authors, isPost }: AuthorListProps) => {
   const text = get(useLang())
+  const { nextImages } = settings.processEnv
 
   return (
     <ul className="author-list">
@@ -34,12 +34,12 @@ export const AuthorList = ({ authors, isPost }: AuthorListProps) => {
                 {isPost && (
                   <div className={`author-card ${hover.state.currentClass}`}>
                     <div className="author-profile-image">
-                      {profileImg && nextFeatureImages ? (
+                      {profileImg && nextImages.feature ? (
                         <Image
                           src={profileImg.url}
                           alt={author.name}
                           layout="responsive"
-                          quality={imageQuality}
+                          quality={nextImages.quality}
                           {...profileImg.dimensions}
                         />
                       ) : (author.profile_image && (
@@ -74,13 +74,13 @@ export const AuthorList = ({ authors, isPost }: AuthorListProps) => {
                   </div>
                 )}
                 <Link href={url}>
-                  {profileImg && nextFeatureImages ? (
+                  {profileImg && nextImages.feature ? (
                     <a className={`${(isPost && `author`) || `static`}-avatar`} aria-label={author.name}>
                       <Image
                         src={profileImg.url}
                         alt={author.name}
                         layout="responsive"
-                        quality={imageQuality}
+                        quality={nextImages.quality}
                         {...profileImg.dimensions}
                       />
                     </a>

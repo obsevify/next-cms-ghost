@@ -8,16 +8,17 @@ import { resolveUrl } from '@utils/routing'
 import { useLang, get } from '@utils/use-lang'
 import { Tag } from '@tryghost/content-api'
 import { collections } from '@lib/collections'
-import { GhostPostOrPage, GhostPostsOrPages } from '@lib/ghost'
+import { GhostPostOrPage, GhostPostsOrPages, GhostSettings } from '@lib/ghost'
 
 interface PreviewPostsProps {
+  settings: GhostSettings
   primaryTag?: Tag | null
   posts?: GhostPostsOrPages
   prev?: GhostPostOrPage
   next?: GhostPostOrPage
 }
 
-export const PreviewPosts = ({ primaryTag, posts, prev, next }: PreviewPostsProps) => {
+export const PreviewPosts = ({ settings, primaryTag, posts, prev, next }: PreviewPostsProps) => {
   const text = get(useLang())
   const url = primaryTag && resolveUrl({ slug: primaryTag.slug, url: primaryTag.url }) || ''
   const primaryTagCount = primaryTag?.count?.posts
@@ -58,12 +59,11 @@ export const PreviewPosts = ({ primaryTag, posts, prev, next }: PreviewPostsProp
             </article>
           )}
 
-          {prev && prev.slug && <PostCard post={prev} />}
+          {prev && prev.slug && <PostCard {...{ settings, post: prev }} />}
 
-          {next && next.slug && <PostCard post={next} />}
+          {next && next.slug && <PostCard {...{ settings, post: next }} />}
         </div>
       </div>
     </aside>
   )
 }
-

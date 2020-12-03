@@ -2,15 +2,14 @@ import { GhostSettings } from '@lib/ghost'
 import { SiteNav } from '@components/SiteNav'
 
 interface HeaderPageProps {
-  siteUrl: string
   settings: GhostSettings
 }
 
-export const HeaderPage = ({ siteUrl, settings }: HeaderPageProps) => (
+export const HeaderPage = ({ settings }: HeaderPageProps) => (
   <header className="site-header">
     <div className="outer site-nav-main">
       <div className="inner">
-        <SiteNav {...{ siteUrl, settings }} className="site-nav" />
+        <SiteNav {...{ settings }} className="site-nav" />
       </div>
     </div>
   </header>

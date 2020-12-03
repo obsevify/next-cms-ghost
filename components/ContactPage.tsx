@@ -2,7 +2,6 @@ import Image from 'next/image'
 
 import DefaultErrorPage from 'next/error'
 import Head from 'next/head'
-import { contactPage } from '@appConfig'
 
 import { HeaderPage } from '@components/HeaderPage'
 import { Layout } from '@components/Layout'
@@ -15,8 +14,6 @@ import { SEO } from '@meta/seo'
 import { GhostPostOrPage, GhostPostsOrPages, GhostSettings } from '@lib/ghost'
 import { ISeoImage } from '@meta/seoImage'
 
-import { nextFeatureImages, imageQuality } from 'appConfig'
-
 interface ContactPage extends GhostPostOrPage {
   form_topics: string[]
   serviceConfig: ServiceConfig
@@ -24,7 +21,6 @@ interface ContactPage extends GhostPostOrPage {
 
 interface PageProps {
   cmsData: {
-    siteUrl: string
     page: ContactPage
     previewPosts?: GhostPostsOrPages
     settings: GhostSettings
@@ -33,6 +29,11 @@ interface PageProps {
 }
 
 export function Contact({ cmsData }: PageProps) {
+  const { page, previewPosts, settings, seoImage } = cmsData
+  const { meta_title, meta_description } = page
+
+  const { processEnv } = settings
+  const { nextImages, contactPage } = processEnv
 
   if (!contactPage) {
     return (
@@ -45,9 +46,6 @@ export function Contact({ cmsData }: PageProps) {
     )
   }
 
-  const { page, previewPosts, siteUrl, settings, seoImage } = cmsData
-  const { meta_title, meta_description } = page
-
   const featImg = page.featureImage
   const postClass = PostClass({ tags: page.tags, isPage: page && true, isImage: !!featImg })
   //const htmlAst = page.htmlAst
@@ -55,8 +53,8 @@ export function Contact({ cmsData }: PageProps) {
 
   return (
     <>
-      <SEO {...{ siteUrl, settings, meta_title, meta_description, seoImage }} />
-      <Layout {...{ siteUrl, settings, page }} tags={page.tags} header={<HeaderPage {...{ siteUrl, settings }} />}>
+      <SEO {...{ settings, meta_title, meta_description, seoImage }} />
+      <Layout {...{ settings, page }} tags={page.tags} header={<HeaderPage {...{ settings }} />}>
         <div className="inner">
           <article className={`post-full ${postClass}`}>
 
@@ -69,12 +67,12 @@ export function Contact({ cmsData }: PageProps) {
             </header>
 
             {featImg && (
-              nextFeatureImages && featImg.dimensions ? (
+              nextImages.feature && featImg.dimensions ? (
                 <figure className="post-full-image" style={{ display: 'inherit' }}>
                   <Image
                     src={featImg.url}
                     alt={page.title}
-                    quality={imageQuality}
+                    quality={nextImages.quality}
                     layout="responsive"
                     sizes={`
                               (max-width: 350px) 350px,
@@ -108,7 +106,7 @@ export function Contact({ cmsData }: PageProps) {
 
           <div className="post-feed">
             {previewPosts?.map((post, i) => (
-              <PostCard key={post.id} post={post} num={i} />
+              <PostCard key={post.id} {...{settings, post, num: i}} />
             ))}
           </div>
 

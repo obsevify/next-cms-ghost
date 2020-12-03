@@ -14,7 +14,6 @@ import { StickyNavContainer } from '@effects/StickyNavContainer'
 import { Author, PostOrPage, Tag } from '@tryghost/content-api'
 
 import { resolve } from 'url'
-import { memberSubscriptions } from '@appConfig'
 
 /**
  * Main layout component
@@ -26,7 +25,6 @@ import { memberSubscriptions } from '@appConfig'
  */
 
 interface LayoutProps {
-  siteUrl: string
   settings: GhostSettings
   header: ReactFragment
   children: ReactFragment
@@ -41,11 +39,12 @@ interface LayoutProps {
 }
 
 
-export const Layout = ({ siteUrl, settings, header, children, isHome, isPost, sticky, previewPosts, author, tags, page, errorClass }: LayoutProps) => {
+export const Layout = ({ settings, header, children, isHome, isPost, sticky, previewPosts, author, tags, page, errorClass }: LayoutProps) => {
   const text = get(useLang())
   const site = settings
   const title = text(`SITE_TITLE`, site.title)
   const bodyClass = BodyClass({ isHome: isHome, isPost: isPost, author: author, tags: tags, page: page })
+  const { siteUrl, memberSubscriptions } = settings.processEnv
 
   const twitterUrl = site.twitter && `https://twitter.com/${site.twitter.replace(/^@/, ``)}`
   const facebookUrl = site.facebook && `https://www.facebook.com/${site.facebook.replace(/^\//, ``)}`

@@ -1,7 +1,12 @@
 import { DarkModeToggle } from '@components/DarkModeToggle'
-import { defaultMode } from '@appConfig'
+import { GhostSettings } from '@lib/ghost'
 
-export const DarkMode = () => {
-  if (defaultMode === null) return null
+interface DarkModeProps {
+  settings: GhostSettings
+}
+
+export const DarkMode = ({ settings }: DarkModeProps) => {
+  const { darkMode } = settings.processEnv
+  if (darkMode.defaultMode === null) return null
   return <DarkModeToggle />
 }

@@ -10,8 +10,6 @@ import { SEO } from '@meta/seo'
 import { GhostPostOrPage, GhostSettings } from '@lib/ghost'
 import { ISeoImage } from '@meta/seoImage'
 
-import { imageQuality, nextFeatureImages } from '@appConfig'
-
 /**
  * Single page (/:slug)
  *
@@ -21,7 +19,6 @@ import { imageQuality, nextFeatureImages } from '@appConfig'
 
 interface PageProps {
   cmsData: {
-    siteUrl: string
     page: GhostPostOrPage
     settings: GhostSettings
     seoImage: ISeoImage
@@ -29,8 +26,9 @@ interface PageProps {
 }
 
 export const Page = ({ cmsData }: PageProps) => {
-  const { page, siteUrl, settings, seoImage } = cmsData
+  const { page, settings, seoImage } = cmsData
   const { meta_title, meta_description } = page
+  const { nextImages } = settings.processEnv
 
   const featImg = page.featureImage
   const postClass = PostClass({ tags: page.tags, isPage: page && true, isImage: !!featImg })
@@ -39,8 +37,8 @@ export const Page = ({ cmsData }: PageProps) => {
 
   return (
     <>
-      <SEO {...{ siteUrl, settings, meta_title, meta_description, seoImage }} />
-      <Layout {...{ siteUrl, settings, page }} tags={page.tags} header={<HeaderPage {...{ siteUrl, settings }} />}>
+      <SEO {...{ settings, meta_title, meta_description, seoImage }} />
+      <Layout {...{ settings, page }} tags={page.tags} header={<HeaderPage {...{ settings }} />}>
         <div className="inner">
           <article className={`post-full ${postClass}`}>
             <header className="post-full-header">
@@ -48,12 +46,12 @@ export const Page = ({ cmsData }: PageProps) => {
             </header>
 
             {featImg && (
-              nextFeatureImages && featImg.dimensions ? (
+              nextImages.feature && featImg.dimensions ? (
                 <figure className="post-full-image" style={{ display: 'inherit' }}>
                   <Image
                     src={featImg.url}
                     alt={page.title}
-                    quality={imageQuality}
+                    quality={nextImages.quality}
                     layout="responsive"
                     sizes={`
                               (max-width: 350px) 350px,

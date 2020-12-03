@@ -5,12 +5,11 @@ import { HeaderBackground } from '@components/HeaderBackground'
 import { useLang, get } from '@utils/use-lang'
 
 interface HeaderTagProps {
-  siteUrl: string
   settings: GhostSettings
   tag: Tag
 }
 
-export const HeaderTag = ({ siteUrl, settings, tag }: HeaderTagProps) => {
+export const HeaderTag = ({ settings, tag }: HeaderTagProps) => {
   const text = get(useLang())
   const featureImg = tag.feature_image || ''
   const numberOfPosts = tag.count?.posts
@@ -19,7 +18,7 @@ export const HeaderTag = ({ siteUrl, settings, tag }: HeaderTagProps) => {
     <header className="site-archive-header">
       <div className="outer site-nav-main">
         <div className="inner">
-          <SiteNav {...{ siteUrl, settings }} className="site-nav" />
+          <SiteNav {...{ settings }} className="site-nav" />
         </div>
       </div>
       <HeaderBackground srcImg={featureImg}>

@@ -4,7 +4,7 @@ import { Node } from 'unist'
 import { collections as config } from '@routesConfig'
 import { Collections } from '@lib/collections'
 
-import { ghostAPIUrl, ghostAPIKey } from '@lib/environment'
+import { ghostAPIUrl, ghostAPIKey, processEnv, ProcessEnvProps } from '@lib/processEnv'
 import { imageDimensions, Dimensions } from '@lib/images'
 import { IToC } from '@lib/toc'
 
@@ -25,6 +25,7 @@ interface BrowseResults<T> extends Array<T> {
 }
 
 export interface GhostSettings extends SettingsResponse {
+  processEnv: ProcessEnvProps
   secondary_navigation?: NavItem[]
   iconImage?: NextImage
   logoImage?: NextImage
@@ -122,10 +123,11 @@ export async function getAllSettings(): Promise<GhostSettings> {
   settings.url = settings?.url?.replace(/\/$/, ``)
 
   const iconImage = await createNextImage(settings.icon)
-  const logoImage = await createNextImage(settings.logo) // svg
+  const logoImage = await createNextImage(settings.logo)
   const coverImage = await createNextImage(settings.cover_image)
 
   const result = {
+    processEnv,
     ...settings,
     ...iconImage && { iconImage },
     ...logoImage && { logoImage },

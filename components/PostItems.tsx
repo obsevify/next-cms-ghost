@@ -1,15 +1,16 @@
 import { PostCard } from '@components/PostCard'
-import { GhostPostsOrPages } from '@lib/ghost'
+import { GhostPostsOrPages, GhostSettings } from '@lib/ghost'
 
 interface PostItemsProps {
+  settings: GhostSettings
   posts: GhostPostsOrPages
   isHome?: boolean
 }
 
-export const PostItems = ({ posts, isHome }: PostItemsProps) => (
+export const PostItems = ({ settings, posts, isHome }: PostItemsProps) => (
   <>
     {posts.map((post, i) => (
-      <PostCard key={i} post={post} num={i} isHome={isHome} />
+      <PostCard key={i} {...{settings, post, isHome, num: i }} />
     ))}
   </>
 )

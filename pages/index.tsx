@@ -7,14 +7,9 @@ import { HeaderIndex } from '@components/HeaderIndex'
 import { StickyNavContainer } from '@effects/StickyNavContainer'
 import { SEO } from '@meta/seo'
 
-import { siteUrl } from '@lib/environment'
 import { getAllPosts, getAllSettings, GhostPostOrPage, GhostPostsOrPages, GhostSettings } from '@lib/ghost'
 import { seoImage, ISeoImage } from '@meta/seoImage'
-
 import { generateRSSFeed } from '@utils/rss'
-import { rssFeed } from '@appConfig'
-
-
 
 /**
  * Main index page (home page)
@@ -24,7 +19,6 @@ import { rssFeed } from '@appConfig'
  */
 
 interface CmsData {
-  siteUrl: string
   posts: GhostPostsOrPages
   settings: GhostSettings
   seoImage: ISeoImage
@@ -38,17 +32,17 @@ interface IndexProps {
 }
 
 export default function Index({ cmsData }: IndexProps) {
-  const { siteUrl, settings, posts, seoImage } = cmsData
+  const { settings, posts, seoImage } = cmsData
 
   return (
     <>
-      <SEO {...{ siteUrl, settings, seoImage }} />
+      <SEO {...{ settings, seoImage }} />
       <StickyNavContainer
         throttle={300}
         activeClass="fixed-nav-active"
         render={(sticky) => (
-          <Layout {...{ isHome: true, siteUrl, sticky, settings }} header={<HeaderIndex {...{ siteUrl, settings }} />}>
-            <PostView {...{ posts, isHome: true }} />
+          <Layout {...{ isHome: true, sticky, settings }} header={<HeaderIndex {...{ settings }} />}>
+            <PostView {...{ settings, posts, isHome: true }} />
           </Layout>
         )}
       />
@@ -67,16 +61,15 @@ export const getStaticProps: GetStaticProps = async () => {
     throw new Error('Index creation failed.')
   }
 
-  if (rssFeed) {
+  if (settings.processEnv.rssFeed) {
     const rss = generateRSSFeed({ posts, settings })
     fs.writeFileSync('./public/rss.xml', rss)
   }
 
   const cmsData = {
-    siteUrl,
     settings,
     posts,
-    seoImage: await seoImage()
+    seoImage: await seoImage({ siteUrl: settings.processEnv.siteUrl })
   }
 
   return {

@@ -9,16 +9,17 @@ import { useLang, get } from '@utils/use-lang'
 import { AuthorList } from '@components/AuthorList'
 import { PostClass } from '@helpers/PostClass'
 import { collections } from '@lib/collections'
-import { nextFeatureImages, imageQuality } from '@appConfig'
-import { GhostPostOrPage } from '@lib/ghost'
+import { GhostPostOrPage, GhostSettings } from '@lib/ghost'
 
 interface PostCardProps {
+  settings: GhostSettings
   post: GhostPostOrPage
   num?: number
   isHome?: boolean
 }
 
-export const PostCard = ({ post, num, isHome }: PostCardProps) => {
+export const PostCard = ({ settings, post, num, isHome }: PostCardProps) => {
+  const { nextImages } = settings.processEnv
   const text = get(useLang())
   const collectionPath = collections.getCollectionByNode(post)
   const url = resolveUrl({ collectionPath, slug: post.slug, url: post.url })
@@ -33,7 +34,7 @@ export const PostCard = ({ post, num, isHome }: PostCardProps) => {
       { featImg && (
         <Link href={url}>
           <a className="post-card-image-link" aria-label={post.title}>
-            {nextFeatureImages ? (
+            {nextImages.feature ? (
               <div className="post-card-image">
                 <Image
                   src={featImg.url}
@@ -41,7 +42,7 @@ export const PostCard = ({ post, num, isHome }: PostCardProps) => {
                   sizes="(max-width: 640px) 320px, (max-width: 1000px) 500px, 680px"
                   layout="fill"
                   objectFit="cover"
-                  quality={imageQuality}
+                  quality={nextImages.quality}
                 />
               </div>
             ) : (post.feature_image && (
@@ -66,7 +67,7 @@ export const PostCard = ({ post, num, isHome }: PostCardProps) => {
         </Link>
 
         <footer className="post-card-meta">
-          <AuthorList authors={post.authors} />
+          <AuthorList {...{ settings, authors: post.authors}} />
           <div className="post-card-byline-content">
             {post.authors && post.authors.length > 2 && <span>{text(`MULTIPLE_AUTHORS`)}</span>}
             {post.authors && post.authors.length < 3 && (

@@ -23,14 +23,10 @@ import { PostClass } from '@helpers/PostClass'
 import { GhostPostOrPage, GhostPostsOrPages, GhostSettings } from '@lib/ghost'
 import { collections } from '@lib/collections'
 
-import { nextFeatureImages, imageQuality } from '@appConfig'
-import { memberSubscriptions, commento, toc as optionsTOC } from '@appConfig'
-
 import { ISeoImage } from '@meta/seoImage'
 
 interface PostProps {
   cmsData: {
-    siteUrl: string
     post: GhostPostOrPage
     settings: GhostSettings
     seoImage: ISeoImage
@@ -41,9 +37,12 @@ interface PostProps {
 }
 
 export const Post = ({ cmsData }: PostProps) => {
-  const { post, siteUrl, settings, seoImage, previewPosts, prevPost, nextPost } = cmsData
+  const { post, settings, seoImage, previewPosts, prevPost, nextPost } = cmsData
   const { slug, url, meta_description, excerpt } = post
   const description = meta_description || excerpt
+
+  const { processEnv } = settings
+  const { nextImages, toc, memberSubscriptions, commento } = processEnv
 
   const text = get(useLang())
   const readingTime = readingTimeHelper(post).replace(`min read`, text(`MIN_READ`))
@@ -57,15 +56,15 @@ export const Post = ({ cmsData }: PostProps) => {
 
   return (
     <>
-      <SEO {...{ description, siteUrl, settings, seoImage, article: post }} />
+      <SEO {...{ description, settings, seoImage, article: post }} />
       <StickyNavContainer
         throttle={300}
         isPost={true}
         activeClass="nav-post-title-active"
         render={(sticky) => (
-          <Layout {...{ isPost: true, siteUrl, settings, sticky }}
-            header={<HeaderPost {...{ siteUrl, settings, sticky, title: post.title }} />}
-            previewPosts={<PreviewPosts primaryTag={post.primary_tag} posts={previewPosts} prev={prevPost} next={nextPost} />}
+          <Layout {...{ isPost: true, settings, sticky }}
+            header={<HeaderPost {...{ settings, sticky, title: post.title }} />}
+            previewPosts={<PreviewPosts {...{ settings, primaryTag: post.primary_tag, posts: previewPosts, prev: prevPost, next: nextPost }} />}
           >
             <div className="inner">
               <article className={`post-full ${postClass}`}>
@@ -86,7 +85,7 @@ export const Post = ({ cmsData }: PostProps) => {
 
                   <div className="post-full-byline">
                     <section className="post-full-byline-content">
-                      <AuthorList authors={post.authors} isPost={true} />
+                      <AuthorList {...{ settings, authors: post.authors, isPost: true}} />
 
                       <section className="post-full-byline-meta">
                         <h4 className="author-name">
@@ -113,12 +112,12 @@ export const Post = ({ cmsData }: PostProps) => {
                 </header>
 
                 {featImg && (
-                  nextFeatureImages && featImg.dimensions ? (
+                  nextImages.feature && featImg.dimensions ? (
                     <figure className="post-full-image" style={{ display: 'inherit' }}>
                       <Image
                         src={featImg.url}
                         alt={post.title}
-                        quality={imageQuality}
+                        quality={nextImages.quality}
                         layout="responsive"
                         sizes={`
                               (max-width: 350px) 350px,
@@ -138,8 +137,8 @@ export const Post = ({ cmsData }: PostProps) => {
                 )}
 
                 <section className="post-full-content">
-                  {optionsTOC && !!post.toc && (
-                    <TableOfContents toc={post.toc} url={resolveUrl({ collectionPath, slug, url })} />
+                  {toc && !!post.toc && (
+                    <TableOfContents {...{toc: post.toc, url: resolveUrl({ collectionPath, slug, url }), maxDepth: toc.maxDepth }} />
                   )}
                   <div className="post-content load-external-scripts">
                     <RenderContent htmlAst={htmlAst} />
@@ -151,7 +150,7 @@ export const Post = ({ cmsData }: PostProps) => {
                 )}
 
                 {commento && (
-                  <Comments id={post.id} />
+                  <Comments {...{id: post.id, url: commento.url }} />
                 )}
               </article>
             </div>

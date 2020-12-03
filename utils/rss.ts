@@ -3,7 +3,6 @@ import RSS from 'rss'
 
 import { GhostPostOrPage, GhostPostsOrPages, GhostSettings } from "@lib/ghost"
 import { siteTitleMeta, siteDescriptionMeta, siteIcon } from '@meta/siteDefaults'
-import { siteUrl } from '@lib/environment'
 import { resolve } from 'url'
 import { Tag } from '@tryghost/content-api'
 
@@ -13,6 +12,7 @@ interface FeedProps {
 }
 
 export const generateRSSFeed = ({ posts, settings }: FeedProps) => {
+  const { siteUrl } = settings.processEnv
   const feedOptions = {
     title: siteTitleMeta,
     description: siteDescriptionMeta,
@@ -41,6 +41,7 @@ interface ItemProps {
 }
 
 const generateItem = ({ post, settings }: ItemProps) => {
+  const { siteUrl } = settings.processEnv
   const {
     url = '',
     canonical_url,

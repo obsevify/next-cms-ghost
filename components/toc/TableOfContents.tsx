@@ -3,7 +3,6 @@ import Link from 'next/link'
 import { useActiveHash } from '@components/effects/UseActiveHash'
 import { IToC } from '@lib/toc'
 import { useLang, get } from '@utils/use-lang'
-import { maxDepth as optionsMaxDepth } from '@appConfig'
 
 const getHeadingIds = (toc: IToC[], traverseFullDepth = true, maxDepth: number, recursionDepth = 1): string[] => {
     const idList = []
@@ -76,7 +75,7 @@ export const TableOfContents = ({ toc, url, maxDepth = 2 }: TableOfContentsProps
                                 {text(`TABLE_OF_CONTENTS`)}
                             </h2>
                             <ul className="list">
-                                {createItems(toc, url, 1, optionsMaxDepth || maxDepth, activeHash, isDesktop)}
+                                {createItems(toc, url, 1, maxDepth, activeHash, isDesktop)}
                             </ul>
                         </nav>
                     </aside>

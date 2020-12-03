@@ -6,19 +6,20 @@ import { HeaderBackground } from '@components/HeaderBackground'
 import { useLang, get } from '@utils/use-lang'
 import { GhostSettings, NextImage } from '@lib/ghost'
 
-import { imageQuality, nextFeatureImages } from '@appConfig'
-
 interface HeaderIndexProps {
-  siteUrl: string
   settings: GhostSettings
 }
 
-export const HeaderIndex = ({ siteUrl, settings }: HeaderIndexProps) => {
+export const HeaderIndex = ({ settings }: HeaderIndexProps) => {
   const text = get(useLang())
   const site = settings
   const siteLogo = site.logoImage
   const coverImg = site.cover_image || ''
   const title = text(`SITE_TITLE`, site.title)
+
+  const { processEnv } = settings
+  const { siteUrl, nextImages } = processEnv
+  const { feature: nextFeatureImages, quality: imageQuality } = nextImages
 
   // targetHeight is coming from style .site-logo
   const targetHeight = 55

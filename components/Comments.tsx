@@ -2,10 +2,11 @@ import { Commento } from '@components/Commento'
 
 interface CommentsProps {
   id: string
+  url: string
 }
 
-export const Comments = ({ id }: CommentsProps) => (
+export const Comments = (props: CommentsProps) => (
   <section>
-    <Commento id={id} />
+    <Commento {...props} />
   </section>
 )

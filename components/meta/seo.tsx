@@ -8,7 +8,6 @@ import { ISeoImage } from '@meta/seoImage'
 import { siteTitleMeta, siteDescriptionMeta, siteIcon } from '@meta/siteDefaults'
 
 interface SEOProps {
-  siteUrl: string
   title?: string
   description?: string
   sameAs?: string
@@ -23,7 +22,7 @@ const getPublicTags = (tags: Tag[] | undefined) =>
 
 export const SEO = (props: SEOProps) => {
   const {
-    siteUrl, title: t, description: d, seoImage, settings, article
+    title: t, description: d, seoImage, settings, article
   } = props
 
   const {
@@ -34,6 +33,7 @@ export const SEO = (props: SEOProps) => {
   const facebook = primary_author?.facebook
 
   const router = useRouter()
+  const siteUrl = settings.processEnv.siteUrl
   const canonical = url.resolve(siteUrl, router.asPath)
 
   const { twitter, title: settingsTitle, description: settingsDescription } = settings
@@ -89,7 +89,8 @@ export const authorSameAs = (author: Author) => {
   return authorProfiles.length > 0 && `["${authorProfiles.join(`", "`)}"]` || undefined
 }
 
-const getJsonLd = ({ siteUrl, title, description, canonical, seoImage, settings, sameAs, article }: SEOProps) => {
+const getJsonLd = ({ title, description, canonical, seoImage, settings, sameAs, article }: SEOProps) => {
+  const siteUrl = settings.processEnv.siteUrl
   const pubLogoUrl = settings.logo || url.resolve(siteUrl, siteIcon)
   const type = article ? 'Article' : 'WebSite'
 

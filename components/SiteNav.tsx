@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { resolve } from 'url'
 
 import { Navigation } from '@components/Navigation'
 import { SocialLinks } from '@components/SocialLinks'
@@ -8,20 +9,16 @@ import { SubscribeButton } from '@components/SubscribeButton'
 import { useLang, get } from '@utils/use-lang'
 import { GhostSettings, NavItem, NextImage } from '@lib/ghost'
 
-import { resolve } from 'url'
-import { customNavigation, memberSubscriptions } from '@appConfig'
-
-import { imageQuality, nextFeatureImages } from '@appConfig'
-
 export interface SiteNavProps {
-  siteUrl: string
   settings: GhostSettings
   className: string
   postTitle?: string
 }
 
-export const SiteNav = ({ siteUrl, settings, className, postTitle }: SiteNavProps) => {
+export const SiteNav = ({ settings, className, postTitle }: SiteNavProps) => {
   const text = get(useLang())
+  const { processEnv } = settings
+  const { customNavigation, nextImages, memberSubscriptions } = processEnv
   const config: {
     overwriteNavigation: NavItem[]
     addNavigation: NavItem[]
@@ -30,6 +27,7 @@ export const SiteNav = ({ siteUrl, settings, className, postTitle }: SiteNavProp
     addNavigation: customNavigation || []
   }
   const site = settings
+  const siteUrl = settings.processEnv.siteUrl
   const title = text(`SITE_TITLE`, site.title)
   const secondaryNav = site.secondary_navigation && 0 < site.secondary_navigation.length
   const siteLogo = site.logoImage
@@ -65,7 +63,7 @@ export const SiteNav = ({ siteUrl, settings, className, postTitle }: SiteNavProp
       <div className="site-nav-left-wrapper">
         <div className="site-nav-left">
           <Link href={resolve(siteUrl, '')}>
-            {siteLogo && nextFeatureImages ? (
+            {siteLogo && nextImages.feature ? (
               <a className="site-nav-logo">
                 <div style={{
                   height: "${targetHeight}px",
@@ -76,7 +74,7 @@ export const SiteNav = ({ siteUrl, settings, className, postTitle }: SiteNavProp
                     src={siteLogo.url}
                     alt={title}
                     layout="responsive"
-                    quality={imageQuality}
+                    quality={nextImages.quality}
                     {...siteLogo.dimensions}
                   />
                 </div>
@@ -106,7 +104,7 @@ export const SiteNav = ({ siteUrl, settings, className, postTitle }: SiteNavProp
               <SocialLinks {...{ siteUrl, site }} />
             </div>
           )}
-        <DarkMode />
+        <DarkMode {...{settings}} />
         {memberSubscriptions && (
           <SubscribeButton />
         )}

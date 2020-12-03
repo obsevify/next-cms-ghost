@@ -6,7 +6,6 @@ import { HeaderAuthor } from '@components/HeaderAuthor'
 import { resolveUrl } from '@utils/routing'
 import { SEO, authorSameAs } from '@meta/seo'
 
-import { siteUrl } from '@lib/environment'
 import { getAuthorBySlug, getAllAuthors, getAllSettings, getPostsByAuthor, GhostSettings, GhostPostOrPage, GhostPostsOrPages, GhostAuthor } from '@lib/ghost'
 import { ISeoImage, seoImage } from '@meta/seoImage'
 
@@ -17,7 +16,6 @@ import { ISeoImage, seoImage } from '@meta/seoImage'
  *
  */
 interface CmsData {
-  siteUrl: string
   author: GhostAuthor
   posts: GhostPostsOrPages
   seoImage: ISeoImage
@@ -32,18 +30,16 @@ interface AuthorIndexProps {
 }
 
 const AuthorIndex = ({ cmsData }: AuthorIndexProps) => {
-  const { author, posts, siteUrl, settings, seoImage } = cmsData
+  const { author, posts, settings, seoImage } = cmsData
   const { name, bio } = author
   const description = bio || undefined
   const sameAs = authorSameAs(author)
 
   return (
     <>
-      <SEO {...{ siteUrl, settings, description, seoImage, sameAs, title: name }} />
-      <Layout header={<HeaderAuthor {...{ siteUrl, settings, author }} />}
-        {...{ siteUrl, settings, author }}
-      >
-        <PostView posts={posts} />
+      <SEO {...{ settings, description, seoImage, sameAs, title: name }} />
+      <Layout  {...{ settings, author }} header={<HeaderAuthor {...{ settings, author }} />}>
+        <PostView {...{ settings, posts }} />
       </Layout>
     </>
   )
@@ -60,13 +56,13 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const settings = await getAllSettings()
 
   const { cover_image, profile_image } = author
+  const siteUrl = settings.processEnv.siteUrl
   const imageUrl = cover_image || profile_image || undefined
-  const authorImage = await seoImage({ imageUrl })
+  const authorImage = await seoImage({ siteUrl, imageUrl })
 
   return {
     props: {
       cmsData: {
-        siteUrl,
         author,
         posts,
         settings,

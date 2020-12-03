@@ -4,12 +4,12 @@ import { Page } from '@components/Page'
 
 import { getPostsByTag, getTagBySlug, GhostPostOrPage, GhostPostsOrPages, GhostSettings } from '@lib/ghost'
 
-import { siteUrl } from '@lib/environment'
 import { getPosts, getPostBySlug, getPageBySlug, getAllPosts, getAllPages, getAllSettings, getAllPostSlugs } from '@lib/ghost'
 import { resolveUrl } from '@utils/routing'
 import { collections } from '@lib/collections'
 
-import { contactPage as createContactPage, customPage } from '@appConfig'
+import { processEnv } from '@lib/processEnv'
+import { customPage } from '@appConfig'
 import { ContactPage, defaultPage } from '@lib/contactPageDefaults'
 import { imageDimensions } from '@lib/images'
 
@@ -23,7 +23,6 @@ import { ISeoImage, seoImage } from '@meta/seoImage'
  */
 
 interface CmsDataCore {
-  siteUrl: string
   post: GhostPostOrPage
   page: GhostPostOrPage
   contactPage: ContactPage
@@ -43,13 +42,13 @@ interface PostOrPageProps {
 }
 
 const PostOrPageIndex = ({ cmsData }: PostOrPageProps) => {
-  const { isPost, siteUrl, contactPage } = cmsData
+  const { isPost, contactPage } = cmsData
 
   if (isPost) {
     return <Post {...{ cmsData }} />
   } else if (!!contactPage) {
     const { contactPage, previewPosts, settings, seoImage } = cmsData
-    return <Contact cmsData={{ page: contactPage, previewPosts, siteUrl, settings, seoImage }} />
+    return <Contact cmsData={{ page: contactPage, previewPosts, settings, seoImage }} />
   } else {
     return <Page cmsData={cmsData} />
   }
@@ -78,7 +77,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   // Add custom contact page
   let isContactPage = false
-  if (createContactPage) {
+  if (processEnv.contactPage) {
     contactPage = { ...defaultPage, ...customPage }
     isContactPage = contactPage?.slug === slug
     if (!isContactPage) contactPage = null
@@ -110,13 +109,13 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     nextPost = nextSlug && await getPostBySlug(nextSlug) || null
   }
 
+  const siteUrl = settings.processEnv.siteUrl
   const imageUrl = (post || contactPage || page)?.feature_image || undefined
-  const image = await seoImage({ imageUrl })
+  const image = await seoImage({ siteUrl, imageUrl })
 
   return {
     props: {
       cmsData: {
-        siteUrl,
         settings,
         post,
         page,
@@ -142,7 +141,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   })
 
   let contactPageRoute: string | null = null
-  if (createContactPage) {
+  if (processEnv.contactPage) {
     const contactPage = { ...defaultPage, ...customPage }
     const { slug, url } = contactPage
     contactPageRoute = resolveUrl({ slug, url })

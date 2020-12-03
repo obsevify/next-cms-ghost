@@ -4,8 +4,7 @@ import nodemailer from 'nodemailer'
 import smtpTrans from 'nodemailer-smtp-transport'
 import validator from 'email-validator'
 import sanitize from 'sanitize-html'
-import { siteUrl } from '@lib/environment'
-import { contactPage } from '@appConfig'
+import { processEnv } from '@lib/processEnv'
 
 interface SendEmailProps {
   name: string,
@@ -51,6 +50,7 @@ const sendEmail = async ({ name, email, subject, message }: SendEmailProps) => {
 export default async (req: NextApiRequest, res: NextApiResponse): Promise<NextApiResponse | void> => {
 
   const { origin } = req.headers
+  const { contactPage, siteUrl } = processEnv
 
   if (!contactPage) {
     return res.status(404).json({

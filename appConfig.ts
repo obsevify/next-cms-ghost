@@ -1,3 +1,8 @@
+/**
+ * Some of the defaults defined here can be overwritten by environment variables
+ * Check lib/environments.ts
+ */
+
 // Cache control
 export const fileCache: boolean = true
 
@@ -7,8 +12,8 @@ export const defaultMode: DarkMode = 'light'
 export const overrideOS: boolean = true
 
 // Images
-export const nextFeatureImages: boolean = false
-export const nextInlineImages: boolean = false
+export const nextFeatureImages: boolean = true
+export const nextInlineImages: boolean = true
 export const imageQuality: number = 80
 
 // RSS
@@ -19,8 +24,8 @@ export const memberSubscriptions: boolean = true
 
 // Commento commenting system
 export const commento: boolean = false
-export const commentoUrl: string | undefined = undefined
-//export const commentoUrl: string | undefined = 'https://commento.your-blog.com'
+export const commentoUrl: string = 'https://cdn.commento.io'
+//export const commentoUrl: string = 'https://commento.your-blog.com'
 
 // PrismJS
 export const prism: boolean = true

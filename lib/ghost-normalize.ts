@@ -9,7 +9,8 @@ import { Dimensions, imageDimensions } from '@lib/images'
 import { generateTableOfContents } from '@lib/toc'
 import { GhostPostOrPage, createNextProfileImagesFromAuthors } from './ghost'
 
-import { prism, prismIgnoreMissing, toc, nextInlineImages } from '@appConfig'
+import { processEnv } from '@lib/processEnv'
+const  { prism, toc, nextImages } = processEnv
 
 const rehype = Rehype().use({ settings: { fragment: true, space: `html`, emitParseErrors: false, verbose: false } })
 
@@ -123,7 +124,7 @@ const syntaxHighlightWithPrismJS = (htmlAst: Node) => {
       className = (className || []).concat('language-' + lang)
       result = refractor.highlight(nodeToString(node), lang)
     } catch (err) {
-      if (prismIgnoreMissing && /Unknown language/.test(err.message)) {
+      if (prism.ignoreMissing && /Unknown language/.test(err.message)) {
         return
       }
       throw err
@@ -148,7 +149,7 @@ const tableOfContents = (htmlAst: Node) => {
  */
 
 const rewriteInlineImages = async (htmlAst: Node) => {
-  if (!nextInlineImages) return htmlAst
+  if (!nextImages.inline) return htmlAst
 
   let nodes: { node: Node, parent: Parent | undefined }[] = []
 

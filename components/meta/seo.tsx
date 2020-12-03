@@ -3,9 +3,9 @@ import Head from 'next/head'
 import url from 'url'
 
 import { GhostSettings } from '@lib/ghost'
-import { siteIcon, siteTitleMeta, siteDescriptionMeta } from '@siteConfig'
 import { Author, PostOrPage, Tag } from '@tryghost/content-api'
 import { ISeoImage } from '@meta/seoImage'
+import { siteTitleMeta, siteDescriptionMeta, siteIcon } from '@meta/siteDefaults'
 
 interface SEOProps {
   siteUrl: string
@@ -37,20 +37,20 @@ export const SEO = (props: SEOProps) => {
   const canonical = url.resolve(siteUrl, router.asPath)
 
   const { twitter, title: settingsTitle, description: settingsDescription } = settings
-  const title = t || settingsTitle
+  const title = t || settingsTitle || siteTitleMeta
   const description = d || settingsDescription || siteDescriptionMeta
 
   const jsonLd = getJsonLd({ ...props, title, description, seoImage })
 
   return (
     <Head>
-      <title>{`${title} - ${siteTitleMeta}`}</title>
+      <title>{title}</title>
       <meta name="description" content={description} />
       <link rel="canonical" href={canonical} />
       <meta property="og:type" content={type} />
       <meta property="og:title" content={og_title || title} />
       <meta property="og:description" content={og_description || description} />
-      <meta property="og:site_name" content={siteTitleMeta} />
+      <meta property="og:site_name" content={title} />
       <meta property="og:url" content={canonical} />
       {published_at && <meta property="article:published_time" content={published_at} />}
       {updated_at && <meta property="article:modified_time" content={updated_at} />}

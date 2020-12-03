@@ -1,7 +1,7 @@
 import path from 'path'
 import { resolve } from 'url'
 
-import { siteImage } from '@siteConfig'
+import { siteImage } from '@meta/siteDefaults'
 import { siteUrl } from '@lib/environment'
 
 import { imageDimensions, imageDimensionsFromFile, Dimensions } from '@lib/images'

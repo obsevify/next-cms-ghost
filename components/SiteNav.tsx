@@ -9,8 +9,7 @@ import { useLang, get } from '@utils/use-lang'
 import { GhostSettings, NavItem, NextImage } from '@lib/ghost'
 
 import { resolve } from 'url'
-import { customNavigation } from '@siteConfig'
-import { memberSubscriptions } from '@appConfig'
+import { customNavigation, memberSubscriptions } from '@appConfig'
 
 import { imageQuality, nextFeatureImages } from '@appConfig'
 

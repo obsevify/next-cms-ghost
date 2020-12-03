@@ -138,6 +138,8 @@ The `SITE_URL` environment variable should be set to the public facing URL of yo
 | -------- | ------------------------- |
 | SITE_URL | https://www.your-blog.org |
 
+Not setting this environment variable defaults to localhost. On Vercel, it defaults to `VERCEL_URL` if _Automatically expose System Environment Variables_ is checked in your Project Settings.
+
 &nbsp;
 
 ## 🔑 Ghost Content API keys
@@ -166,7 +168,7 @@ If you build your project with a cloud provider, the best option is to provide t
 
 ## 💫 Deploy
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Fstyxlab%2Fnext-cms-ghost&env=SITE_URL&project-name=next-cms-ghost&repository-name=next-cms-ghost)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Fstyxlab%2Fnext-cms-ghost&project-name=next-cms-ghost&repository-name=next-cms-ghost)
 
 <!--
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/styxlab/next-cms-ghost&utm_source=github&utm_medium=next-cms-ghost-netlify)

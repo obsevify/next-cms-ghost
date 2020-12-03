@@ -4,7 +4,7 @@ import { CSSProperties } from 'react'
 import { useOverlay } from '@components/contexts/overlayProvider'
 import { GhostSettings } from '@lib/ghost'
 import { useLang, get } from '@utils/use-lang'
-import { siteIcon } from '@siteConfig'
+import { siteIcon } from '@meta/siteDefaults'
 
 import { SubscribeForm } from '@components/SubscribeForm'
 

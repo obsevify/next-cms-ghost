@@ -19,7 +19,8 @@ export const memberSubscriptions: boolean = true
 
 // Commento commenting system
 export const commento: boolean = false
-export const commentoUrl: string | undefined = undefined //https://commento.your-blog.com
+export const commentoUrl: string | undefined = undefined
+//export const commentoUrl: string | undefined = 'https://commento.your-blog.com'
 
 // PrismJS
 export const prism: boolean = true
@@ -32,3 +33,9 @@ export const customPage = {}
 // Table of Contents
 export const toc: boolean = true
 export const maxDepth: number = 2
+
+// Custom site navigation (default: [], label is case sensitive)
+// Override: [{ label: 'Home', url: '/' }]
+// Add new: [{ label: 'Contact', url: '/contact' }]
+import { NavItem } from '@lib/ghost'
+export const customNavigation: NavItem[] = [{ label: 'Contact', url: '/contact' }]

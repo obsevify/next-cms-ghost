@@ -2,7 +2,7 @@ import cheerio from 'cheerio'
 import RSS from 'rss'
 
 import { GhostPostOrPage, GhostPostsOrPages, GhostSettings } from "@lib/ghost"
-import { siteTitleMeta, siteDescriptionMeta, siteIcon } from '@siteConfig'
+import { siteTitleMeta, siteDescriptionMeta, siteIcon } from '@meta/siteDefaults'
 import { siteUrl } from '@lib/environment'
 import { resolve } from 'url'
 import { Tag } from '@tryghost/content-api'

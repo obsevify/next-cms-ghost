@@ -128,6 +128,8 @@ module.exports = {
 }
 ```
 
+Note that image optimization does not work with Netlify and must be switched off in `appConfig.js`.
+
 &nbsp;
 
 ## 🌎 Domain Settings
@@ -138,7 +140,14 @@ The `SITE_URL` environment variable should be set to the public facing URL of yo
 | -------- | ------------------------- |
 | SITE_URL | https://www.your-blog.org |
 
-Not setting this environment variable defaults to localhost. On Vercel, it defaults to `VERCEL_URL` if _Automatically expose System Environment Variables_ is checked in your Project Settings.
+If you don't specify `SITE_URL`, it will get populated according to the following defaults:
+
+| Platform     | System Value |  Conditions                                                         |
+| ------------ | ------------ | --------------------------------------------------------------------|
+| Vercel       | VERCEL_URL   | _Automatically expose System Environment Variables_ must be checked |
+| Netlify      | URL          |                                                                     |
+
+In all other cases `SITE_URL` is set to `http://localhost:3000`.
 
 &nbsp;
 

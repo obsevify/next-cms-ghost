@@ -57,7 +57,9 @@ export default function Index({ cmsData }: IndexProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-
+  console.log(process.env.URL)
+  console.log(process.env.DEPLOY_URL)
+  console.log(siteUrl)
   let settings
   let posts: GhostPostsOrPages | []
 

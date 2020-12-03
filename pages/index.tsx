@@ -39,7 +39,7 @@ interface IndexProps {
 
 export default function Index({ cmsData }: IndexProps) {
   const { siteUrl, settings, posts, seoImage } = cmsData
-  console.log(settings)
+
   return (
     <>
       <SEO {...{ siteUrl, settings, seoImage }} />

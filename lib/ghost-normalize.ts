@@ -96,7 +96,7 @@ interface NodeProperties {
 }
 
 const syntaxHighlightWithPrismJS = (htmlAst: Node) => {
-  if (!prism) return htmlAst
+  if (!prism.enable) return htmlAst
 
   const getLanguage = (node: Node) => {
     const className = (node.properties as NodeProperties).className || []
@@ -140,7 +140,7 @@ const syntaxHighlightWithPrismJS = (htmlAst: Node) => {
  */
 
 const tableOfContents = (htmlAst: Node) => {
-  if (!toc) return null
+  if (!toc.enable) return null
   return generateTableOfContents(htmlAst)
 }
 

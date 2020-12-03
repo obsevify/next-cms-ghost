@@ -137,7 +137,7 @@ export const Post = ({ cmsData }: PostProps) => {
                 )}
 
                 <section className="post-full-content">
-                  {toc && !!post.toc && (
+                  {toc.enable && !!post.toc && (
                     <TableOfContents {...{toc: post.toc, url: resolveUrl({ collectionPath, slug, url }), maxDepth: toc.maxDepth }} />
                   )}
                   <div className="post-content load-external-scripts">
@@ -149,7 +149,7 @@ export const Post = ({ cmsData }: PostProps) => {
                   <Subscribe {...{ settings }} />
                 )}
 
-                {commento && (
+                {commento.enable && (
                   <Comments {...{id: post.id, url: commento.url }} />
                 )}
               </article>

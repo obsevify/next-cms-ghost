@@ -128,7 +128,7 @@ module.exports = {
 }
 ```
 
-Note that image optimization does not work with Netlify and must be switched off in `appConfig.js` if you deploy to Netlify.
+Note that image optimization does not work with Netlify. Therefore, image optimization is automatically turned off when deploying to Netlify.
 
 &nbsp;
 
@@ -176,6 +176,8 @@ If you build your project with a cloud provider, the best option is to provide t
 &nbsp;
 
 ## 💫 Deploy
+
+For best results, deploying to Vercel is recommended. As an alternative, you can also deploy to Netlify.
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Fstyxlab%2Fnext-cms-ghost&project-name=next-cms-ghost&repository-name=next-cms-ghost)
 

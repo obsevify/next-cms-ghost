@@ -9,7 +9,7 @@
     "clean": "next clean",
     "format": "prettier --write **/*.{js,ts,tsx}",
     "lint": "eslint . --ext ts --ext tsx --ext js",
-    "postbuild": "next-sitemap && next-on-netlify"
+    "postbuild": "next-sitemap && which next-on-netlify && next-on-netlify &>/dev/null"
   },
   "dependencies": {
     "@tryghost/content-api": "^1.4.10",

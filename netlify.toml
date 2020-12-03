@@ -2,6 +2,10 @@
   command = "yarn build"
   publish = "out/"
 
+[build.environment]
+  JAMIFY_NEXT_FEATURE_IMAGES = "false"
+  JAMIFY_NEXT_INLINE_IMAGES = "false"
+
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
